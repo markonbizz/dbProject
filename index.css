@@ -1,0 +1,8 @@
+div.home_topbar
+{
+    position: sticky;
+    color: aliceblue;
+    width: 1000px;
+    height: 200px;
+    background-color: deepskyblue;
+};
