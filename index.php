@@ -16,7 +16,7 @@
     <head>
 
         <!-- [ Website Title ] -->
-        <title>Bootstrap Demo</title>
+        <title>Title</title>
         
         <!-- [ Website Attributes ] -->
         <div class = "index-head-attrs">
