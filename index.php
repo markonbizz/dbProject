@@ -31,12 +31,7 @@
         
         </div>
     
-    </head>
-    
-    <!-- [ Contents ] -->
-    <body>
-
-        <!-- [ Bootstrap Scripts] -->
+        <!-- [ Bootstrap Scripts ] -->
         <script 
         
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
@@ -44,9 +39,17 @@
             crossorigin="anonymous">
         
         </script>
+    
+    </head>
+    
+    <!-- [ Contents ] -->
+    <body>  
         
         <div class = client-login></div>
         
     </body>
+
+    <footer>
+    </footer>
 
 </html>
