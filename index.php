@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 
-<!-------------------------------------------------------------------------------------
-
-    Writing Style:
-    
-    1. Used "<div>" tag to organized elements.
-    2. The inside of tags that have </> to wrap around must leave "1st line" & "last line" blank.
-    3. The gap between each tag must leave blank.
-
--------------------------------------------------------------------------------------->
-
 <html lang="en">
 
     <!-- [ Settings ] -->
     <head>
 
         <!-- [ Website Title ] -->
-        <title>Title</title>
+        <title>! Database Project Title Gose Here !</title>
         
         <!-- [ Website Attributes ] -->
         <div class = "index-head-attrs">
@@ -30,23 +20,34 @@
                   crossorigin="anonymous">
         
         </div>
-    
-        <!-- [ Bootstrap Scripts ] -->
-        <script 
-        
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-            crossorigin="anonymous">
-        
-        </script>
-    
+
     </head>
     
     <!-- [ Contents ] -->
-    <body>  
+    <body>
+
+        <!-- [ Bootstrap & Popper ] -->
+        <div class="bootstrap-js">
         
-        <div class = client-login></div>
+            <script 
+                src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+                crossorigin="anonymous">
+            </script>
+            <script 
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+                integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" 
+                crossorigin="anonymous">
+            </script>
         
+        </div>
+        
+        <h1>!! I'm using Bootstrap 5 !!</h1>
+        <h2>This is Head2 size title</h2>
+
+        <div class="entry-service-01"></div>
+        <div class="entry-service-02"></div>
+        <div class="entry-service-03"></div>
     </body>
 
     <footer>
