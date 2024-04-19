@@ -55,9 +55,7 @@
                     </a>
                     <a href="">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <span>
-                        Email : demo@gmail.com
-                        </span>
+                        <span> Email : dennis12345@mailbox.com </span>
                     </a>
                     </div>
                     <from class="search_form">
@@ -69,15 +67,11 @@
                     <div class="user_option_box">
                     <a href="" class="account-link">
                         <i class="fa fa-user" aria-hidden="true"></i>
-                        <span>
-                        My Account
-                        </span>
+                        <span> Login </span>
                     </a>
                     <a href="" class="cart-link">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        <span>
-                        Cart
-                        </span>
+                        <span> Cart </span>
                     </a>
                     </div>
                 </div>
@@ -88,9 +82,7 @@
                 <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
                     <a class="navbar-brand" href="index.php">
-                    <span>
-                        Minics
-                    </span>
+                    <span> DENNIS' ARMORY </span>
                     </a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
