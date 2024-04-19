@@ -86,7 +86,7 @@
             <div class="header_bottom">
                 <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                     <span>
                         Minics
                     </span>
@@ -99,19 +99,19 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ">
                         <li class="nav-item ">
-                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="about.html"> About</a>
+                        <a class="nav-link" href="about.php"> About</a>
                         </li>
                         <li class="nav-item active">
-                        <a class="nav-link" href="product.html">Products</a>
+                        <a class="nav-link" href="product.php">Products</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="why.html">Why Us</a>
+                        <a class="nav-link" href="why.php">Why Us</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="testimonial.html">Testimonial</a>
+                        <a class="nav-link" href="testimonial.php">Testimonial</a>
                         </li>
                     </ul>
                     </div>
@@ -450,27 +450,27 @@
                     </h5>
                     <ul>
                     <li>
-                        <a href="index.html">
+                        <a href="index.php">
                         Home
                         </a>
                     </li>
                     <li>
-                        <a href="about.html">
+                        <a href="about.php">
                         About
                         </a>
                     </li>
                     <li>
-                        <a href="product.html">
+                        <a href="product.php">
                         Products
                         </a>
                     </li>
                     <li>
-                        <a href="why.html">
+                        <a href="why.php">
                         Why Us
                         </a>
                     </li>
                     <li>
-                        <a href="testimonial.html">
+                        <a href="testimonial.php">
                         Testimonial
                         </a>
                     </li>
