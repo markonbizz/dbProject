@@ -12,7 +12,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             
             <!-- Site Metas -->
-            <link rel="icon" href="images/fevicon.png" type="image/gif" />
+            <link rel="icon" href="src/images/fevicon.png" type="image/gif" />
             <meta name="keywords" content="" />
             <meta name="description" content="" />
             <meta name="author" content="" />
@@ -21,18 +21,18 @@
         
         <div class="link-attributes">
             <!-- bootstrap core css -->
-            <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+            <link rel="stylesheet" type="text/css" href="style/css/bootstrap.css" />
 
             <!-- fonts style -->
             <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet"> <!-- range slider -->
 
             <!-- font awesome style -->
-            <link href="css/font-awesome.min.css" rel="stylesheet" />
+            <link href="style/css/font-awesome.min.css" rel="stylesheet" />
 
             <!-- Custom styles for this template -->
-            <link href="css/style.css" rel="stylesheet" />
+            <link href="style/css/style.css" rel="stylesheet" />
             <!-- responsive style -->
-            <link href="css/responsive.css" rel="stylesheet" />
+            <link href="style/css/responsive.css" rel="stylesheet" />
         </div>
         
         <title>Minics</title>
@@ -95,16 +95,16 @@
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="about.php"> About</a>
+                        <a class="nav-link" href="entry/index/about.php"> About</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="product.php">Products</a>
+                        <a class="nav-link" href="entry/index/product.php">Products</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="why.php">Why Us</a>
+                        <a class="nav-link" href="entry/index/why.php">Why Us</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="testimonial.php">Testimonial</a>
+                        <a class="nav-link" href="entry/index/testimonial.php">Testimonial</a>
                         </li>
                     </ul>
                     </div>
@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-md-6">
                         <div class="img-box">
-                            <img src="images/slider-img.png" alt="">
+                            <img src="src/images/slider-img.png" alt="">
                         </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="col-md-6">
                         <div class="img-box">
-                            <img src="images/slider-img.png" alt="">
+                            <img src="src/images/slider-img.png" alt="">
                         </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                         </div>
                         <div class="col-md-6">
                         <div class="img-box">
-                            <img src="images/slider-img.png" alt="">
+                            <img src="src/images/slider-img.png" alt="">
                         </div>
                         </div>
                     </div>
@@ -219,7 +219,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                                <img src="images/p1.png" alt="">
+                                <img src="src/images/p1.png" alt="">
                                 <a href="" class="add_cart_btn">
                                     <span>
                                     Add To Cart
@@ -248,7 +248,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p2.png" alt="">
+                            <img src="src/images/p2.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -277,7 +277,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p3.png" alt="">
+                            <img src="src/images/p3.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -306,7 +306,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p4.png" alt="">
+                            <img src="src/images/p4.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -335,7 +335,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p5.png" alt="">
+                            <img src="src/images/p5.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -364,7 +364,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p6.png" alt="">
+                            <img src="src/images/p6.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -393,7 +393,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p7.png" alt="">
+                            <img src="src/images/p7.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -422,7 +422,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p8.png" alt="">
+                            <img src="src/images/p8.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -451,7 +451,7 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="box">
                             <div class="img-box">
-                            <img src="images/p9.png" alt="">
+                            <img src="src/images/p9.png" alt="">
                             <a href="" class="add_cart_btn">
                                 <span>
                                 Add To Cart
@@ -533,7 +533,7 @@
                 <div class="col-md-4">
                 <div class="box ">
                     <div class="img-box">
-                    <img src="images/w1.png" alt="">
+                    <img src="src/images/w1.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -548,7 +548,7 @@
                 <div class="col-md-4">
                 <div class="box ">
                     <div class="img-box">
-                    <img src="images/w2.png" alt="">
+                    <img src="src/images/w2.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -563,7 +563,7 @@
                 <div class="col-md-4">
                 <div class="box ">
                     <div class="img-box">
-                    <img src="images/w3.png" alt="">
+                    <img src="src/images/w3.png" alt="">
                     </div>
                     <div class="detail-box">
                     <h5>
@@ -612,7 +612,7 @@
                         </div>
                         <div class="client-id">
                         <div class="img-box">
-                            <img src="images/client.jpg" alt="">
+                            <img src="src/images/client.jpg" alt="">
                         </div>
                         <div class="name">
                             <h5>
@@ -676,7 +676,7 @@
                         </div>
                         <div class="client-id">
                         <div class="img-box">
-                            <img src="images/client.jpg" alt="">
+                            <img src="src/images/client.jpg" alt="">
                         </div>
                         <div class="name">
                             <h5>
@@ -761,22 +761,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="about.php">
+                        <a href="entry/index/about.php">
                         About
                         </a>
                     </li>
                     <li>
-                        <a href="product.php">
+                        <a href="entry/index/product.php">
                         Products
                         </a>
                     </li>
                     <li>
-                        <a href="why.php">
+                        <a href="entry/index/why.php">
                         Why Us
                         </a>
                     </li>
                     <li>
-                        <a href="testimonial.php">
+                        <a href="entry/index/testimonial.php">
                         Testimonial
                         </a>
                     </li>
@@ -832,11 +832,11 @@
         <!-- [START] Body Scripts -->
         <div class="body-scripts">
             <!-- jQery -->
-            <script src="js/jquery-3.4.1.min.js"></script>
+            <script src="script/js/jquery-3.4.1.min.js"></script>
             <!-- bootstrap js -->
-            <script src="js/bootstrap.js"></script>
+            <script src="script/js/bootstrap.js"></script>
             <!-- custom js -->
-            <script src="js/custom.js"></script>
+            <script src="script/js/custom.js"></script>
         </div>
         <!-- [END] Body Scripts -->
     </body>
