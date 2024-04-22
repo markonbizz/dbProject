@@ -34,7 +34,7 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
 					<span class="login100-form-title p-b-43">
-						Login
+						Sign Up
 					</span>
 					
 					
@@ -75,7 +75,7 @@
 					
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
-							<a href="register.php">Don't One? Create an Account!</a>
+							<a href="#">Don't have a Account? Create One!</a>
 						</span>
 					</div>
 				</form>
