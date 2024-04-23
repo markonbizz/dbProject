@@ -37,8 +37,8 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+                <li><a href="#"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
@@ -175,7 +175,7 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+886 0912345678</h5>
+                                <h5>+886 &nbsp; 0912345678</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>
@@ -670,7 +670,7 @@
                         </div>
                         <ul>
                             <li>Address: National Pingtung University</li>
-                            <li>Phone: +886 0912345678</li>
+                            <li>Phone: +886 &nbsp; 0912345678</li>
                             <li>Email: dennisbrown12345@email.com</li>
                         </ul>
                     </div>
