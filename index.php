@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DENNIS' ARMORY</title>
+    <title>DENNIS' ARMORY | Home</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -60,7 +60,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.php">Blog</a></li>
-                <li><a href="./contact.php">Contact</a></li>
+                <li><a href="./contact.php">Contact Us</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -108,15 +108,15 @@
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
                             <li><a href="./shop-grid.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
+                            <!-- <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.php">Shop Details</a></li>
                                     <li><a href="./shoping-cart.php">Shoping Cart</a></li>
                                     <li><a href="./checkout.php">Check Out</a></li>
                                     <li><a href="./blog-details.php">Blog Details</a></li>
                                 </ul>
-                            </li>
-                            <li><a href="./blog.php">Blog</a></li>
+                            </li> -->
+                            <!-- <li><a href="./blog.php">Blog</a></li> -->
                             <li><a href="./contact.php">Contact</a></li>
                         </ul>
                     </nav>
@@ -145,7 +145,7 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>Categories</span>
+                            <span>Quick Access</span>
                         </div>
                         <ul>
                             <li><a href="#">Fresh Meat</a></li>

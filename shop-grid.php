@@ -37,7 +37,7 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 <li><a href="#"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
@@ -69,7 +69,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.php">Blog</a></li>
-                <li><a href="./contact.php">Contact</a></li>
+                <li><a href="./contact.php">Contact Us</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -117,15 +117,15 @@
                         <ul>
                             <li><a href="./index.php">Home</a></li>
                             <li class="active"><a href="./shop-grid.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
+                            <!-- <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.php">Shop Details</a></li>
                                     <li><a href="./shoping-cart.php">Shoping Cart</a></li>
                                     <li><a href="./checkout.php">Check Out</a></li>
                                     <li><a href="./blog-details.php">Blog Details</a></li>
                                 </ul>
-                            </li>
-                            <li><a href="./blog.php">Blog</a></li>
+                            </li> -->
+                            <!-- <li><a href="./blog.php">Blog</a></li> -->
                             <li><a href="./contact.php">Contact</a></li>
                         </ul>
                     </nav>
@@ -133,10 +133,10 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">Item: <span>$150.00</span></div>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>Catagories</span>
+                            <span>Quick Access</span>
                         </div>
                         <ul>
                             <li><a href="#">Fresh Meat</a></li>
@@ -202,11 +202,12 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
-                        <div class="breadcrumb__option">
+                        <h5>You are now in</h5>
+                        <h2>Products</h2>
+                        <!-- <div class="breadcrumb__option">
                             <a href="./index.php">Home</a>
                             <span>Shop</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -221,7 +222,7 @@
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Department</h4>
+                            <h4>Catagories</h4>
                             <ul>
                                 <li><a href="#">Fresh Meat</a></li>
                                 <li><a href="#">Vegetables</a></li>
@@ -235,7 +236,7 @@
                                 <li><a href="#">Oatmeal</a></li>
                             </ul>
                         </div>
-                        <div class="sidebar__item">
+                        <!-- <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
@@ -251,7 +252,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="sidebar__item sidebar__item__color--option">
                             <h4>Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
@@ -318,7 +319,7 @@
                                 </label>
                             </div>
                         </div> -->
-                        <div class="sidebar__item">
+                        <!-- <div class="sidebar__item">
                             <div class="latest-product__text">
                                 <h4>Latest Products</h4>
                                 <div class="latest-product__slider owl-carousel">
@@ -382,7 +383,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
@@ -732,7 +733,7 @@
                         </div>
                         <ul>
                             <li>Address: National Pingtung University</li>
-                            <li>Phone: +886 09-12345678</li>
+                            <li>Phone: +886 &nbsp; 0912345678</li>
                             <li>Email: dennisbrown12345@email.com</li>
                         </ul>
                     </div>
