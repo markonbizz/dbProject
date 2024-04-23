@@ -75,7 +75,7 @@
 					
 					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
-							<a href="register.php">Don't One? Create an Account!</a>
+							<a href="register.php">Don't have Accounts? Create One!</a>
 						</span>
 					</div>
 				</form>
