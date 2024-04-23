@@ -497,10 +497,10 @@ input.input100 {
   text-transform: uppercase;
   letter-spacing: 2px !important; /* Overrided */
 
-  -webkit-transition: all 0.2s;   /* Overrided */
+  -webkit-transition: all 0.2s !important;   /* Overrided */
   -o-transition: all 0.2s;        /* Overrided */
-  -moz-transition: all 0.2s;      /* Overrided */
-  transition: all 0.2s;           /* Overrided */
+  -moz-transition: all 0.2s !important;      /* Overrided */
+  transition: all 0.2s !important;           /* Overrided */
 }
 
 .login100-form-btn:hover {
