@@ -39,19 +39,30 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email">
+						<input class="input100" type="text" name="clientname">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Account Name</span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="email" name="clientemail">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Email</span>
 					</div>
 					
-					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="clientpasswd">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
 
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" name="clientpasswd">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Repeat Password</span>
+					</div>
+
+					<!-- <div class="flex-sb-m w-full p-t-3 p-b-32">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 							<label class="label-checkbox100" for="ckb1">
@@ -64,18 +75,21 @@
 								Forgot Password?
 							</a>
 						</div>
-					</div>
+					</div> -->
 			
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							Register
 						</button>
 					</div>
 					
 					<div class="text-center p-t-46 p-b-20">
-						<span class="txt2">
-							<a href="#">Don't have a Account? Create One!</a>
+						<span class="txt1">
+							Already have an account? &nbsp;
+						</span>
+						<span>
+							<a class="txt2" href="login.php">Sign in</a>
 						</span>
 					</div>
 				</form>

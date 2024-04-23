@@ -38,15 +38,15 @@
 					</span>
 					
 					
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
 						<input class="input100" type="text" name="email">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
+						<span class="label-input100">Email / Account</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass">
+						<input class="input100" type="password" name="passwd">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
@@ -60,7 +60,7 @@
 						</div>
 
 						<div>
-							<a href="#" class="txt1">
+							<a href="#" class="txt2">
 								Forgot Password?
 							</a>
 						</div>
@@ -74,8 +74,11 @@
 					</div>
 					
 					<div class="text-center p-t-46 p-b-20">
-						<span class="txt2">
-							<a href="register.php">Don't have Accounts? Create One!</a>
+						<span class="txt1">
+							Don't have Accounts? &nbsp;
+						</span>
+						<span>
+							<a class="txt2" href="register.php">Create One</a>
 						</span>
 					</div>
 				</form>
