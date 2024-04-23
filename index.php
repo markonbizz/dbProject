@@ -89,7 +89,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__auth">
-                                <a href="login.php"><i class="fa fa-user"></i>Login</a>
+                                <a href="./login.php"><i class="fa fa-user"></i>Login</a>
                             </div>
                         </div>
                     </div>

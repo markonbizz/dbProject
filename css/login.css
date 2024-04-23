@@ -466,7 +466,7 @@ input.input100 {
 /*------------------------------------------------------------------
 [ Button ]*/
 .container-login100-form-btn {
-  width: 100%;
+  width: 75% !important;          /* Overrided */
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -485,22 +485,22 @@ input.input100 {
   justify-content: center;
   align-items: center;
   padding: 0 20px;
-  width: 100%;
+  width: 75% !important;          /* Overrided */
   height: 50px;
   border-radius: 5px;
   background: #7fad39;
 
   font-family: Poppins-Bold;
-  font-size: 12px;
+  font-size: 16px !important;     /* Overrided */
   color: #fff;
   line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px !important; /* Overrided */
 
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
+  -webkit-transition: all 0.2s;   /* Overrided */
+  -o-transition: all 0.2s;        /* Overrided */
+  -moz-transition: all 0.2s;      /* Overrided */
+  transition: all 0.2s;           /* Overrided */
 }
 
 .login100-form-btn:hover {
