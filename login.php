@@ -60,7 +60,7 @@
 						</div>
 
 						<div>
-							<a href="#" class="txt2">
+							<a href="resetpasswd.php" class="txt2">
 								Forgot Password?
 							</a>
 						</div>
