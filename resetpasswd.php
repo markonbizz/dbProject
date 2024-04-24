@@ -73,7 +73,7 @@
 					</div> -->
 			
 
-					<div class="container-login100-form-btn">
+					<div class="container-login100-form-btn p-t-25">
 						<button class="login100-form-btn">
 							Reset
 						</button>

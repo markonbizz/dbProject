@@ -78,13 +78,13 @@
 					</div> -->
 			
 
-					<div class="container-login100-form-btn">
+					<div class="container-login100-form-btn p-t-25">
 						<button class="login100-form-btn">
 							Register
 						</button>
 					</div>
 					
-					<div class="text-center p-t-46 p-b-20">
+					<div class="text-center p-t-32 p-b-20">
 						<span class="txt1">
 							Already have an account? &nbsp;
 						</span>
