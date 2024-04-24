@@ -1,4 +1,4 @@
-Thank you for using our template!
+The template provide by Colorlib 
 
 For more awesome templates please visit https://colorlib.com/wp/templates/
 
