@@ -42,21 +42,21 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
-						<input class="input100" type="text" name="clientemail">
+						<input class="input100" type="text" name="userAccount">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Account</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="clientpasswd">
+						<input class="input100" type="password" name="userPassword">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
 
 					<div class="flex-sb-m w-full p-t-25 p-b-32">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="ckbox_remme">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
