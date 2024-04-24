@@ -4,7 +4,7 @@ include "dbUtils.php";
 
 $dbHandler = new Database("localhost:3306", "root", "#u2324");
 
-class Login{
+class LoginSession{
 
     private $userAccount = "";
     private $userPassword = "";

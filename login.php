@@ -31,7 +31,11 @@
 	<?php
 		include "utils/loginUtils.php"; 
 
+		$loginHandler = new LoginSession();
 
+		session_start();
+		$loginHandler -> GetCredentialInfo();
+		$loginHandler -> VerifyCredentialInfo();
 	?>
 </head>
 <body style="background-color: #666666;">
