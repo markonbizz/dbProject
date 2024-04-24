@@ -38,13 +38,13 @@
 					</span>
 					
 					
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
 						<input class="input100" type="text" name="clientname">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Account Name</span>
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
+					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
 						<input class="input100" type="email" name="clientemail">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Email</span>
@@ -56,8 +56,8 @@
 						<span class="label-input100">Password</span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="clientpasswd">
+					<div class="wrap-input100 validate-input" data-validate="This credential is needd">
+						<input class="input100" type="password" name="ck_clientpasswd">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repeat Password</span>
 					</div>

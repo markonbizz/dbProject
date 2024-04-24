@@ -26,27 +26,30 @@
 	<link rel="stylesheet" type="text/css" href="css/login_utils.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 <!--===============================================================================================-->
+
+	<!-- Initialize Login Session -->
+	<?php include "utils/user/InitLoginRequest.php"; ?>
 </head>
 <body style="background-color: #666666;">
 	
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action="./utils/user/GetLoginInformation.php" method="post">
 					<span class="login100-form-title p-b-43">
 						Login
 					</span>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
-						<input class="input100" type="text" name="email">
+						<input class="input100" type="text" name="clientemail">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Email / Account</span>
+						<span class="label-input100">Account</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="passwd">
+						<input class="input100" type="password" name="clientpasswd">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>

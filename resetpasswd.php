@@ -32,27 +32,27 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form action="#" class="login100-form validate-form">
 					<span class="login100-form-title p-b-43">
 						Forgot Password
 					</span>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
-						<input class="input100" type="text" name="email">
+						<input class="input100" type="text" name="clientemail">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Email / Account</span>
+						<span class="label-input100">Account</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="passwd">
+						<input class="input100" type="password" name="newpasswd">
 						<span class="focus-input100"></span>
 						<span class="label-input100">New Password</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="passwd">
+						<input class="input100" type="password" name="ck_newpasswd">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repeat New Password</span>
 					</div>
