@@ -18,8 +18,8 @@ function initialize_session(){
         $userEmail = ($_POST["clientemail"] ?? "");     // return content of "clientemail", otherwise nothing.
         $userPassword = ($_POST["clientpasswd"] ?? ""); // return content of "clientpasswd", otherwise nothing.
     
-        $stmt = $db -> prepare("SELECT * FROM users WHERE username = :username");
-        $stmt -> bindParam(':username', $userAccount);
-        $stmt -> execute();
+        $STMT = $db -> prepare("SELECT * FROM users WHERE username = :username");
+        $STMT -> bindParam(':username', $userAccount);
+        $STMT -> execute();
     }
 }
