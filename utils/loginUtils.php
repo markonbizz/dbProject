@@ -10,13 +10,13 @@ class Login{
     private $userPassword = "";
     private $targetUser = null;
 
-    public function GetClientInfomation(){
+    public function GetCredentialInfo(){
 
         global $dbHandler;
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
 
-            $DB_LOCAL = $dbHandler->EstablishConnection("DEArmory");
+            $DB_LOCAL = $dbHandler->EstConnectionTo("DEArmory");
 
             $this->userAccount  = $_POST['userAccount']  ?? "";
             $this->userPassword = $_POST['userPassword'] ?? "";
@@ -29,11 +29,11 @@ class Login{
         }
     }
 
-    public function VerifyClientInfomation(){
+    public function VerifyCredentialInfo(){
         
         if(($this->targetUser) && (password_verify($this->userPassword, $this->targetUser["Password"]))){
 
-            
+
 
         }
     }

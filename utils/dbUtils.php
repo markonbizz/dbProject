@@ -13,7 +13,7 @@ class Database{
         $this->dbPassword = $dbPassword;
     }
 
-    public function EstablishConnection($targetDB){
+    public function EstConnectionTo($targetDB){
         
         try{
 
