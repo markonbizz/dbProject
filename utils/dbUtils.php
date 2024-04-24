@@ -1,29 +1,30 @@
 <?php
 
-$db_keyset = array(
-                    "host"  => "localhost:3306",
-                    "user"  => "root",
-                    "passwd"=> "#u2324",
-                    "tgt"   => "armory"
-                  );
-
 class Database{
 
-    public function EstablishConnection(){
+    private $sql_url = null;
+    private $dbUsername = null;
+    private $dbPassword = null;
+
+    public function __construct($sql_url, $dbUsername, $dbPassword){
         
-        global $db_keyset;
+        $this->sql_url  = $sql_url;
+        $this->dbUsername = $dbUsername;
+        $this->dbPassword = $dbPassword;
+    }
+
+    public function EstablishConnection($targetDB){
         
         try{
 
-            $db_ = new PDO("mysql:host={$db_keyset["host"]}; dbname={$db_keyset["tgt"]};", $db_keyset["user"], $db_keyset["passwd"]);
-            $db_ -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Set PDO Error Mode as Expection
+            $_db = new PDO("mysql:host={$this->sql_url}; dbname={$targetDB};", $this->dbUsername, $this->dbPassword);
+            $_db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Set PDO Error Mode as Expection
         }catch (PDOException $e){
 
             echo "Failed to establish the database <br>".
                 "Error: ". $e->getMessage();
         }
 
-        return $db_;
-
+        return $_db;
     }
 };

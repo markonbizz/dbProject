@@ -28,7 +28,11 @@
 <!--===============================================================================================-->
 
 	<!-- Initialize Login Session -->
-	<?php include "utils/user/InitLoginRequest.php"; ?>
+	<?php
+		include "utils/loginUtils.php"; 
+
+
+	?>
 </head>
 <body style="background-color: #666666;">
 	
@@ -56,7 +60,7 @@
 
 					<div class="flex-sb-m w-full p-t-25 p-b-32">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="ckbox_remme">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="ckbRememberMe">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
