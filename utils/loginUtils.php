@@ -21,11 +21,13 @@ class LoginSession{
             $this->userAccount  = $_POST['userAccount']  ?? "";
             $this->userPassword = $_POST['userPassword'] ?? "";
 
-            $stmt = $DB_LOCAL->prepare("SELECT * FROM Users WHERE Account = :Account");
+            $stmt = $DB_LOCAL->prepare("SELECT * FROM User WHERE Account = :Account");
             $stmt->bindParam(":Account", $this->userAccount);
             $stmt->execute();
 
             $this->targetUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            exit();
         }
     }
 
@@ -33,8 +35,23 @@ class LoginSession{
         
         if(($this->targetUser) && (password_verify($this->userPassword, $this->targetUser["Password"]))){
 
+            $_SESSION["ID"]         = $this->targetUser['ID']; 
+            $_SESSION["Account"]    = $this->targetUser['Account']; 
+            $_SESSION["Email"]      = $this->targetUser['Email']; 
+            $_SESSION["Permission"] = $this->targetUser["Permission"];
 
+            if($_SESSION['Account'] == "Admin"){
 
+                header('Location: "ManageSiteClientPage".php');
+            } else {
+            
+                header('Location: "LastAnonymousVisitPage".php'); 
+            }
+
+            exit();
+        }else{
+            // 登入失敗以及錯誤訊息
+            echo "<script>alert('使用者名稱或密碼錯誤');</script>";
         }
     }
 };
