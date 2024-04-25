@@ -35,7 +35,6 @@
 
 		session_start();
 		$loginHandler -> GetCredentialInfo();
-		$loginHandler -> VerifyCredentialInfo();
 	?>
 </head>
 <body style="background-color: #666666;">
@@ -92,6 +91,10 @@
 							<a class="txt2" href="register.php">Create One</a>
 						</span>
 					</div>
+
+					<?php
+						$loginHandler -> VerifyCredentialInfo();
+					?>
 				</form>
 
 				<div class="login100-more" style="background-image: url('img/bg-01.jpg');">

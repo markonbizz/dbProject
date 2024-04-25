@@ -26,8 +26,6 @@ class LoginSession{
             $stmt->execute();
 
             $this->targetUser = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            exit();
         }
     }
 
@@ -40,18 +38,20 @@ class LoginSession{
             $_SESSION["Email"]      = $this->targetUser['Email']; 
             $_SESSION["Permission"] = $this->targetUser["Permission"];
 
-            if($_SESSION['Account'] == "Admin"){
+            if($_SESSION["Permission"] == "ADMIN"){
 
-                header('Location: "ManageSiteClientPage".php');
+                header('Location: index.php');
             } else {
             
-                header('Location: "LastAnonymousVisitPage".php'); 
+                header('Location: index.php'); 
             }
-
+        
             exit();
         }else{
             // 登入失敗以及錯誤訊息
             echo "<script>alert('使用者名稱或密碼錯誤');</script>";
+        
+            
         }
     }
 };
