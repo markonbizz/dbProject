@@ -1,14 +1,13 @@
 <?php
 
-include "db_utils.php";
+include_once "../database/__HEADER_DATABASE.php";
+include_once "__HEADER_USER.php";
 
-function Verify_CredentialInfo(){
+function User_VerifyLogin(){
 
-    global $dbHandler;
+    $dbHandler = DB_EstConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
-        
-        $dbHandler = EstConnection();
 
         $account  = $_POST['userAccount']  ?? '';
         $password = $_POST['userPassword'] ?? '';
@@ -21,7 +20,7 @@ function Verify_CredentialInfo(){
 
         echo "<script>alert('". $tgtUser["Account"] ."')</script>";
 
-        if ($tgtUser && $password == $tgtUser['Password']) {
+        if (($tgtUser) && ($password == $tgtUser['Password'])) {
       
             $_SESSION['ID']         = $tgtUser['ID']; 
             $_SESSION['Account']    = $tgtUser['Account']; 
@@ -29,17 +28,21 @@ function Verify_CredentialInfo(){
             $_SESSION['Permission'] = $tgtUser['Permission'];
 
             if($_SESSION['Permission'] == "ADMIN"){
-            
+                global $isLogin;
+                $isLogin = true;
                 header('Location: ../index.php');
             }else{
-
+                global $isLogin;
+                $isLogin = true;
                 header('Location: ../contact.php'); 
             }
         
             exit();
         } else {
-
+            
+            global $isLogin;
             // 登入失敗以及錯誤訊息
+            $isLogin = false;
             echo "<script>alert('Invalid user name or password');</>";
         }
     }

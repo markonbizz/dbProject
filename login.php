@@ -31,10 +31,10 @@
 
 	<?php
 		
-		include "utils/login_utils.php";
+		include "utils/Session.php";
 
 		session_start();
-		Verify_CredentialInfo();
+		User_VerifyLogin();
 	?>
 
 </head>

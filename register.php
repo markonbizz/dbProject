@@ -26,6 +26,9 @@
 	<link rel="stylesheet" type="text/css" href="css/login_utils.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 <!--===============================================================================================-->
+
+<!-- Functionalities -->
+
 </head>
 <body style="background-color: #666666;">
 	
@@ -39,25 +42,37 @@
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
-						<input class="input100" type="text" name="clientname">
+						<input class="input100" type="text" name="fAccount">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Account Name</span>
 					</div>
 					
+					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
+						<input class="input100" type="text" name="fRealName">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Real Name</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
+						<input class="input100" type="text" name="fBirthday">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Birthday</span>
+					</div>
+
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="email" name="clientemail">
+						<input class="input100" type="email" name="fEmail">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Email</span>
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="clientpasswd">
+						<input class="input100" type="password" name="fPassword">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Password</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="This credential is needd">
-						<input class="input100" type="password" name="ck_clientpasswd">
+						<input class="input100" type="password" name="fPassword_Again">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repeat Password</span>
 					</div>

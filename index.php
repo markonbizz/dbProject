@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
     <?php
+        include "utils/Session.php";
         session_start();
     ?>
 
@@ -49,7 +50,13 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__auth">
-                <a href="login.php"><i class="fa fa-user"></i>Login</a>
+                <a href="login.php"><i class="fa fa-user">
+                    </i>
+                        <?php
+                            global $message_Login;
+                            echo "{$message_Login["entry"]}";
+                        ?>
+                </a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -94,7 +101,13 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class="fa fa-user"></i>Login</a>
+                                <a href="./login.php"><i class="fa fa-user"></i>
+                                <?php
+                                    global $isLogin;
+                                    if($isLogin == true) echo "My Account";
+                                    else echo "Login";
+                                ?>
+                                </a>
                             </div>
                         </div>
                     </div>
