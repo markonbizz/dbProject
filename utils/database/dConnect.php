@@ -1,6 +1,10 @@
 <?php
 
-include_once "__HEADER_DATABASE.php";
+if(!defined("WEB_ROOTPATH")){
+    define("WEB_ROOTPATH", "/var/www/html/");
+}
+
+include_once(WEB_ROOTPATH . "utils/GLOBAL_DEFINES.php");
 
 function DB_EstConnection(){
 

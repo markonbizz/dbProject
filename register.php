@@ -28,7 +28,11 @@
 <!--===============================================================================================-->
 
 <!-- Functionalities -->
+	<?php
+		include_once("utils/Session.php");
 
+		session_start();
+	?>
 </head>
 <body style="background-color: #666666;">
 	

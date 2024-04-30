@@ -1,6 +1,8 @@
 <?php
 
-include_once "__GLOBAL_DEFINES.php";
+if(!defined("WEB_ROOTPATH")){
+    define("WEB_ROOTPATH", "/var/www/html/");
+} 
 
-include_once "user/__HEADER_USER.php";
-include_once "database/__HEADER_DATABASE.php";
+include_once(WEB_ROOTPATH . "utils/user/uLogin.php");
+include_once(WEB_ROOTPATH . "utils/user/uRegister.php");

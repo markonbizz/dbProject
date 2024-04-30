@@ -1,7 +1,11 @@
 <?php
 
-include_once "../database/__HEADER_DATABASE.php";
-include_once "__HEADER_USER.php";
+if(!defined("WEB_ROOTPATH")){
+    define("WEB_ROOTPATH", "/var/www/html/");
+}
+
+include_once(WEB_ROOTPATH . "utils/GLOBAL_DEFINES.php");
+include_once(WEB_ROOTPATH . "utils/database/dConnect.php");
 
 function User_VerifyLogin(){
 
@@ -9,8 +13,8 @@ function User_VerifyLogin(){
 
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
-        $account  = $_POST['userAccount']  ?? '';
-        $password = $_POST['userPassword'] ?? '';
+        $account  = $_POST['fAccount']  ?? '';
+        $password = $_POST['fPassword'] ?? '';
 
         $stmt = $dbHandler->prepare("SELECT * FROM User WHERE Account = :Account");
         $stmt->bindParam(':Account', $account);
