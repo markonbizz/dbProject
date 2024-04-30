@@ -29,9 +29,12 @@
 
 <!-- Functionalities -->
 	<?php
+		session_start();
 		include_once("utils/Session.php");
 
-		session_start();
+		// if (!isset($_SESSION['csrf_token'])) $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+		
+		User_Register();
 	?>
 </head>
 <body style="background-color: #666666;">
@@ -39,7 +42,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form-custom00 validate-form" action="register.php" method="post">
 					<span class="login100-form-title p-b-43">
 						Sign Up
 					</span>
@@ -48,13 +51,19 @@
 					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
 						<input class="input100" type="text" name="fAccount">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Account Name</span>
+						<span class="label-input100">Account</span>
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
 						<input class="input100" type="text" name="fRealName">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Real Name</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+						<input class="input100" type="email" name="fEmail">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Email</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
@@ -64,11 +73,11 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="email" name="fEmail">
+						<input class="input100" type="text" name="fPhoneNumber">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
+						<span class="label-input100">Phone Number</span>
 					</div>
-					
+
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<input class="input100" type="password" name="fPassword">
 						<span class="focus-input100"></span>

@@ -24,7 +24,7 @@ function User_VerifyLogin(){
 
         echo "<script>alert('". $bTargetUser["Account"] ."')</script>";
 
-        if (($bTargetUser) && ($bPassword == $bTargetUser['Password'])) {
+        if (($bTargetUser) && password_verify($bPassword, $bTargetUser['Password'])){ ;
       
             $_SESSION['ID']         = $bTargetUser['ID']; 
             $_SESSION['Account']    = $bTargetUser['Account']; 
@@ -33,17 +33,17 @@ function User_VerifyLogin(){
 
             if($_SESSION['Permission'] == "ADMIN"){
                 
-                $_SESSION["loginStatus"] = true;
+                $_SESSION["loginState"] = true;
                 header('Location: ../index.php');
             }else{
-                $_SESSION["loginStatus"] = true;
+                $_SESSION["loginState"] = true;
                 header('Location: ../contact.php'); 
             }
         
             exit();
         } else {
             
-            $_SESSION["loginStatus"] = false;
+            $_SESSION["loginState"] = false;
             // 登入失敗以及錯誤訊息
             echo "<script>alert('Invalid user name or password');</>";
         }

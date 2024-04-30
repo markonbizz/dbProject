@@ -7,5 +7,3 @@ $dbEssential =
     "DB_PSWD"   => "#u2324",
     "DB_TARGET" => "DEArmory",
 ];
-
-$isLogin = false;

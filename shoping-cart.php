@@ -21,6 +21,36 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <?php
+        session_start();
+        include "utils/Session.php"
+    ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners to all close buttons
+            const closeButtons = document.querySelectorAll('.icon_close');
+            closeButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const row = button.closest('tr');
+                    row.remove(); // Remove the entire row from the table
+                    updateTotal(); // Update the total price
+                });
+            });
+
+            // Function to update the total price
+            function updateTotal() {
+                let total = 0;
+                const totalElements = document.querySelectorAll('.shoping__cart__total');
+                totalElements.forEach(function(element) {
+                    total += parseFloat(element.textContent.replace('$', ''));
+                });
+                // Update the total price display
+                document.querySelector('.header__cart__price span').textContent = '$' + total.toFixed(2);
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -73,12 +103,12 @@
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
+        <!-- <div class="header__top__right__social">
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
+        </div> -->
         <div class="humberger__menu__contact">
             <ul>
                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
@@ -101,7 +131,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <!-- <div class="header__top__right__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -119,8 +149,26 @@
                                 </ul>
                             </div> -->
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class="fa fa-user"></i>Login</a>
+                                <a href="./login.php"><i class="fa fa-user"></i>
+                                <?php
+                                    echo ($_SESSION["loginState"]) ? "My Account"
+                                                                   : "Login";
+                                ?>
+                                </a>
                             </div>
+
+                            <?php
+                                if($_SESSION["loginState"])
+                                {
+                                    echo "
+                                        <div class=\"header__top__right__auth\">
+                                            <a href=\"./login.php\"><i class=\"fa fa-sign-out\"></i>Logout
+                                            </a>
+                                        </div>
+                                    ";
+                                }
+                            ?>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -222,22 +270,22 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <!-- <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h5>You are now in</h5>
                         <h2>Shopping Cart</h2>
-                        <!-- <div class="breadcrumb__option">
+                        <div class="breadcrumb__option">
                             <a href="./index.php">Home</a>
                             <span>Shopping Cart</span>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Breadcrumb Section End -->
 
     <!-- Shoping Cart Section Begin -->

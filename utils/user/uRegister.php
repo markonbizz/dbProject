@@ -8,108 +8,108 @@ include_once(WEB_ROOTPATH . "utils/GLOBAL_DEFINES.php");
 
 function User_Register(){
 
-    if (!isset($_SESSION['token_CSRF'])) $_SESSION['token_CSRF'] = bin2hex(random_bytes(32));
-
     $dbHandler = DB_EstConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
-        if (!isset($_POST['token_CSRF']) || $_POST['token_CSRF'] !== $_SESSION['token_CSRF'])
-        {   //檢查cfrs令牌
-            exit("CSRF Token Validation Failed");
-        }
+        // if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token'])
+        // {   //檢查cfrs令牌
+        //     die("CSRF Token Validation Failed");
+        // }
 
+        $bAccount        = $_POST['fAccount']        ?? "";
         $bRealName       = $_POST['fRealName']       ?? "";
         $bEmail          = $_POST['fEmail']          ?? "";
         $bBirthday       = $_POST['fBirthday']       ?? "";
-        $bPhoneNumber    = $_POST['fbPhoneNumber']   ?? "";
-        $bAccount        = $_POST['fAccount']        ?? "";
+        $bPhoneNumber    = $_POST['fPhoneNumber']    ?? "";
         $bPassword       = $_POST['fPassword']       ?? "";
         $bPasswordAgain  = $_POST['fPassword_Again'] ?? "";
         
         $errors = '';
+        
+        if (empty($bAccount)) {
+            $errors .= "This credential cannot be empty\\n";
+        } else if (strlen($bAccount) < 4 || strlen($bAccount) > 24) {
+            $errors .= "Account length must at Least 4 characters and not exceed 24\\n";
+        }
+        
         if (empty($bRealName)) {
             $errors .= "This credential cannot be empty!\\n";
         } else if (strlen($bRealName) < 2 || strlen($bRealName) > 24) {
-            $errors .= "使用者姓名的長度必須至少2個字元且少於24個字元\\n";
+            $errors .= "Name must at Least 2 characters and not exceed 24\\n";
         }
         
         if (empty($bEmail)) {
             $errors .= "This credential cannot be empty!\\n";
         } else if (strlen($bEmail) < 4 || strlen($bEmail) > 50) {
-            $errors .= "電子郵箱的長度必須至少4個字元且少於50個字元\\n";
+            $errors .= "Email length length must at Least 4 characters and not exceed 50\\n";
         }
 
-        if (empty($phoneNumber)) {
-            $errors .= "手機號碼不得為空\\n";
-        } else if (strlen($bEmail) != 10) {
-            $errors .= "手機號碼的長度必須等於10個字元\\n";
+        if (empty($bPhoneNumber)) {
+            $errors .= "Phone Number cannot be empty\\n";
+        } else if (strlen($bPhoneNumber) != 10) {
+            $errors .= "Phone Number must equal 10 numbers\\n";
         }
 
-        if (empty($birthday)) { //證實生日的格式
-            $errors .= "生日錯誤，你不可能在今天或或是未來出生\\n";
+        if (empty($bBirthday)) { //證實生日的格式
+            $errors .= "This credential cannot be empty\\n";
         } 
-
-        if (empty($username)) {
-            $errors .= "使用者名稱不得為空\\n";
-        } else if (strlen($username) < 4 || strlen($username) > 20) {
-            $errors .= "使用者ID的長度必須至少4個字元且少於20個字元\\n";
+        
+        if (empty($bPassword)) {
+            $errors .= "This credential cannot be empty\\n";
+        } else if (strlen($bPassword) < 4 || strlen($bPassword) > 50) {
+            $errors .= "Password length must at Least 4 characters and not exceed 50\\n";
         }
         
-        if (empty($password)) {
-            $errors .= "你的密碼不得為空\\n";
-        } else if (strlen($password) < 4 || strlen($password) > 50) {
-            $errors .= "密碼的長度必須至少4個字元且少於50個字元\\n";
-        }
-        
-        if (empty($confirmPassword)) {
-            $errors .= "再次輸入密碼不得為空\\n";
-        } else if ($bPassword != $confirmPassword) {
-            $errors .= "你的密碼與再次確認密碼不同，請確保他們是相同的\\n";
-        } else if (strlen($confirmPassword) < 4 || strlen($confirmPassword) > 50) {
-            $errors .= "確認密碼的長度必須至少4個字元且少於50個字元\\n";
+        if (empty($bPasswordAgain)) {
+            $errors .= "This credential cannot be empty!\\n";
+        } else if ($bPassword != $bPasswordAgain) {
+            $errors .= "Password is Not Matched\\n";
+        } else if (strlen($bPasswordAgain) < 4 || strlen($bPasswordAgain) > 50) {
+            $errors .= "Password length must at Least 4 characters and not exceed 50\\n";
         }
 
         if(empty($errors)){
-            $checkUser = $dbHandler->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
-            $checkUser -> bindParam(':username', $username);
+            $checkUser = $dbHandler->prepare("SELECT COUNT(*) FROM User WHERE Account = :Account");
+            $checkUser -> bindParam(':Account', $bAccount);
             $checkUser -> execute();
 
-            if($checkUser->fetchColumn() > 0) $errors.= "使用者名稱已經被註冊\\n";
+            if($checkUser->fetchColumn() > 0) $errors.= "This account has been registered\\n";
 
-            $checkEmail = $dbHandler->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
-            $checkEmail -> bindParam(':email', $email);
+            $checkEmail = $dbHandler->prepare("SELECT COUNT(*) FROM User WHERE Email = :Email");
+            $checkEmail -> bindParam(':Email', $bEmail);
             $checkEmail -> execute();
 
-            if($checkEmail->fetchColumn() > 0) $errors.= "電子郵箱已經被註冊\\n";
+            if($checkEmail->fetchColumn() > 0) $errors.= "This email has been registered\\n";
         }
 
         //echo "<script>alert('+$role+'\n'+$userRealName+'\n'+$email+'\n'+$phoneNumber+'\n'+$bloodType+'\n'+$birthday+'\n'+$username +'\n'+ $password+');</script>";
         
         if (!empty($errors)) echo "<script>alert('$errors');</script>";
         else {
-            if (!empty($password) && (strlen($password)>=4) && (strlen($password)<=50)) {
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            if (!empty($bPassword) && (strlen($bPassword)>=4) && (strlen($bPassword)<=50)) {
+                $bHashedPSWD = password_hash($bPassword, PASSWORD_DEFAULT);
                 // echo "<script>
                 // 		alert('密碼加密');
                 // 	</script>";
             }
 
             try {
-                $stmt = $dbHandler->prepare("INSERT INTO users (role, userRealName, email, phoneNumber, bloodType, birthday, username, password) VALUES (:role, :userRealName, :email, :phoneNumber, :bloodType, :birthday, :username, :password)");
-                $role = 'user';
-                $stmt->bindParam(':role', $role);
-                $stmt->bindParam(':userRealName', $userRealName);
-                $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':phoneNumber', $phoneNumber);
-                $stmt->bindParam(':bloodType', $bloodType);
-                $stmt->bindParam(':birthday', $birthday);
-                $stmt->bindParam(':username', $username);
-                $stmt->bindParam(':password', $hashedPassword);
+                $stmt = $dbHandler->prepare("INSERT INTO 
+                                             User (Permission, RealName, Email, PhoneNumber, Birthday, Account, Password) VALUES 
+                                                  (:Permission, :RealName, :Email, :PhoneNumber, :Birthday, :Account, :Password)");
+                $bPermission = 'USER';
+                $stmt->bindParam(':Permission'  , $bPermission);
+                $stmt->bindParam(':RealName'    , $bRealName);
+                $stmt->bindParam(':Email'       , $bEmail);
+                $stmt->bindParam(':PhoneNumber' , $bPhoneNumber);
+                $stmt->bindParam(':Birthday'    , $bBirthday);
+                $stmt->bindParam(':Account'     , $bAccount);
+                $stmt->bindParam(':Password'    , $bHashedPSWD);
                 $stmt->execute();
             
                 echo "<script>
-                        alert('使用者註冊成功');
+                        alert('Registeration successfully');
                         setTimeout(function() {
                             window.location.href = 'login.php';
                         }, 0);

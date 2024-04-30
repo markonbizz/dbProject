@@ -23,8 +23,9 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
     <?php
-        include "utils/Session.php";
         session_start();
+
+        include "utils/Session.php";
     ?>
 
 </head>
@@ -97,14 +98,14 @@
                             <div class="header__top__right__auth">
                                 <a href="./login.php"><i class="fa fa-user"></i>
                                 <?php
-                                    echo ($_SESSION["loginStatus"]) ? "My Account"
-                                                                    : "Login";
+                                    echo ($_SESSION["loginState"]) ? "My Account"
+                                                                   : "Login";
                                 ?>
                                 </a>
                             </div>
 
                             <?php
-                                if($_SESSION["loginStatus"])
+                                if($_SESSION["loginState"])
                                 {
                                     echo "
                                         <div class=\"header__top__right__auth\">
@@ -112,7 +113,6 @@
                                             </a>
                                         </div>
                                     ";
-                                    
                                 }
                             ?>
                         </div>

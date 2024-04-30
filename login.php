@@ -30,10 +30,9 @@
 	<!-- Initialize Login Session -->
 
 	<?php
+		session_start();
 		
 		include "utils/Session.php";
-
-		session_start();
 		User_VerifyLogin();
 	?>
 
@@ -43,7 +42,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" action="login.php" method="post">
+				<form class="login100-form-custom01 validate-form" action="login.php" method="post">
 					<span class="login100-form-title p-b-43">
 						Login
 					</span>

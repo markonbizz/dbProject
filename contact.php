@@ -123,8 +123,26 @@
                                 </ul>
                             </div> -->
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class="fa fa-user"></i>Login</a>
+                                <a href="./login.php"><i class="fa fa-user"></i>
+                                <?php
+                                    echo ($_SESSION["loginState"]) ? "My Account"
+                                                                   : "Login";
+                                ?>
+                                </a>
                             </div>
+
+                            <?php
+                                if($_SESSION["loginState"])
+                                {
+                                    echo "
+                                        <div class=\"header__top__right__auth\">
+                                            <a href=\"./login.php\"><i class=\"fa fa-sign-out\"></i>Logout
+                                            </a>
+                                        </div>
+                                    ";
+                                }
+                            ?>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -226,22 +244,22 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <!-- <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h5>You are now in</h5>
                         <h2>Contact</h2>
-                        <!-- <div class="breadcrumb__option">
+                        <div class="breadcrumb__option">
                             <a href="./index.php">Home</a>
                             <span>Contact</span>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Breadcrumb Section End -->
 
     <!-- Contact Section Begin -->

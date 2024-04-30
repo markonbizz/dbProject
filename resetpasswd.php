@@ -32,7 +32,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="#" class="login100-form validate-form">
+				<form action="#" class="login100-form-custom01 validate-form">
 					<span class="login100-form-title p-b-43">
 						Forgot Password
 					</span>
@@ -79,14 +79,14 @@
 						</button>
 					</div>
 					
-					<!-- <div class="text-center p-t-46 p-b-20">
+					<div class="text-center p-t-32 p-b-20">
 						<span class="txt1">
-							Don't have Accounts? &nbsp;
+							Already have an account? &nbsp;
 						</span>
 						<span>
-							<a class="txt2" href="register.php">Create One</a>
+							<a class="txt2" href="login.php">Sign in</a>
 						</span>
-					</div> -->
+					</div>
 				</form>
 
 				<div class="login100-more" style="background-image: url('img/bg-01.jpg');">

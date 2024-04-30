@@ -21,6 +21,12 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <?php
+        session_start();
+        include "utils/Session.php"
+    ?>
+
 </head>
 
 <body>
@@ -95,11 +101,28 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="header__top__right">       
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right">
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class="fa fa-user"></i>Login</a>
+                                <a href="./login.php"><i class="fa fa-user"></i>
+                                <?php
+                                    echo ($_SESSION["loginState"]) ? "My Account"
+                                                                   : "Login";
+                                ?>
+                                </a>
                             </div>
+
+                            <?php
+                                if($_SESSION["loginState"])
+                                {
+                                    echo "
+                                        <div class=\"header__top__right__auth\">
+                                            <a href=\"./login.php\"><i class=\"fa fa-sign-out\"></i>Logout
+                                            </a>
+                                        </div>
+                                    ";
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -134,7 +157,7 @@
                     <div class="header__cart">
                         <ul>
                             <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
+                            <li><a href="shoping-cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">Item: <span>$150.00</span></div>
                     </div>
@@ -197,22 +220,22 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <!-- <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h5>You are now in</h5>
                         <h2>Products</h2>
-                        <!-- <div class="breadcrumb__option">
+                        <div class="breadcrumb__option">
                             <a href="./index.php">Home</a>
                             <span>Shop</span>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
@@ -387,7 +410,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
+                    <!-- <div class="product__discount">
                         <div class="section-title product__discount__title">
                             <h2>Sale Off</h2>
                         </div>
@@ -503,7 +526,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
