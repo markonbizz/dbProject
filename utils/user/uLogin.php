@@ -13,40 +13,38 @@ function User_VerifyLogin(){
 
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
-        $account  = $_POST['fAccount']  ?? '';
-        $password = $_POST['fPassword'] ?? '';
+        $bAccount  = $_POST['fAccount']  ?? '';
+        $bPassword = $_POST['fPassword'] ?? '';
 
         $stmt = $dbHandler->prepare("SELECT * FROM User WHERE Account = :Account");
-        $stmt->bindParam(':Account', $account);
+        $stmt->bindParam(':Account', $bAccount);
         $stmt->execute();
 
-        $tgtUser = $stmt->fetch(PDO::FETCH_ASSOC);
+        $bTargetUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        echo "<script>alert('". $tgtUser["Account"] ."')</script>";
+        echo "<script>alert('". $bTargetUser["Account"] ."')</script>";
 
-        if (($tgtUser) && ($password == $tgtUser['Password'])) {
+        if (($bTargetUser) && ($bPassword == $bTargetUser['Password'])) {
       
-            $_SESSION['ID']         = $tgtUser['ID']; 
-            $_SESSION['Account']    = $tgtUser['Account']; 
-            $_SESSION['Email']      = $tgtUser['Email']; 
-            $_SESSION['Permission'] = $tgtUser['Permission'];
+            $_SESSION['ID']         = $bTargetUser['ID']; 
+            $_SESSION['Account']    = $bTargetUser['Account']; 
+            $_SESSION['Email']      = $bTargetUser['Email']; 
+            $_SESSION['Permission'] = $bTargetUser['Permission'];
 
             if($_SESSION['Permission'] == "ADMIN"){
-                global $isLogin;
-                $isLogin = true;
+                
+                $_SESSION["loginStatus"] = true;
                 header('Location: ../index.php');
             }else{
-                global $isLogin;
-                $isLogin = true;
+                $_SESSION["loginStatus"] = true;
                 header('Location: ../contact.php'); 
             }
         
             exit();
         } else {
             
-            global $isLogin;
+            $_SESSION["loginStatus"] = false;
             // 登入失敗以及錯誤訊息
-            $isLogin = false;
             echo "<script>alert('Invalid user name or password');</>";
         }
     }

@@ -16,39 +16,35 @@ function User_Register(){
 
         if (!isset($_POST['token_CSRF']) || $_POST['token_CSRF'] !== $_SESSION['token_CSRF'])
         {   //檢查cfrs令牌
-            exit("CSRF token validation failed");
+            exit("CSRF Token Validation Failed");
         }
 
-        $userRealName    = $_POST['userRealName']    ?? "";
-        $email           = $_POST['email']           ?? "";
-        $phoneNumber     = $_POST['phoneNumber']     ?? "";
-        $bloodType       = $_POST['bloodType']       ?? "";
-        $birthday        = $_POST['birthday']        ?? "";
-        $username        = $_POST['username']        ?? "";
-        $password        = $_POST['password']        ?? "";
-        $confirmPassword = $_POST['confirmPassword'] ?? "";
+        $bRealName       = $_POST['fRealName']       ?? "";
+        $bEmail          = $_POST['fEmail']          ?? "";
+        $bBirthday       = $_POST['fBirthday']       ?? "";
+        $bPhoneNumber    = $_POST['fbPhoneNumber']   ?? "";
+        $bAccount        = $_POST['fAccount']        ?? "";
+        $bPassword       = $_POST['fPassword']       ?? "";
+        $bPasswordAgain  = $_POST['fPassword_Again'] ?? "";
         
         $errors = '';
-        if (empty($userRealName)) {
-            $errors .= "使用者姓名不得為空\\n";
-        } else if (strlen($userRealName) < 2 || strlen($userRealName) > 20) {
-            $errors .= "使用者姓名的長度必須至少2個字元且少於20個字元\\n";
+        if (empty($bRealName)) {
+            $errors .= "This credential cannot be empty!\\n";
+        } else if (strlen($bRealName) < 2 || strlen($bRealName) > 24) {
+            $errors .= "使用者姓名的長度必須至少2個字元且少於24個字元\\n";
         }
         
-        if (empty($email)) {
-            $errors .= "電子郵箱不得為空\\n";
-        } else if (strlen($email) < 4 || strlen($email) > 50) {
+        if (empty($bEmail)) {
+            $errors .= "This credential cannot be empty!\\n";
+        } else if (strlen($bEmail) < 4 || strlen($bEmail) > 50) {
             $errors .= "電子郵箱的長度必須至少4個字元且少於50個字元\\n";
         }
 
         if (empty($phoneNumber)) {
             $errors .= "手機號碼不得為空\\n";
-        } else if (strlen($phoneNumber) != 10) {
+        } else if (strlen($bEmail) != 10) {
             $errors .= "手機號碼的長度必須等於10個字元\\n";
         }
-
-        if ($bloodType == "你的血型")
-            $errors .= "未選擇血型，請選擇血型\\n";
 
         if (empty($birthday)) { //證實生日的格式
             $errors .= "生日錯誤，你不可能在今天或或是未來出生\\n";
@@ -68,20 +64,20 @@ function User_Register(){
         
         if (empty($confirmPassword)) {
             $errors .= "再次輸入密碼不得為空\\n";
-        } else if ($password != $confirmPassword) {
+        } else if ($bPassword != $confirmPassword) {
             $errors .= "你的密碼與再次確認密碼不同，請確保他們是相同的\\n";
         } else if (strlen($confirmPassword) < 4 || strlen($confirmPassword) > 50) {
             $errors .= "確認密碼的長度必須至少4個字元且少於50個字元\\n";
         }
 
         if(empty($errors)){
-            $checkUser = $db->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+            $checkUser = $dbHandler->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
             $checkUser -> bindParam(':username', $username);
             $checkUser -> execute();
 
             if($checkUser->fetchColumn() > 0) $errors.= "使用者名稱已經被註冊\\n";
 
-            $checkEmail = $db->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+            $checkEmail = $dbHandler->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
             $checkEmail -> bindParam(':email', $email);
             $checkEmail -> execute();
 
@@ -100,7 +96,7 @@ function User_Register(){
             }
 
             try {
-                $stmt = $db->prepare("INSERT INTO users (role, userRealName, email, phoneNumber, bloodType, birthday, username, password) VALUES (:role, :userRealName, :email, :phoneNumber, :bloodType, :birthday, :username, :password)");
+                $stmt = $dbHandler->prepare("INSERT INTO users (role, userRealName, email, phoneNumber, bloodType, birthday, username, password) VALUES (:role, :userRealName, :email, :phoneNumber, :bloodType, :birthday, :username, :password)");
                 $role = 'user';
                 $stmt->bindParam(':role', $role);
                 $stmt->bindParam(':userRealName', $userRealName);

@@ -50,13 +50,7 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__auth">
-                <a href="login.php"><i class="fa fa-user">
-                    </i>
-                        <?php
-                            global $message_Login;
-                            echo "{$message_Login["entry"]}";
-                        ?>
-                </a>
+                <a href="login.php"><i class="fa fa-user"></i></a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -103,12 +97,24 @@
                             <div class="header__top__right__auth">
                                 <a href="./login.php"><i class="fa fa-user"></i>
                                 <?php
-                                    global $isLogin;
-                                    if($isLogin == true) echo "My Account";
-                                    else echo "Login";
+                                    echo ($_SESSION["loginStatus"]) ? "My Account"
+                                                                    : "Login";
                                 ?>
                                 </a>
                             </div>
+
+                            <?php
+                                if($_SESSION["loginStatus"])
+                                {
+                                    echo "
+                                        <div class=\"header__top__right__auth\">
+                                            <a href=\"./login.php\"><i class=\"fa fa-sign-out\"></i>Logout
+                                            </a>
+                                        </div>
+                                    ";
+                                    
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
