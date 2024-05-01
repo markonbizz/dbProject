@@ -25,6 +25,9 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/login_utils.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+
+	<!-- from main page css -->
+    <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
 <!--===============================================================================================-->
 
 	<!-- Initialize Login Session -->
@@ -40,12 +43,17 @@
 </head>
 <body style="background-color: #666666;">
 	
+	<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form-custom01 validate-form" action="login.php" method="post">
 					<span class="login100-form-title p-b-43">
-						Login
+						Sign In
 					</span>
 					
 					
@@ -120,6 +128,9 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/login.js"></script>
+
+	<!-- from main page js -->
+    <script src="js/main.js"></script> <!-- USED FOR PAGE TRANSITION-->
 
 </body>
 </html>

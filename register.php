@@ -27,6 +27,9 @@
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 <!--===============================================================================================-->
 
+	<!-- from main page css -->
+    <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
+
 <!-- Functionalities -->
 	<?php
 		session_start();
@@ -39,6 +42,11 @@
 </head>
 <body style="background-color: #666666;">
 	
+	<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -46,7 +54,6 @@
 					<span class="login100-form-title p-b-43">
 						Sign Up
 					</span>
-					
 					
 					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
 						<input class="input100" type="text" name="fAccount">
@@ -89,22 +96,6 @@
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repeat Password</span>
 					</div>
-
-					<!-- <div class="flex-sb-m w-full p-t-3 p-b-32">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-
-						<div>
-							<a href="#" class="txt1">
-								Forgot Password?
-							</a>
-						</div>
-					</div> -->
-			
 
 					<div class="container-login100-form-btn p-t-25">
 						<button class="login100-form-btn">
@@ -149,5 +140,7 @@
 <!--===============================================================================================-->
 	<script src="js/login.js"></script>
 
+	<!-- from main page js -->
+    <script src="js/main.js"></script> <!-- USED FOR PAGE TRANSITION-->
 </body>
 </html>

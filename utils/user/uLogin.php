@@ -50,7 +50,13 @@ function User_VerifyLogin(){
             exit();
         } else {
             // 登入失敗以及錯誤訊息
-            echo "<script>alert('Invalid user name or password');</>";
+            echo
+            "<script>
+                alert('Invaild Account / Password or Account may not exist');
+                setTimeout(function() {
+                    window.location.href = 'login.php';
+                }, 0);
+            </script>";
         }
     }
 }

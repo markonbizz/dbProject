@@ -26,9 +26,18 @@
 	<link rel="stylesheet" type="text/css" href="css/login_utils.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 <!--===============================================================================================-->
+
+	<!-- from main page css -->
+    <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
+
 </head>
 <body style="background-color: #666666;">
 	
+	<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -116,5 +125,7 @@
 <!--===============================================================================================-->
 	<script src="js/login.js"></script>
 
+	<!-- from main page js -->
+    <script src="js/main.js"></script> <!-- USED FOR PAGE TRANSITION-->
 </body>
 </html>

@@ -25,7 +25,6 @@
 
     <?php
         session_start();
-
         include "utils/Session.php";
     ?>
 
