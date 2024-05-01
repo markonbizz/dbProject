@@ -95,26 +95,12 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
-                            <div class="header__top__right__auth">
-                                <a href="./login.php"><i class="fa fa-user"></i>
-                                <?php
-                                    echo ($_SESSION["loginState"]) ? "My Account"
-                                                                   : "Login";
-                                ?>
-                                </a>
-                            </div>
-
+                            
                             <?php
-                                if($_SESSION["loginState"])
-                                {
-                                    echo "
-                                        <div class=\"header__top__right__auth\">
-                                            <a href=\"./login.php\"><i class=\"fa fa-sign-out\"></i>Logout
-                                            </a>
-                                        </div>
-                                    ";
-                                }
+                                Entry_SectionLogin($_SESSION["loginState"]);
+                                Entry_SectionLogout($_SESSION["loginState"]);
                             ?>
+
                         </div>
                     </div>
                 </div>
