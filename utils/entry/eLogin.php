@@ -1,11 +1,11 @@
 <?php
 
-function Entry_SectionLogin($LOGIN_STATE){
+function Entry_SectionLogin(){
 
     $entryOnline = "myAccount.php";
     $entryLogin = "login.php";
 
-    if($LOGIN_STATE){
+    if(isset($_SESSION["isLogin"])){
 
         echo 
         "

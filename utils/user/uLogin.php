@@ -22,8 +22,6 @@ function User_VerifyLogin(){
 
         $bTargetUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        echo "<script>alert('". $bTargetUser["Account"] ."')</script>";
-
         if (($bTargetUser) && password_verify($bPassword, $bTargetUser['Password'])){ ;
       
             $_SESSION['ID']         = $bTargetUser['ID']; 
@@ -33,17 +31,24 @@ function User_VerifyLogin(){
 
             if($_SESSION['Permission'] == "ADMIN"){
                 
-                $_SESSION["loginState"] = true;
-                header('Location: ../index.php');
+                if(!isset($_SESSION["isLogin"]) || empty($_SESSION["isLogin"])){
+                
+                    $_SESSION["isLogin"] = true;
+                }
+                    
+                header('Location: index.php');
             }else{
-                $_SESSION["loginState"] = true;
-                header('Location: ../contact.php'); 
+
+                if(!isset($_SESSION["isLogin"]) || empty($_SESSION["isLogin"])){
+                
+                    $_SESSION["isLogin"] = true;
+                }
+
+                header('Location: contact.php'); 
             }
         
             exit();
         } else {
-            
-            $_SESSION["loginState"] = false;
             // 登入失敗以及錯誤訊息
             echo "<script>alert('Invalid user name or password');</>";
         }

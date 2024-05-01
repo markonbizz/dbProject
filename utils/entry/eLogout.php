@@ -1,15 +1,19 @@
 <?php
 
-function Entry_SectionLogout($LOGIN_STATE){
+if(!defined("WEB_ROOTPATH")){
+    define("WEB_ROOTPATH", "/var/www/html/");
+}
 
-    $entry = "myAccount.php";
+function Entry_SectionLogout(){
 
-    if($LOGIN_STATE){
+    $entry = "utils/user/uLogout.php";
+
+    if(isset($_SESSION["isLogin"])){
 
         echo
         "
             <div class=\"header__top__right__auth\">
-                <a href=\"<?php WEB_ROOTPATH\.\"utils/user/uLogout.php\" ?>\"><i class=\"fa fa-sign-out\"></i>
+                <a href=\"{$entry}\"><i class=\"fa fa-sign-out\"></i>
                     Logout
                 </a>
             </div>

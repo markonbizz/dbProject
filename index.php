@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zxx">
 
 <head>
@@ -87,18 +88,19 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i>dennisbrown12345@email.com</li>
-                                <li>Free Shipping for all Order of $99</li>
-                            </ul>
+
+                            <?php
+                                Entry_SectionEmail();
+                            ?>
+                        
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             
                             <?php
-                                Entry_SectionLogin($_SESSION["loginState"]);
-                                Entry_SectionLogout($_SESSION["loginState"]);
+                                Entry_SectionLogin();
+                                Entry_SectionLogout();
                             ?>
 
                         </div>
@@ -118,15 +120,6 @@
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
                             <li><a href="./shop-grid.php">Shop</a></li>
-                            <!-- <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.php">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.php">Shoping Cart</a></li>
-                                    <li><a href="./checkout.php">Check Out</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
-                                </ul>
-                            </li> -->
-                            <!-- <li><a href="./blog.php">Blog</a></li> -->
                             <li><a href="./contact.php">Contact</a></li>
                         </ul>
                     </nav>

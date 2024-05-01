@@ -33,6 +33,7 @@
 		session_start();
 		
 		include "utils/Session.php";
+
 		User_VerifyLogin();
 	?>
 
