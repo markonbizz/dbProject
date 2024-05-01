@@ -1,14 +1,11 @@
 <?php
 
-if(!defined("WEB_ROOTPATH")){
-    define("WEB_ROOTPATH", "/var/www/html/");
-}
+include_once("sessionPaths.php");
+include_once("sessionDefines.php");
 
-include_once(WEB_ROOTPATH . "utils/GLOBAL_DEFINES.php");
+function User_GetRegisteration(){
 
-function User_Register(){
-
-    $dbHandler = DB_EstConnection();
+    $dbHandler = Database_Connect();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
 

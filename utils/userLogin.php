@@ -1,15 +1,13 @@
 <?php
 
-if(!defined("WEB_ROOTPATH")){
-    define("WEB_ROOTPATH", "/var/www/html/");
-}
+include_once("sessionPaths.php");
+include_once("sessionDefines.php");
 
-include_once(WEB_ROOTPATH . "utils/GLOBAL_DEFINES.php");
-include_once(WEB_ROOTPATH . "utils/database/dConnect.php");
+include_once("dbConnect.php");
 
-function User_VerifyLogin(){
+function User_LoginSession(){
 
-    $dbHandler = DB_EstConnection();
+    $dbHandler = Database_Connect();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
@@ -31,17 +29,17 @@ function User_VerifyLogin(){
 
             if($_SESSION['Permission'] == "ADMIN"){
                 
-                if(!isset($_SESSION["isLogin"]) || empty($_SESSION["isLogin"])){
+                if(!isset($_SESSION["USER_ACTIVE"]) || empty($_SESSION["USER_ACTIVE"])){
                 
-                    $_SESSION["isLogin"] = true;
+                    $_SESSION["USER_ACTIVE"] = true;
                 }
                     
                 header('Location: index.php');
             }else{
 
-                if(!isset($_SESSION["isLogin"]) || empty($_SESSION["isLogin"])){
+                if(!isset($_SESSION["USER_ACTIVE"]) || empty($_SESSION["USER_ACTIVE"])){
                 
-                    $_SESSION["isLogin"] = true;
+                    $_SESSION["USER_ACTIVE"] = true;
                 }
 
                 header('Location: contact.php'); 

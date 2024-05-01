@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include "utils/utils.php";
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -103,23 +108,8 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="Login.php"><i class="fa fa-user"></i> Login</a>
                             </div>
                         </div>
                     </div>
@@ -137,27 +127,26 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="./index.php">Home</a></li>
-                            <li class="active"><a href="./shop-grid.php">Shop</a></li>
+                            <li class="active"><a href="./Shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.php">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.php">Shoping Cart</a></li>
+                                    <li><a href="./ItemDetails.php">Shop Details</a></li>
+                                    <li><a href="./Cart.php">Shoping Cart</a></li>
                                     <li><a href="./checkout.php">Check Out</a></li>
                                     <li><a href="./blog-details.php">Blog Details</a></li>
                                 </ul>
                             </li>
                             <li><a href="./blog.php">Blog</a></li>
-                            <li><a href="./contact.php">Contact</a></li>
+                            <li><a href="./Contact.php">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">Item: <span>$150.00</span></div>
                     </div>
                 </div>
             </div>

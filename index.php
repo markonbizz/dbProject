@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include "utils/utils.php";
+?>
+
 <!DOCTYPE html>
 
 <html lang="zxx">
@@ -23,11 +28,6 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
-    <?php
-        session_start();
-        include "utils/Session.php";
-    ?>
-
 </head>
 
 <body>
@@ -51,23 +51,23 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__auth">
-                <a href="login.php"><i class="fa fa-user"></i></a>
+                <a href="Login.php"><i class="fa fa-user"></i></a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="./index.php">Home</a></li>
-                <li><a href="./shop-grid.php">Shop</a></li>
+                <li><a href="./Shop.php">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.php">Shop Details</a></li>
-                        <li><a href="./shoping-cart.php">Shoping Cart</a></li>
+                        <li><a href="./ItemDetails.php">Shop Details</a></li>
+                        <li><a href="./Cart.php">Shoping Cart</a></li>
                         <li><a href="./checkout.php">Check Out</a></li>
                         <li><a href="./blog-details.php">Blog Details</a></li>
                     </ul>
                 </li>
                 <li><a href="./blog.php">Blog</a></li>
-                <li><a href="./contact.php">Contact Us</a></li>
+                <li><a href="./Contact.php">Contact Us</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -89,7 +89,7 @@
                         <div class="header__top__left">
 
                             <?php
-                                Entry_SectionEmail();
+                                Region_FetchEmail();
                             ?>
                         
                         </div>
@@ -98,8 +98,8 @@
                         <div class="header__top__right">
                             
                             <?php
-                                Entry_SectionLogin();
-                                Entry_SectionLogout();
+                                Region_FetchLogin();
+                                Region_FetchLogout();
                             ?>
 
                         </div>
@@ -118,15 +118,15 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="./shop-grid.php">Shop</a></li>
-                            <li><a href="./contact.php">Contact</a></li>
+                            <li><a href="./Shop.php">Shop</a></li>
+                            <li><a href="./Contact.php">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="shoping-cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
+                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">Item: <span>$150.00</span></div>
                     </div>

@@ -1,16 +1,22 @@
 <?php
 
-function Entry_SectionLogin(){
+include_once("sessionPaths.php");
+include_once("sessionDefines.php");
 
-    $entryOnline = "myAccount.php";
-    $entryLogin = "login.php";
+function Region_FetchLogin(){
 
-    if(isset($_SESSION["isLogin"])){
+    $entries = 
+    [
+        "Manage" => "ManageAccount.php",
+        "ifLogout" => "Login.php"
+    ];
+
+    if(isset($_SESSION["USER_ACTIVE"])){
 
         echo 
         "
             <div class=\"header__top__right__auth\">
-                <a href=\"{$entryOnline}\">
+                <a href=\"{$entries["Manage"]}\">
                     <i class=\"fa fa-user\"></i> 
                     My Account 
                 </a>
@@ -21,7 +27,7 @@ function Entry_SectionLogin(){
         echo 
         "
             <div class=\"header__top__right__auth\">
-                <a href=\"{$entryLogin}\">
+                <a href=\"{$entries["ifLogout"]}\">
                     <i class=\"fa fa-user\"></i> 
                     Login 
                 </a>

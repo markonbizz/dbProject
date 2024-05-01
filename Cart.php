@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include "utils/utils.php";
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -21,11 +26,6 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-
-    <?php
-        session_start();
-        include "utils/Session.php"
-    ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -125,21 +125,21 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="header__top__left">
-                            
-                            <?php
-                                Entry_SectionEmail();
-                            ?>
 
+                            <?php
+                                Region_FetchEmail();
+                            ?>
+                        
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             
                             <?php
-                                Entry_SectionLogin();
-                                Entry_SectionLogout();
+                                Region_FetchLogin();
+                                Region_FetchLogout();
                             ?>
-                        
+
                         </div>
                     </div>
                 </div>

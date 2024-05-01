@@ -1,12 +1,9 @@
 <?php
 
-if(!defined("WEB_ROOTPATH")){
-    define("WEB_ROOTPATH", "/var/www/html/");
-}
+include_once("sessionPaths.php");
+include_once("sessionDefines.php");
 
-include_once(WEB_ROOTPATH . "utils/GLOBAL_DEFINES.php");
-
-function DB_EstConnection(){
+function Database_Connect(){
 
     global $dbEssential;
 

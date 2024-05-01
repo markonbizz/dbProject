@@ -1,7 +1,12 @@
+<?php
+    session_start();
+    include "utils/utils.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>DENNIS' ARMORY | Sign Up</title>
+	<title>DENNIS' ARMORY | Reset Password</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -30,15 +35,6 @@
 	<!-- from main page css -->
     <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
 
-<!-- Functionalities -->
-	<?php
-		session_start();
-		include_once("utils/Session.php");
-
-		// if (!isset($_SESSION['csrf_token'])) $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-		
-		User_Register();
-	?>
 </head>
 <body style="background-color: #666666;">
 	
@@ -50,56 +46,34 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form-custom00 validate-form" action="register.php" method="post">
+				<form action="ResetPassword.php" method="post" class="login100-form-custom01 validate-form">
 					<span class="login100-form-title p-b-43">
-						Sign Up
+						Forgot Password
 					</span>
 					
-					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
-						<input class="input100" type="text" name="fAccount">
+					
+					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
+						<input class="input100" type="text" name="clientemail">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Account</span>
 					</div>
 					
-					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
-						<input class="input100" type="text" name="fRealName">
+					
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" name="newpasswd">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Real Name</span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="email" name="fEmail">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "No Information was entered">
-						<input class="input100" type="text" name="fBirthday">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Birthday</span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="fPhoneNumber">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Phone Number</span>
+						<span class="label-input100">New Password</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="fPassword">
+						<input class="input100" type="password" name="ck_newpasswd">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Password</span>
-					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="This credential is needd">
-						<input class="input100" type="password" name="fPassword_Again">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Repeat Password</span>
+						<span class="label-input100">Repeat New Password</span>
 					</div>
 
 					<div class="container-login100-form-btn p-t-25">
 						<button class="login100-form-btn">
-							Register
+							Reset
 						</button>
 					</div>
 					
@@ -108,9 +82,10 @@
 							Already have an account? &nbsp;
 						</span>
 						<span>
-							<a class="txt2" href="login.php">Sign in</a>
+							<a class="txt2" href="Login.php">Sign in</a>
 						</span>
 					</div>
+					
 				</form>
 
 				<div class="login100-more" style="background-image: url('img/bg-01.jpg');">

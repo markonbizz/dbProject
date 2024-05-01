@@ -1,7 +1,12 @@
+<?php
+    session_start();
+    include "utils/utils.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>DENNIS' ARMORY | Reset Password</title>
+	<title>DENNIS' ARMORY | Sign In</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -25,10 +30,18 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/login_utils.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
-<!--===============================================================================================-->
 
 	<!-- from main page css -->
     <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
+<!--===============================================================================================-->
+
+	<!-- Initialize Login Session -->
+
+	<?php
+
+		User_LoginSession();
+
+	?>
 
 </head>
 <body style="background-color: #666666;">
@@ -41,59 +54,53 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form action="#" class="login100-form-custom01 validate-form">
+				<form class="login100-form-custom01 validate-form" action="Login.php" method="post">
 					<span class="login100-form-title p-b-43">
-						Forgot Password
+						Sign In
 					</span>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
-						<input class="input100" type="text" name="clientemail">
+						<input class="input100" type="text" name="fAccount">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Account</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="newpasswd">
+						<input class="input100" type="password" name="fPassword">
 						<span class="focus-input100"></span>
-						<span class="label-input100">New Password</span>
+						<span class="label-input100">Password</span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="ck_newpasswd">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Repeat New Password</span>
-					</div>
-
-					<!-- <div class="flex-sb-m w-full p-t-3 p-b-32">
+					<div class="flex-sb-m w-full p-t-25 p-b-32">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="fRememberMe">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
 						</div>
 
 						<div>
-							<a href="#" class="txt2">
+							<a href="ResetPassword.php" class="txt2">
 								Forgot Password?
 							</a>
 						</div>
-					</div> -->
+					</div>
 			
 
-					<div class="container-login100-form-btn p-t-25">
+					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Reset
+							Login
 						</button>
 					</div>
 					
-					<div class="text-center p-t-32 p-b-20">
+					<div class="text-center p-t-46 p-b-20">
 						<span class="txt1">
-							Already have an account? &nbsp;
+							Don't have Accounts? &nbsp;
 						</span>
 						<span>
-							<a class="txt2" href="login.php">Sign in</a>
+							<a class="txt2" href="Register.php">Create One</a>
 						</span>
 					</div>
 				</form>
@@ -127,5 +134,6 @@
 
 	<!-- from main page js -->
     <script src="js/main.js"></script> <!-- USED FOR PAGE TRANSITION-->
+
 </body>
 </html>

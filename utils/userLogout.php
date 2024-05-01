@@ -1,10 +1,9 @@
 <?php
 
-if(!defined("WEB_ROOTPATH")){
-    define("WEB_ROOTPATH", "/var/www/html/");
-}
+include_once("sessionPaths.php");
+include_once("sessionDefines.php");
 
-function User_SessionDestory(){
+function User_LogoutSession(){
 
     session_start();
 
@@ -19,9 +18,9 @@ function User_SessionDestory(){
                   $params["secure"], $params["httponly"]);
     }   
 
-    if((isset($_SESSION["isLogin"]))){
+    if((isset($_SESSION["USER_ACTIVE"]))){
 
-        $_SESSION["isLogin"] = null;
+        $_SESSION["USER_ACTIVE"] = null;
         header("Location: {$redirect_dst}");
     }
 
@@ -32,4 +31,4 @@ function User_SessionDestory(){
     exit();
 }
 
-User_SessionDestory();
+User_LogoutSession();

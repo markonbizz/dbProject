@@ -1,8 +1,11 @@
 <?php
 
-function Entry_SectionEmail(){
+include_once("sessionPaths.php");
+include_once("sessionDefines.php");
+
+function Region_FetchEmail(){
     
-    if(isset($_SESSION["isLogin"])){
+    if(isset($_SESSION["USER_ACTIVE"])){
 
         echo"
 
