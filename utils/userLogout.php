@@ -7,7 +7,7 @@ function User_LogoutSession(){
 
     session_start();
 
-    $redirect_dst = "../../index.php";
+    $redirect_dst = "../index.php";
 
     if (ini_get("session.use_cookies")){
 
