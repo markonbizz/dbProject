@@ -42,7 +42,7 @@ function User_LoginSession(){
                     $_SESSION["USER_ACTIVE"] = true;
                 }
 
-                header('Location: contact.php'); 
+                header('Location: Contact.php'); 
             }
         
             exit();
