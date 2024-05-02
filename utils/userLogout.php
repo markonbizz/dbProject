@@ -26,8 +26,6 @@ function User_LogoutSession(){
 
     session_destroy();
 
-    echo "<script>alert('Logout Successfully!');</>";
-
     exit();
 }
 

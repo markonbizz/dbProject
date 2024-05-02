@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>DENNIS' ARMORY | Sign In</title>
+	<title>DENNIS' ARMORY | Reset Password</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -30,16 +30,14 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/login_utils.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
+<!--===============================================================================================-->
 
 	<!-- from main page css -->
     <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
-<!--===============================================================================================-->
-
-	<!-- Initialize Login Session -->
 
 	<?php
 
-		User_LoginSession();
+		User_VerifyAccount();
 
 	?>
 
@@ -47,16 +45,16 @@
 <body style="background-color: #666666;">
 	
 	<!-- Page Preloder -->
-    <!-- <div id="preloder">
+    <div id="preloder">
         <div class="loader"></div>
-    </div> -->
+    </div>
 
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form-custom01 validate-form" action="Login.php" method="post">
+				<form action="ForgotPassword.php" method="post" class="login100-form-custom01 validate-form">
 					<span class="login100-form-title p-b-43">
-						Sign In
+						Verify Account Infomation
 					</span>
 					
 					
@@ -67,42 +65,27 @@
 					</div>
 					
 					
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="fPassword">
+					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
+						<input class="input100" type="email" name="fEmail">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Password</span>
+						<span class="label-input100">Email</span>
 					</div>
 
-					<div class="flex-sb-m w-full p-t-25 p-b-32">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="fRememberMe">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
-
-						<div>
-							<a href="ForgotPassword.php" class="txt2">
-								Forgot Password?
-							</a>
-						</div>
-					</div>
-			
-
-					<div class="container-login100-form-btn">
+					<div class="container-login100-form-btn p-t-25">
 						<button class="login100-form-btn">
-							Login
+							Verify
 						</button>
 					</div>
 					
-					<div class="text-center p-t-46 p-b-20">
+					<div class="text-center p-t-32 p-b-20">
 						<span class="txt1">
-							Don't have Accounts? &nbsp;
+							Already have an account? &nbsp;
 						</span>
 						<span>
-							<a class="txt2" href="Register.php">Create One</a>
+							<a class="txt2" href="Login.php">Sign in</a>
 						</span>
 					</div>
+					
 				</form>
 
 				<div class="login100-more" style="background-image: url('img/bg-01.jpg');">
@@ -110,6 +93,9 @@
 			</div>
 		</div>
 	</div>
+	
+	
+
 	
 	
 <!--===============================================================================================-->
@@ -131,6 +117,5 @@
 
 	<!-- from main page js -->
     <script src="js/main.js"></script> <!-- USED FOR PAGE TRANSITION-->
-
 </body>
 </html>

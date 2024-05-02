@@ -3,6 +3,23 @@
 include_once("sessionPaths.php");
 include_once("sessionDefines.php");
 
+function User_GenerateUID($_Prefix = "", $_Length = 8){
+
+    // Method By hackan@gmail.com from 7 years ago. :)
+    if (function_exists("random_bytes")){
+
+        $bytes_ = random_bytes(ceil($_Length / 2));
+    }elseif (function_exists("openssl_random_pseudo_bytes")) {
+    
+        $bytes_ = openssl_random_pseudo_bytes(ceil($_Length / 2));
+    }else{
+        
+        throw new Exception("no cryptographically secure random function available");
+    }
+
+    return ($_Prefix . substr(bin2hex($bytes_), 0, $_Length));
+}
+
 function User_GetRegisteration(){
 
     $dbHandler = Database_Connect();
@@ -67,13 +84,13 @@ function User_GetRegisteration(){
         }
 
         if(empty($errors)){
-            $checkUser = $dbHandler->prepare("SELECT COUNT(*) FROM User WHERE Account = :Account");
+            $checkUser = $dbHandler->prepare("SELECT COUNT(*) FROM Users WHERE Account = :Account");
             $checkUser -> bindParam(':Account', $bAccount);
             $checkUser -> execute();
 
             if($checkUser->fetchColumn() > 0) $errors.= "This account has been registered\\n";
 
-            $checkEmail = $dbHandler->prepare("SELECT COUNT(*) FROM User WHERE Email = :Email");
+            $checkEmail = $dbHandler->prepare("SELECT COUNT(*) FROM Users WHERE Email = :Email");
             $checkEmail -> bindParam(':Email', $bEmail);
             $checkEmail -> execute();
 
@@ -93,9 +110,14 @@ function User_GetRegisteration(){
 
             try {
                 $stmt = $dbHandler->prepare("INSERT INTO 
-                                             User (Permission, RealName, Email, PhoneNumber, Birthday, Account, Password) VALUES 
-                                                  (:Permission, :RealName, :Email, :PhoneNumber, :Birthday, :Account, :Password)");
+                                             Users (UID, Permission, RealName, Email, PhoneNumber, Birthday, Account, Password) 
+                                                    VALUES 
+                                                   (:UID, :Permission, :RealName, :Email, :PhoneNumber, :Birthday, :Account, :Password)");
+                
+                $bUserID     = User_GenerateUID();
                 $bPermission = 'USER';
+
+                $stmt->bindParam(':UID'         , $bUserID);
                 $stmt->bindParam(':Permission'  , $bPermission);
                 $stmt->bindParam(':RealName'    , $bRealName);
                 $stmt->bindParam(':Email'       , $bEmail);
@@ -108,7 +130,7 @@ function User_GetRegisteration(){
                 echo "<script>
                         alert('Registeration successfully');
                         setTimeout(function() {
-                            window.location.href = 'login.php';
+                            window.location.href = 'Login.php';
                         }, 0);
                     </script>";
 

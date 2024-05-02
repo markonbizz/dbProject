@@ -14,7 +14,7 @@ function User_LoginSession(){
         $bAccount  = $_POST['fAccount']  ?? '';
         $bPassword = $_POST['fPassword'] ?? '';
 
-        $stmt = $dbHandler->prepare("SELECT * FROM User WHERE Account = :Account");
+        $stmt = $dbHandler->prepare("SELECT * FROM Users WHERE Account = :Account");
         $stmt->bindParam(':Account', $bAccount);
         $stmt->execute();
 
@@ -22,6 +22,11 @@ function User_LoginSession(){
 
         if (($bTargetUser) && password_verify($bPassword, $bTargetUser['Password'])){ ;
       
+            echo
+			"
+				<script> alert('Login Successfully'); </script>;
+			";
+            
             $_SESSION['ID']         = $bTargetUser['ID']; 
             $_SESSION['Account']    = $bTargetUser['Account']; 
             $_SESSION['Email']      = $bTargetUser['Email']; 
@@ -44,17 +49,14 @@ function User_LoginSession(){
 
                 header('Location: Contact.php'); 
             }
-        
+
             exit();
         } else {
             // 登入失敗以及錯誤訊息
             echo
-            "<script>
-                alert('Invaild Account / Password or Account may not exist');
-                setTimeout(function() {
-                    window.location.href = 'login.php';
-                }, 0);
-            </script>";
+            "
+                <script> alert('Login Failed'); </script>;
+            ";
         }
     }
 }

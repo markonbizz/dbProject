@@ -35,6 +35,12 @@
 	<!-- from main page css -->
     <link rel="stylesheet" href="css/style.css" type="text/css"> <!-- USED FOR PAGE TRANSITION-->
 
+	<?php
+
+		User_ResetPassword();
+
+	?>
+
 </head>
 <body style="background-color: #666666;">
 	
@@ -48,25 +54,17 @@
 			<div class="wrap-login100">
 				<form action="ResetPassword.php" method="post" class="login100-form-custom01 validate-form">
 					<span class="login100-form-title p-b-43">
-						Forgot Password
+						Reset Password
 					</span>
 					
-					
-					<div class="wrap-input100 validate-input" data-validate = "A valid email is required: example@email.xyz">
-						<input class="input100" type="text" name="clientemail">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Account</span>
-					</div>
-					
-					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="newpasswd">
+						<input class="input100" type="password" name="fNewPassword">
 						<span class="focus-input100"></span>
 						<span class="label-input100">New Password</span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="ck_newpasswd">
+						<input class="input100" type="password" name="fNewPassword_Again">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repeat New Password</span>
 					</div>
@@ -75,15 +73,6 @@
 						<button class="login100-form-btn">
 							Reset
 						</button>
-					</div>
-					
-					<div class="text-center p-t-32 p-b-20">
-						<span class="txt1">
-							Already have an account? &nbsp;
-						</span>
-						<span>
-							<a class="txt2" href="Login.php">Sign in</a>
-						</span>
 					</div>
 					
 				</form>
