@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
+    <!-- CSS Override -->
+    <link rel="stylesheet" href="css/custom_style.css" type="text/css">
+
 </head>
 
 <body>
@@ -98,6 +101,8 @@
                             
                             <?php
                                 Region_FetchLogin();
+                                echo "&nbsp";
+                                echo "&nbsp";
                                 Region_FetchLogout();
                             ?>
 

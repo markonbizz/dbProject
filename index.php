@@ -28,13 +28,15 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
+    <!-- CSS Override -->
+    <link rel="stylesheet" href="css/custom_style.css" type="text/css">
 </head>
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -99,6 +101,8 @@
                             
                             <?php
                                 Region_FetchLogin();
+                                echo "&nbsp";
+                                echo "&nbsp";
                                 Region_FetchLogout();
                             ?>
 
