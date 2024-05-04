@@ -125,17 +125,20 @@ function User_GetRegisteration(){
                 $stmt->bindParam(':Birthday'    , $bBirthday);
                 $stmt->bindParam(':Account'     , $bAccount);
                 $stmt->bindParam(':Password'    , $bHashedPSWD);
-                $stmt->execute();
+                $is_reg_success = $stmt->execute();
             
-                echo "<script>
-                        alert('Registeration successfully');
-                        setTimeout(function() {
-                            window.location.href = 'Login.php';
-                        }, 0);
-                    </script>";
+                if($is_reg_success){
+                    echo
+                    "
+                        <script>
+                            alert(\" Login Successfully ! \");
+                            window.location.href = \"index.php\";
+                        </script>
+                    ";
+                }
 
             } catch (PDOException $e) {
-                echo "資料庫錯誤: " . $e->getMessage();
+                echo "Database Error: " . $e->getMessage();
             }
         }
     }

@@ -21,11 +21,6 @@ function User_LoginSession(){
         $bTargetUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (($bTargetUser) && password_verify($bPassword, $bTargetUser['Password'])){ ;
-      
-            echo
-			"
-				<script> alert('Login Successfully'); </script>;
-			";
             
             $_SESSION['ID']         = $bTargetUser['ID']; 
             $_SESSION['Account']    = $bTargetUser['Account']; 
@@ -39,7 +34,13 @@ function User_LoginSession(){
                     $_SESSION["USER_ACTIVE"] = true;
                 }
                     
-                header('Location: index.php');
+                echo 
+                "
+                    <script>
+                        alert(\" Login Successfully ! \");
+                        window.location.href = \"index.php\";
+                    </script>
+                ";
             }else{
 
                 if(!isset($_SESSION["USER_ACTIVE"]) || empty($_SESSION["USER_ACTIVE"])){
@@ -47,16 +48,25 @@ function User_LoginSession(){
                     $_SESSION["USER_ACTIVE"] = true;
                 }
 
-                header('Location: Contact.php'); 
+                echo 
+                "
+                    <script>
+                        alert(\" Login Successfully ! \");
+                        window.location.href = \"Contact.php\";
+                    </script>
+                "; 
             }
 
             exit();
         } else {
             // 登入失敗以及錯誤訊息
-            echo
+            echo 
             "
-                <script> alert('Login Failed'); </script>;
-            ";
+                <script>
+                    alert(\" Login Failed: Invalid User or Password \");
+                    window.location.href = \"Login.php\";
+                </script>
+            "; 
         }
     }
 }

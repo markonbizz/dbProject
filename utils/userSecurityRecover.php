@@ -21,7 +21,13 @@ function User_ResetPassword_Lazy(){
         $stmt->bindParam(':Password', $bHashedPassword);
         $stmt->execute();
 
-        header("Location: Login.php");
+        echo
+        "
+            <script>
+                alert(\" Reset Successfully: Warning, Lazy mode is used, please switch to Normal mode \");
+                window.location.href = \"Login.php\";
+            </script>
+        ";
     }
 }
 
@@ -53,13 +59,23 @@ function User_VerifyAccount($mode = "normal"){
                 User_ResetPassword_Lazy();
             }else{
 
-                header("Location: ResetPassword.php");
+                echo
+                "
+                    <script>
+                        alert(\" Verification Successfully: User is not found or wrong email. \");
+                        window.location.href = \"ResetPassword.php\";
+                    </script>
+                ";
             }
         } else {
-            
-            echo "<script type=\"javascript\"> alert(\"Verification Failed\"); </script>";
 
-            header("Location: ForgotPassword.php");
+            echo
+            "
+                <script>
+                    alert(\" Verification Failed: User is not found or wrong email. \");
+                    window.location.href = \"ForgotPassword.php\";
+                </script>
+            ";
         }
     }
 }
@@ -82,13 +98,27 @@ function User_ResetPassword(){
             $stmt = $dbHandler->prepare("UPDATE Users SET Password=:Password WHERE Account=:Account");
             $stmt->bindParam(':Account', $_SESSION["bAccount"]);
             $stmt->bindParam(':Password', $bHashedPassword);
-            $stmt->execute();
+            $is_reset_success = $stmt->execute();
 
-            header("Location: Login.php");
+            if($is_reset_success){
+
+                echo
+                "
+                    <script>
+                        alert(\" Reset Successfully \");
+                        window.location.href = \"Login.php\";
+                    </script>
+                ";   
+            }
             
         }else{
         
-            echo "<script type=\"javascript\"> alert(\"Password is not matched\"); </script>";
+            echo 
+            "
+                <script>
+                    alert(\"Reset Failed: Password is not matched\");
+                </script>
+            ";
         }
     }
 }

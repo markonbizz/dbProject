@@ -21,7 +21,14 @@ function User_LogoutSession(){
     if((isset($_SESSION["USER_ACTIVE"]))){
 
         $_SESSION["USER_ACTIVE"] = null;
-        header("Location: {$redirect_dst}");
+        
+        echo 
+        "
+            <script>
+                alert(\" Logout Successfully ! \");
+                window.location.href = \"{$redirect_dst}\";
+            </script>
+        ";
     }
 
     session_destroy();
