@@ -10,15 +10,22 @@ function Region_FetchEmail(){
         echo"
 
             <ul>
-                <li>Welcome Back, {$_SESSION['Account']} </li>
-                <li><i class=\"fa fa-envelope\"></i>{$_SESSION["Email"]}</li>
+                <li>
+                    Welcome Back, <strong>{$_SESSION['Account']}</strong> 
+                </li>
+                <li>
+                    <i class=\"fa fa-envelope\"></i>
+                    <strong>{$_SESSION["Email"]}</strong>
+                </li>
             </ul>
         ";
     }else{
         echo"
 
             <ul>
-                <li>Welcome, Adventurer</li>
+                <li>
+                    Welcome, <strong> Adventurer </strong>
+                </li>
             </ul>
         ";
     }
