@@ -62,7 +62,7 @@ function User_VerifyAccount($mode = "normal"){
                 echo
                 "
                     <script>
-                        alert(\" Verification Successfully: User is not found or wrong email. \");
+                        alert(\" Verification Successfully \");
                         window.location.href = \"ResetPassword.php\";
                     </script>
                 ";

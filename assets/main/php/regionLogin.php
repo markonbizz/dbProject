@@ -18,7 +18,7 @@ function Region_FetchLogin(){
             <div class=\"header__top__right__auth\">
                 <a href=\"{$entry["Manage"]}\">
                     <i class=\"fa fa-user\"></i> 
-                    My Account 
+                   <strong> My Account </strong>
                 </a>
             </div>
         ";
@@ -29,7 +29,7 @@ function Region_FetchLogin(){
             <div class=\"header__top__right__auth\">
                 <a href=\"{$entry["ifLogout"]}\">
                     <i class=\"fa fa-user\"></i> 
-                    Login 
+                    <strong> Login </strong>
                 </a>
             </div>
         ";

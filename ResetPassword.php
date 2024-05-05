@@ -52,7 +52,7 @@
 								
 									<!-- Account -->
 									<label class="sr-only" for="reg-email">Your New Passowrd</label>
-									<input id="reg-email" name="fNewPassword" type="text" class="form-control login-email" placeholder="Password" required="required">
+									<input id="reg-email" name="fNewPassword" type="password" class="form-control login-email" placeholder="Password" required="required">
 								
 								</div><!--//form-group-->
 
@@ -60,7 +60,7 @@
 								
 									<!-- Email -->
 									<label class="sr-only" for="reg-email">Your New Passowrd Repeat</label>
-									<input id="reg-email" name="fNewPassword_Again" type="email" class="form-control login-email" placeholder="Repeat New Password" required="required">
+									<input id="reg-email" name="fNewPassword_Again" type="password" class="form-control login-email" placeholder="Repeat New Password" required="required">
 								
 								</div>
 

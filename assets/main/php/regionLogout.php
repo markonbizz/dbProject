@@ -13,7 +13,7 @@ function Region_FetchLogout(){
         "
             <div class=\"header__top__right__auth\">
                 <a href=\"{$executeScript}\"><i class=\"fa fa-sign-out\"></i>
-                    Logout
+                    <strong> Logout </strong>
                 </a>
             </div>
         ";

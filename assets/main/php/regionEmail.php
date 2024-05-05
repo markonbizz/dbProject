@@ -11,11 +11,11 @@ function Region_FetchEmail(){
 
             <ul>
                 <li>
-                    Welcome Back, <strong>{$_SESSION['Account']}</strong> 
+                    Welcome Back, <strong> {$_SESSION['Account']} </strong> 
                 </li>
                 <li>
                     <i class=\"fa fa-envelope\"></i>
-                    <strong>{$_SESSION["Email"]}</strong>
+                    <strong> {$_SESSION["Email"]} </strong>
                 </li>
             </ul>
         ";
