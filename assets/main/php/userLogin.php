@@ -21,8 +21,8 @@ function User_LoginSession(){
         $bTargetUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (($bTargetUser) && password_verify($bPassword, $bTargetUser['Password'])){ ;
-            
-            $_SESSION['ID']         = $bTargetUser['ID']; 
+
+            $_SESSION['UID']         = $bTargetUser['UID']; 
             $_SESSION['Account']    = $bTargetUser['Account']; 
             $_SESSION['Email']      = $bTargetUser['Email']; 
             $_SESSION['Permission'] = $bTargetUser['Permission'];

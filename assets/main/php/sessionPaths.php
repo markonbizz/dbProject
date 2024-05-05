@@ -3,7 +3,12 @@
 /* 
     This is used if relative path include does not work.
 */
-if(!defined("_SITE_ABSOLUTE_ROOTPATH_"))
+if(!defined("_UTILITIES_PATH_"))
 {    
-    define("_SITE_ABSOLUTE_ROOTPATH_", "/var/www/html/");
+    define("_UTILITIES_PATH_", "assets/main/php/");
+}
+
+if(!defined("_WEB_ABSOLUTE_PATH_"))
+{
+    define("_WEB_ABSOLUTE_PATH_", "/var/www/html/");
 }

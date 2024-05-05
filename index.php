@@ -1,13 +1,13 @@
 <?php
     
-    if(!defined("_UTILITIES_ROOT_"))
+    if(!defined("_UTILITIES_PATH_"))
     {
-        define("_UTILITIES_ROOT_", "assets/main/php/");
+        define("_UTILITIES_PATH_", "assets/main/php/");
     }
     
     session_start();
 
-    include (_UTILITIES_ROOT_) . "utils.php";
+    include (_UTILITIES_PATH_) . "utils.php";
 
 ?>
 
@@ -20,7 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="keywords" content="DENNIS' ARMORY, ARMORY, DENNIS'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DENNIS' ARMORY | Home</title>
@@ -52,7 +52,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="assets/main/images/logo-title.svg" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -125,7 +125,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="index.php"><img src="assets/main/images/logo.png" alt=""></a>
+                        <a href="index.php"><img src="assets/main/images/logo-title.svg" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -682,7 +682,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="index.php"><img src="assets/main/images/logo.png" alt=""></a>
+                            <a href="index.php"><img src="assets/main/images/logo-title.svg" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: National Pingtung University</li>

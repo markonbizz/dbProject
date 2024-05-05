@@ -5,9 +5,9 @@ include_once("sessionDefines.php");
 
 function Region_FetchLogin(){
 
-    $entries = 
+    $entry = 
     [
-        "Manage" => "ManageAccount.php",
+        "Manage" => "Admin.php",
         "ifLogout" => "Login.php"
     ];
 
@@ -16,7 +16,7 @@ function Region_FetchLogin(){
         echo 
         "
             <div class=\"header__top__right__auth\">
-                <a href=\"{$entries["Manage"]}\">
+                <a href=\"{$entry["Manage"]}\">
                     <i class=\"fa fa-user\"></i> 
                     My Account 
                 </a>
@@ -27,7 +27,7 @@ function Region_FetchLogin(){
         echo 
         "
             <div class=\"header__top__right__auth\">
-                <a href=\"{$entries["ifLogout"]}\">
+                <a href=\"{$entry["ifLogout"]}\">
                     <i class=\"fa fa-user\"></i> 
                     Login 
                 </a>

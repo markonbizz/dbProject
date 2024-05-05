@@ -5,7 +5,7 @@ include_once("sessionDefines.php");
 
 function Region_FetchLogout(){
 
-    $executeScript = "utils/userLogout.php";
+    $executeScript = _UTILITIES_PATH_ . "userLogout.php";
 
     if(isset($_SESSION["USER_ACTIVE"])){
 

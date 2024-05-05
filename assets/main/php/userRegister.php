@@ -131,7 +131,7 @@ function User_GetRegisteration(){
                     echo
                     "
                         <script>
-                            alert(\" Login Successfully ! \");
+                            alert(\" Sign Up Successfully ! \");
                             window.location.href = \"index.php\";
                         </script>
                     ";
