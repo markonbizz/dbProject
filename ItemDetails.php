@@ -1,7 +1,17 @@
 <?php
+    
+    if(!defined("_UTILITIES_ROOT_"))
+    {
+        define("_UTILITIES_ROOT_", "assets/main/php/");
+    }
+    
     session_start();
-    include "utils/utils.php";
+
+    include (_UTILITIES_ROOT_) . "utils.php";
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -18,14 +28,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/style.css" type="text/css">
 
     <!-- CSS Override -->
     <link rel="stylesheet" href="css/custom_style.css" type="text/css">
@@ -215,7 +225,7 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <!-- <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -230,7 +240,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
@@ -244,14 +254,14 @@
                                 src="img/product/details/product-details-1.jpg" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-imgbigurl="img/product/details/product-details-2.jpg"
-                                src="img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-3.jpg"
-                                src="img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-5.jpg"
-                                src="img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="img/product/details/product-details-4.jpg"
-                                src="img/product/details/thumb-4.jpg" alt="">
+                            <img data-imgbigurl="assets/main/images/product/details/product-details-2.jpg"
+                                src="assets/main/images/product/details/thumb-1.jpg" alt="">
+                            <img data-imgbigurl="assets/main/images/product/details/product-details-3.jpg"
+                                src="assets/main/images/product/details/thumb-2.jpg" alt="">
+                            <img data-imgbigurl="assets/main/images/product/details/product-details-5.jpg"
+                                src="assets/main/images/product/details/thumb-3.jpg" alt="">
+                            <img data-imgbigurl="assets/main/images/product/details/product-details-4.jpg"
+                                src="assets/main/images/product/details/thumb-4.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -392,7 +402,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-1.jpg">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -407,7 +417,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-2.jpg">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -422,7 +432,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-3.jpg">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -437,7 +447,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-7.jpg">
                             <ul class="product__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -462,7 +472,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                            <a href="./index.php"><img src="assets/main/images/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
@@ -524,14 +534,14 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="assets/main/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/main/js/bootstrap.min.js"></script>
+    <script src="assets/main/js/jquery.nice-select.min.js"></script>
+    <script src="assets/main/js/jquery-ui.min.js"></script>
+    <script src="assets/main/js/jquery.slicknav.js"></script>
+    <script src="assets/main/js/mixitup.min.js"></script>
+    <script src="assets/main/js/owl.carousel.min.js"></script>
+    <script src="assets/main/js/main.js"></script>
 
 
 </body>

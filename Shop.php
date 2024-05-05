@@ -1,7 +1,17 @@
 <?php
+    
+    if(!defined("_UTILITIES_ROOT_"))
+    {
+        define("_UTILITIES_ROOT_", "assets/main/php/");
+    }
+    
     session_start();
-    include "utils/utils.php";
+
+    include (_UTILITIES_ROOT_) . "utils.php";
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -18,17 +28,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/bootstrap.min.css"     type="text/css">
+    <link rel="stylesheet" href="assets/main/css/font-awesome.min.css"  type="text/css">
+    <link rel="stylesheet" href="assets/main/css/elegant-icons.css"     type="text/css">
+    <link rel="stylesheet" href="assets/main/css/nice-select.css"       type="text/css">
+    <link rel="stylesheet" href="assets/main/css/jquery-ui.min.css"     type="text/css">
+    <link rel="stylesheet" href="assets/main/css/owl.carousel.min.css"  type="text/css">
+    <link rel="stylesheet" href="assets/main/css/slicknav.min.css"      type="text/css">
+    <link rel="stylesheet" href="assets/main/css/style.css"             type="text/css">
 
     <!-- CSS Override -->
-    <link rel="stylesheet" href="css/custom_style.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/custom_style.css" type="text/css">
 
 </head>
 
@@ -42,7 +52,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="assets/main/images/logo.png" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -58,18 +68,9 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.php">Home</a></li>
-                <li><a href="./Shop.php">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./ItemDetails.php">Shop Details</a></li>
-                        <li><a href="./Cart.php">Shoping Cart</a></li>
-                        <li><a href="./checkout.php">Check Out</a></li>
-                        <li><a href="./blog-details.php">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.php">Blog</a></li>
-                <li><a href="./Contact.php">Contact Us</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="Shop.php">Shop</a></li>
+                <li><a href="Contact.php">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -115,31 +116,21 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                        <a href="index.php"><img src="assets/main/images/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.php">Home</a></li>
-                            <li class="active"><a href="./Shop.php">Shop</a></li>
-                            <!-- <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.php">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.php">Shoping Cart</a></li>
-                                    <li><a href="./checkout.php">Check Out</a></li>
-                                    <li><a href="./blog-details.php">Blog Details</a></li>
-                                </ul>
-                            </li> -->
-                            <!-- <li><a href="./blog.php">Blog</a></li> -->
-                            <li><a href="./Contact.php">Contact</a></li>
+                            <li><a href="index.php">Home</a></li>
+                            <li class="active"><a href="Shop.php">Shop</a></li>
+                            <li><a href="Contact.php">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
                             <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">Item: <span>$150.00</span></div>
@@ -203,22 +194,7 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <!-- <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h5>You are now in</h5>
-                        <h2>Products</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.php">Home</a>
-                            <span>Shop</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
+    
     <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
@@ -242,23 +218,7 @@
                                 <li><a href="#">Oatmeal</a></li>
                             </ul>
                         </div>
-                        <!-- <div class="sidebar__item">
-                            <h4>Price</h4>
-                            <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="10" data-max="540">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                </div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                        
                         <!-- <div class="sidebar__item sidebar__item__color--option">
                             <h4>Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
@@ -537,7 +497,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-1.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -552,7 +512,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-2.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -567,7 +527,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-3.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -582,7 +542,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-4.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -597,7 +557,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-5.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-5.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -612,7 +572,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-6.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-6.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -627,7 +587,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-7.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -642,7 +602,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-8.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -657,7 +617,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-9.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-9.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -672,7 +632,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-10.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-10.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -687,7 +647,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-11.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-11.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -702,7 +662,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-12.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-12.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -735,7 +695,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                            <a href="index.php"><img src="assets/main/images/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: National Pingtung University</li>
@@ -788,7 +748,7 @@
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                        <div class="footer__copyright__payment"><img src="assets/main/images/payment-item.png" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -797,14 +757,14 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="assets/main/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/main/js/bootstrap.min.js"></script>
+    <script src="assets/main/js/jquery.nice-select.min.js"></script>
+    <script src="assets/main/js/jquery-ui.min.js"></script>
+    <script src="assets/main/js/jquery.slicknav.js"></script>
+    <script src="assets/main/js/mixitup.min.js"></script>
+    <script src="assets/main/js/owl.carousel.min.js"></script>
+    <script src="assets/main/js/main.js"></script>
 </body>
 
 </html>

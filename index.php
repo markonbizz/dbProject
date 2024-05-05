@@ -1,7 +1,17 @@
 <?php
+    
+    if(!defined("_UTILITIES_ROOT_"))
+    {
+        define("_UTILITIES_ROOT_", "assets/main/php/");
+    }
+    
     session_start();
-    include "utils/utils.php";
+
+    include (_UTILITIES_ROOT_) . "utils.php";
+
 ?>
+
+
 
 <!DOCTYPE html>
 
@@ -19,17 +29,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/bootstrap.min.css"     type="text/css">
+    <link rel="stylesheet" href="assets/main/css/font-awesome.min.css"  type="text/css">
+    <link rel="stylesheet" href="assets/main/css/elegant-icons.css"     type="text/css">
+    <link rel="stylesheet" href="assets/main/css/nice-select.css"       type="text/css">
+    <link rel="stylesheet" href="assets/main/css/jquery-ui.min.css"     type="text/css">
+    <link rel="stylesheet" href="assets/main/css/owl.carousel.min.css"  type="text/css">
+    <link rel="stylesheet" href="assets/main/css/slicknav.min.css"      type="text/css">
+    <link rel="stylesheet" href="assets/main/css/style.css"             type="text/css">
 
     <!-- CSS Override -->
-    <link rel="stylesheet" href="css/custom_style.css" type="text/css">
+    <link rel="stylesheet" href="assets/main/css/custom_style.css"      type="text/css">
 </head>
 
 <body>
@@ -115,15 +125,15 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                        <a href="index.php"><img src="assets/main/images/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="./Shop.php">Shop</a></li>
-                            <li><a href="./Contact.php">Contact</a></li>
+                            <li><a href="Shop.php">Shop</a></li>
+                            <li><a href="Contact.php">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -186,7 +196,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                    <div class="hero__item set-bg" data-setbg="assets/main/images/hero/banner.jpg">
                         <div class="hero__text">
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
@@ -258,7 +268,7 @@
             <div class="row featured__filter">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-1.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -273,7 +283,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-2.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -288,7 +298,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-3.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -303,7 +313,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-4.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -318,7 +328,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-5.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -333,7 +343,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-6.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -348,7 +358,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-7.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -363,7 +373,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="assets/main/images/featured/feature-8.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -387,12 +397,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="img/banner/banner-1.jpg" alt="">
+                        <img src="assets/main/images/banner/banner-1.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="img/banner/banner-2.jpg" alt="">
+                        <img src="assets/main/images/banner/banner-2.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -411,7 +421,7 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -420,7 +430,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-2.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -429,7 +439,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-3.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -440,7 +450,7 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -449,7 +459,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-2.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -458,7 +468,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-3.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -476,7 +486,7 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -485,7 +495,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-2.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -494,7 +504,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-3.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -505,7 +515,7 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -514,7 +524,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-2.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -523,7 +533,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-3.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -541,7 +551,7 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -550,7 +560,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-2.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -559,7 +569,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-3.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -570,7 +580,7 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -579,7 +589,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-2.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -588,7 +598,7 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="assets/main/images/latest-product/lp-3.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -672,7 +682,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                            <a href="index.php"><img src="assets/main/images/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: National Pingtung University</li>
@@ -728,14 +738,14 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="assets/main/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/main/js/bootstrap.min.js"></script>
+    <script src="assets/main/js/jquery.nice-select.min.js"></script>
+    <script src="assets/main/js/jquery-ui.min.js"></script>
+    <script src="assets/main/js/jquery.slicknav.js"></script>
+    <script src="assets/main/js/mixitup.min.js"></script>
+    <script src="assets/main/js/owl.carousel.min.js"></script>
+    <script src="assets/main/js/main.js"></script>
 </body>
 
 </html>
