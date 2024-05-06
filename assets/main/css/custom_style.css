@@ -1,15 +1,16 @@
 /* Common */
+
 .hero__categories a:hover{
 
     color: #15a362;
-	transition: ease-in 0.2s;
+	transition: ease-in 0.1s;
 }
 
 /* Shop Catagorization*/
 .sidebar__item ul li a:hover{
 
     color: #15a362;
-	transition: ease-in 0.2s;
+	transition: ease-in 0.1s;
 }
 
 /* index.php Login Block*/
@@ -18,7 +19,7 @@ body div.header__top__right__auth:hover a{
     display: block;
 	font-size: 14px;
 	color: #15a362;
-	transition: ease-in 0.2s;
+	transition: ease-in 0.1s;
 }
 
 /* Cart.php Button */
@@ -26,4 +27,10 @@ body div.shoping__cart__btns a:hover{
     transition: ease-in-out 50ms;
     background-color: #15a362;
     color: #ffffff;
+}
+
+.fa-shopping-cart:hover{
+
+    color: #15a362;
+    transition: ease-in 0.1s;
 }

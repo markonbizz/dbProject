@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-    <title>DENNIS' ARMORY | Log in_arrayn</title>
+    <title>DENNIS' ARMORY | Log in</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
