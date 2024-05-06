@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="assets/main/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="assets/main/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="assets/main/css/style.css" type="text/css">
+
+    <!-- CSS Override & More -->
+    <link rel="stylesheet" href="assets/main/css/custom_style.css"      type="text/css">
 </head>
 
 <body>
