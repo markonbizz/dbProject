@@ -57,7 +57,7 @@
 							
 							<div class="email mb-3">
 								<label class="sr-only" for="signup-birthday">Your Birthday</label>
-								<input id="signup-name" name="fBirthday" type="taxt" class="form-control signup-name" placeholder="Birthday" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" onfocus="(this.type='date')" onblur="(this.type='taxt')" required="required">
+								<input id="signup-name" name="fBirthday" type="taxt" class="form-control signup-name" placeholder="Birthday" onfocus="(this.type='date')" onblur="(this.type='taxt')" required="required">
 							</div>
 
 							<div class="email mb-3">
@@ -67,7 +67,7 @@
 
 							<div class="email mb-3">
 								<label class="sr-only" for="signup-phonenumber">Your Phone Number</label>
-								<input id="signup-name" name="fPhoneNumber" type="tel" class="form-control signup-name" placeholder="Phone Number: 0912345678" pattern="[0-9]{2}[0-9]{8}" required="required">
+								<input id="signup-name" name="fPhoneNumber" type="tel" class="form-control signup-name" placeholder="Phone Number: 0912345678" pattern="[0-9]{10}" required="required">
 							</div>
 
 							<div class="password mb-3">

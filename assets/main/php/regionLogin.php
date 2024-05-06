@@ -7,12 +7,12 @@ function Region_FetchLogin(){
 
     $entry = 
     [
-        "User"      => "AccountInfo.php",
-        "Admin"     => "Admin.php",
+        "User"      => "UserHome.php",
+        "Admin"     => "AdminHome.php",
         "ifLogout"  => "Login.php"
     ];
 
-    if(isset($_SESSION["USER_ACTIVE"]) && ($_SESSION["Permission"] === "ADMIN")){
+    if(isset($_SESSION["Account"]) && ($_SESSION["Permission"] === "ADMIN")){
 
         echo 
         "
@@ -23,7 +23,7 @@ function Region_FetchLogin(){
                 </a>
             </div>
         ";
-    }elseif(isset($_SESSION["USER_ACTIVE"]) && ($_SESSION["Permission"] === "USER")){
+    }elseif(isset($_SESSION["Account"]) && ($_SESSION["Permission"] === "USER")){
 
         echo 
         "

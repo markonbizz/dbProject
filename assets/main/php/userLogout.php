@@ -18,9 +18,9 @@ function User_LogoutSession(){
                   $params["secure"], $params["httponly"]);
     }   
 
-    if((isset($_SESSION["USER_ACTIVE"]))){
+    if((isset($_SESSION["Account"]))){
 
-        $_SESSION["USER_ACTIVE"] = null;
+        $_SESSION = array();
         
         echo 
         "

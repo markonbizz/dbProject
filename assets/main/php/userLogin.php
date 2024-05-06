@@ -28,11 +28,6 @@ function User_LoginSession(){
             $_SESSION['Permission'] = $bTargetUser['Permission'];
 
             if($_SESSION['Permission'] == "ADMIN"){
-                
-                if(!isset($_SESSION["USER_ACTIVE"]) || empty($_SESSION["USER_ACTIVE"])){
-                
-                    $_SESSION["USER_ACTIVE"] = true;
-                }
                     
                 echo 
                 "
@@ -43,16 +38,11 @@ function User_LoginSession(){
                 ";
             }else{
 
-                if(!isset($_SESSION["USER_ACTIVE"]) || empty($_SESSION["USER_ACTIVE"])){
-                
-                    $_SESSION["USER_ACTIVE"] = true;
-                }
-
                 echo 
                 "
                     <script>
                         alert(\" Login Successfully ! \");
-                        window.location.href = \"Contact.php\";
+                        window.location.href = \"index.php\";
                     </script>
                 "; 
             }

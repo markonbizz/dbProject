@@ -7,7 +7,7 @@ function Region_FetchLogout(){
 
     $executeScript = _UTILITIES_PATH_ . "userLogout.php";
 
-    if(isset($_SESSION["USER_ACTIVE"])){
+    if(isset($_SESSION["Account"])){
 
         echo
         "

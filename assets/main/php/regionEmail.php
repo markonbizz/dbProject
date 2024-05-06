@@ -5,7 +5,7 @@ include_once("sessionDefines.php");
 
 function Region_FetchEmail(){
     
-    if(isset($_SESSION["USER_ACTIVE"])){
+    if(isset($_SESSION["Account"])){
 
         echo"
 
