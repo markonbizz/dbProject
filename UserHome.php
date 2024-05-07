@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+    <title>User Home | DENNIS' ARMORY</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -28,17 +28,11 @@
 	        <div class="container-fluid py-2">
 		        <div class="app-header-content"> 
 
-					<a class="nav-link" href="docs.html">
-						
-						<span class="nav-icon">
-							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-								<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z"/>
-								<path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
-							</svg>
-						</span>
+					<div class="app-card">
 
-						<span class="nav-link-text">Docs</span>
-					</a><!--//nav-link-->
+							<h1 class="app-page-title">Overview</h1>
+
+					</div>
 
 		        </div><!--//row-->
 	            </div><!--//app-header-content-->
@@ -148,7 +142,7 @@
 						        </ul>
 					        </div>
 					    </li><!--//nav-item-->
-
+					</ul>
 
 <!-- =========================================================================================================================================================================================================================================== -->
 <!-- =========================================================================================================================================================================================================================================== -->
@@ -169,31 +163,40 @@
 			    <div class="app-sidepanel-footer">
 				    <nav class="app-nav app-nav-footer">
 					    <ul class="app-menu footer-menu list-unstyled">
-						    <li class="nav-item">
+						    
+							
+							
+							<li class="nav-item">
 						        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
 						        <a class="nav-link" href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
 							        <span class="nav-icon">
 							            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	  <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-	  <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-	</svg>
+											<path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+											<path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+										</svg>
 							        </span>
 			                        <span class="nav-link-text">Go Back to Main Page</span>
 						        </a><!--//nav-link-->
 						    </li><!--//nav-item-->
+
+
+
 						    <li class="nav-item">
 						        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
 						        <a class="nav-link" href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
 							        <span class="nav-icon">
 							            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	  <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
-	  <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-	</svg>
+											<path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+											<path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+										</svg>
 							        </span>
 			                        <span class="nav-link-text">Log out</span>
 						        </a><!--//nav-link-->
 						    </li><!--//nav-item-->
-					    </ul><!--//footer-menu-->
+					    
+						
+						
+						</ul><!--//footer-menu-->
 				    </nav>
 			    </div><!--//app-sidepanel-footer-->
 		       
@@ -213,19 +216,32 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 			    
-			    <h1 class="app-page-title">Overview</h1>
-			    
 			    <div class="app-card shadow-sm mb-4 border-left-decoration">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
-						    <h3 class="mb-3">Welcome, developer!</h3>
-						    <div class="row gx-5 gy-3">
-						        <div class="col-12 col-lg-9">
-							        
-							        <div>Portal is a free Bootstrap 5 admin dashboard template. The design is simple, clean and modular so it's a great base for building any modern web app.</div>
-							    
-								</div><!--//col-->
-						    </div><!--//row-->
+						    
+
+						    <div class="row gx-5 gy-4">
+
+						        <div class="col mt-5">
+									<h2>Welcome, User!</h2>
+								</div>
+
+								<div class="col-md-auto m-auto mt-5">
+									<h6> Total Balance </h6>
+									<div class="col-md-auto">
+										<h4> $40000000000 </h4>
+									</div>
+								</div>
+								
+								<div class="col col-lg-2 m-auto mt-5">
+									<h6> Total Spent </h6>
+									<div class="col col-lg-2">
+										<h4> $41500000 </h4>
+									</div>
+								</div>
+						    
+							</div><!--//row-->
 					    </div><!--//app-card-body-->
 					    
 				    </div><!--//inner-->
@@ -256,7 +272,7 @@
 					        <div class="app-card-header p-3">
 						        <div class="row justify-content-between align-items-center">
 							        <div class="col-auto">
-						                <h4 class="app-card-title">Purchase History</h4>
+						                <h4 class="app-card-title">Recent Purchase Brief</h4>
 							        </div><!--//col-->
 							        <div class="col-auto">
 								        <div class="card-header-action">
@@ -313,6 +329,9 @@
 									</table>
 						        </div><!--//table-responsive-->
 					        </div><!--//app-card-body-->
+
+
+							
 				        </div><!--//app-card-->
 			        </div><!--//col-->
 			    </div><!--//row-->
