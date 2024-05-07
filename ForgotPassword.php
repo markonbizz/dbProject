@@ -15,7 +15,7 @@
 
 <html lang="en"> 
 	<head>
-		<title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+		<title>Forgot Password | DENNIS' ARMORY</title>
 		
 		<!-- Meta -->
 		<meta charset="utf-8">

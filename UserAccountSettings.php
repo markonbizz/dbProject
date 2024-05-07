@@ -43,7 +43,7 @@
 							</a>
 						</div>					
 
-						<h1 class="app-page-title col">Home</h1>
+						<h1 class="app-page-title col">Settings</h1>
 
 					</div><!--//row-->
 	            </div><!--//app-header-content-->
@@ -78,7 +78,7 @@
 					    <li class="nav-item">
 
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link active" href="UserHome.php">
+					        <a class="nav-link" href="UserHome.php">
 						        <span class="nav-icon">
 						        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  								<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
@@ -116,7 +116,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserAccountSettings.php">
+					        <a class="nav-link active" href="UserAccountSettings.php">
 						        <span class="nav-icon">
 									<svg class="bi bi-sliders2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -183,113 +183,126 @@
 
 
 
-	<!-- Main Page Brief Section -->
+	<!-- Main Page Content -->
 
     <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
-			    
-			    <div class="app-card shadow-sm mb-4 border-left-decoration">
-				    <div class="inner">
-					    <div class="app-card-body p-3 p-lg-4">
+
+				<div class="row pt-4 pb-4 g-4 settings-section">
+
+				<!-- ==================================================================================================================== -->
+
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
 						    
-
-						    <div class="row gx-5 gy-4">
-
-						        <div class="col mt-5">
-									<h2>Welcome, User!</h2>
+						    <div class="app-card-body">
+							    
+								<div class="mb-2">
+									<h3>
+										<strong>Current Total Balance:</strong>
+										&nbsp;&nbsp;
+										<strong> $4994991 </strong>
+									</h3>
 								</div>
-
-								<div class="col-md-auto m-auto mt-5">
-									<h6> Total Balance </h6>
-									<div class="col-md-auto">
-										<h4> $40000000000 </h4>
+							    
+								<hr class="my-4">
+							    
+								<form class="settings-form">
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Add Balance:</label>
+									    <input type="number" class="form-control" id="setting-input-2" placeholder="$" required>
 									</div>
-								</div>
-								
-								<div class="col col-lg-2 m-auto mt-5">
-									<h6> Total Spent </h6>
-									<div class="col col-lg-2">
-										<h4> $41500000 </h4>
-									</div>
-								</div>
+									<button type="submit" class="btn app-btn-primary">Send Top-Ups</button>
+							    </form>
+								    
+						    </div><!--//app-card-body-->
 						    
-							</div><!--//row-->
-					    </div><!--//app-card-body-->
-					    
-				    </div><!--//inner-->
-			    </div><!--//app-card-->
+						</div><!--//app-card-->
+	                </div>
+
+				<!-- ==================================================================================================================== -->
+
+					<div class="col-12 col-md-4">
+		                <h3 class="section-title">Plan</h3>
+		                <div class="section-intro">Settings section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="help.html">Learn more</a></div>
+	                </div>
+
+                </div><!--//row-->
 
 <!-- =========================================================================================================================================================================================================================================== -->
 
-				<!-- Main Page - Trans History Brief -->
+                <hr class="my-4">
+                
+				<div class="row py-4 g-4 settings-section">
 
-			    <div class="row">
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    <form class="settings-form">
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Real Name</label>
+									    <input type="text" class="form-control" id="setting-input-2" value="Steve Doe" required>
+									</div>
+								    <div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Email Address</label>
+									    <input type="email" class="form-control" id="setting-input-3" value="hello@companywebsite.com">
+									</div>
+									<button type="submit" class="btn app-btn-primary">Save Changes</button>
+							    </form>
+						    </div><!--//app-card-body-->
+						    
+						</div><!--//app-card-->
+	                </div>
 
-			        <div class="col">
-				        <div class="app-card app-card-stats-table h-100 shadow-sm">
-					        <div class="app-card-header p-3">
-						        <div class="row justify-content-between align-items-center">
-							        <div class="col-auto">
-						                <h4 class="app-card-title">Recent Purchase</h4>
-							        </div><!--//col-->
-						        </div><!--//row-->
-					        </div><!--//app-card-header-->
+					<div class="col-12 col-md-4">
+		                <h3 class="section-title">General</h3>
+		                <div class="section-intro">Settings section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="help.html">Learn more</a></div>
+	                </div>
 
+                </div><!--//row-->
 
-					        <div class="app-card-body p-4">
-						        <div class="table-responsive">
-							        <table class="table table-borderless mb-0">
-										<thead>
-											<tr>
-												<th class="meta">Item ID</th>
-												<th class="meta">Name</th>
-												<th class="meta stat-cell">Price</th>
-												<th class="meta stat-cell">Date</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td><a href="#">#0011</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1245</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2765</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1276 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2333 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-					        </div><!--//app-card-body-->
+<!-- =========================================================================================================================================================================================================================================== -->
 
+                <hr class="my-4">
 
-							
-				        </div><!--//app-card-->
-			        </div><!--//col-->
-			    </div><!--//row-->
+                <div class="row py-4 g-4 settings-section">
+
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    <form class="settings-form">
+									
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Old Password</label>
+									    <input type="text" class="form-control" id="setting-input-2" required>
+									</div>
+								    <div class="mb-3">
+									    <label for="setting-input-3" class="form-label">New Password</label>
+									    <input type="email" class="form-control" id="setting-input-3">
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Repeat New Password</label>
+									    <input type="email" class="form-control" id="setting-input-3">
+									</div>
+									
+									<button type="submit" class="btn app-btn-primary">Save Changes</button>
+							    
+								</form>
+						    </div><!--//app-card-body-->
+						    
+						</div><!--//app-card-->
+	                </div>
+
+					<div class="col-12 col-md-4">
+		                <h3 class="section-title">Account Security</h3>
+		                <div class="section-intro">Settings section intro goes here. Morbi vehicula, est eget fermentum ornare. </div>
+	                </div>
+
+                </div><!--//row-->
 
 <!-- =========================================================================================================================================================================================================================================== -->
 
