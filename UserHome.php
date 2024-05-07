@@ -18,6 +18,8 @@
     <!-- App CSS -->  
     <link id="theme-style" rel="stylesheet" href="assets/user-portal/css/portal.css">
 
+	<!-- Override CSS -->  
+    <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 </head> 
 
 <body class="app">   	
@@ -196,9 +198,9 @@
 						    
 
 						    <div class="row gx-5 gy-4">
-
+								
 						        <div class="col mt-5">
-									<h2>Welcome, User!</h2>
+									<h2>Welcome, <strong>User</strong>!</h2>
 								</div>
 
 								<div class="col-md-auto m-auto mt-5">
@@ -207,8 +209,12 @@
 										<h4> $40000000000 </h4>
 									</div>
 								</div>
+
+								<div class="col-sm-1 mx-0 px-5 d-flex">
+									<div class="vr"></div>
+								</div>
 								
-								<div class="col col-lg-2 m-auto mt-5">
+								<div class="col-0 col-lg-2 m-auto mt-5">
 									<h6> Total Spent </h6>
 									<div class="col col-lg-2">
 										<h4> $41500000 </h4>

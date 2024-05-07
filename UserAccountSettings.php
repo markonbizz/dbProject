@@ -18,6 +18,9 @@
     <!-- App CSS -->  
     <link id="theme-style" rel="stylesheet" href="assets/user-portal/css/portal.css">
 
+	<!-- Override CSS -->  
+    <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
+
 </head> 
 
 <body class="app">   	
