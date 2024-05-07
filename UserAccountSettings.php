@@ -204,9 +204,9 @@
 							    
 								<div class="mb-2">
 									<h3>
-										<strong>Current Total Balance:</strong>
+										Current Total Balance:
 										&nbsp;&nbsp;
-										<strong> $4994991 </strong>
+										$463521324
 									</h3>
 								</div>
 							    
