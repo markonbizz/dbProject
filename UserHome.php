@@ -1,3 +1,10 @@
+<?php
+
+	session_start();
+
+	include_once(_UTILITIES_PATH_ . "utils.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
