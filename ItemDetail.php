@@ -1,17 +1,13 @@
 <?php
-    
-    if(!defined("_UTILITIES_PATH_"))
-    {
-        define("_UTILITIES_PATH_", "assets/main/php/");
-    }
-    
+
     session_start();
 
-    include (_UTILITIES_PATH_) . "utils.php";
+	if(!defined("_UTILITIES_PATH_")){
+
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="zxx">

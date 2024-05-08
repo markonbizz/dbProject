@@ -1,16 +1,12 @@
 <?php
-    
-    if(!defined("_UTILITIES_PATH_"))
-    {
-        define("_UTILITIES_PATH_", "assets/main/php/");
-    }
-    
+
     session_start();
 
-    include (_UTILITIES_PATH_) . "utils.php";
+	if(!defined("_UTILITIES_PATH_")){
 
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en"> 
@@ -57,7 +53,7 @@
 							
 							<div class="email mb-3">
 								<label class="sr-only" for="signup-birthday">Your Birthday</label>
-								<input id="signup-name" name="fBirthday" type="taxt" class="form-control signup-name" placeholder="Birthday" onfocus="(this.type='date')" onblur="(this.type='taxt')" required="required">
+								<input id="signup-name" name="fBirthday" type="text" class="form-control signup-name" placeholder="Birthday" onfocus="(this.type='date')" onblur="(this.type='text')" required="required">
 							</div>
 
 							<div class="email mb-3">
@@ -86,9 +82,10 @@
 
 							<?php
 
-								User_GetRegisteration();
+								include_once(_UTILITIES_PATH_ . "Session_Register.php");
 							
 							?>
+							
 						</form><!--//auth-form-->
 						
 						<div class="auth-option text-center pt-5">Already have an account? <a class="text-link" href="Login.php" >Log in</a></div>

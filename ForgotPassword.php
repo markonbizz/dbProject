@@ -1,13 +1,11 @@
 <?php
-    
-    if(!defined("_UTILITIES_PATH_"))
-    {
-        define("_UTILITIES_PATH_", "assets/main/php/");
-    }
-    
+
     session_start();
 
-    include (_UTILITIES_PATH_) . "utils.php";
+	if(!defined("_UTILITIES_PATH_")){
+
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
 
 ?>
 
@@ -75,7 +73,7 @@
 
 							<?php
 
-								User_VerifyAccount();
+								include_once(_UTILITIES_PATH_ . "Session_PasswordRecovery_Verify.php");
 
 							?>
 						</div><!--//auth-form-container-->

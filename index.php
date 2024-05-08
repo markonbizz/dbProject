@@ -1,17 +1,13 @@
 <?php
-    
-    if(!defined("_UTILITIES_PATH_"))
-    {
-        define("_UTILITIES_PATH_", "assets/main/php/");
-    }
-    
+
     session_start();
 
-    include (_UTILITIES_PATH_) . "utils.php";
+	if(!defined("_UTILITIES_PATH_")){
+
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
 
 ?>
-
-
 
 <!DOCTYPE html>
 
@@ -101,7 +97,9 @@
                         <div class="header__top__left">
 
                             <?php
-                                Region_FetchEmail();
+
+                                include_once(_UTILITIES_PATH_ . "Render_Store_Topbar_LoginWelcome.php");
+                            
                             ?>
                         
                         </div>
@@ -110,10 +108,12 @@
                         <div class="header__top__right">
                             
                             <?php
-                                Region_FetchLogin();
+
+                                include_once(_UTILITIES_PATH_ . "Render_Store_Topbar_AccountEntry.php");
                                 echo "&nbsp";
                                 echo "&nbsp";
-                                Region_FetchLogout();
+                                include_once(_UTILITIES_PATH_ . "Render_Store_Topbar_LogoutEntry.php");
+                            
                             ?>
 
                         </div>
