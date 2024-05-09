@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 09, 2024 at 07:10 PM
+-- Generation Time: May 09, 2024 at 08:12 PM
 -- Server version: 10.11.7-MariaDB-2ubuntu2
 -- PHP Version: 8.3.6
 
@@ -104,16 +104,17 @@ CREATE TABLE `User_Basics` (
   `UserID` varchar(64) NOT NULL,
   `Account` varchar(24) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `TotalBalance` int(16) NOT NULL DEFAULT 10000
+  `TotalBalance` int(16) NOT NULL DEFAULT 10000,
+  `TotalSpent` int(16) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `User_Basics`
 --
 
-INSERT INTO `User_Basics` (`UserID`, `Account`, `Email`, `TotalBalance`) VALUES
-('8a87b4db-0e25-11ef-abb7-0242ac110002', 'root', 'root@localhost', 10000),
-('a25250ac-22bf-4ff7-8fed-09ae68abe815', 'user0', 'user0@gmail.com', 10000);
+INSERT INTO `User_Basics` (`UserID`, `Account`, `Email`, `TotalBalance`, `TotalSpent`) VALUES
+('8a87b4db-0e25-11ef-abb7-0242ac110002', 'root', 'root@localhost', 10000, 0),
+('a25250ac-22bf-4ff7-8fed-09ae68abe815', 'user0', 'user0@gmail.com', 81100, 0);
 
 -- --------------------------------------------------------
 
