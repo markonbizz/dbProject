@@ -231,16 +231,19 @@
 								<hr class="my-4">
 							    
 								<form class="settings-form" action="UserAccountSettings.php" method="post">
+
+									<?php
+									
+										include_once(_UTILITIES_PATH_ . "User_Settings_AddBalance.php");
+
+									?>
+
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Add Balance:</label>
 									    <input type="number" name="fTranscation" class="form-control" id="setting-input-2" placeholder="$" required>
 									</div>
 									<button type="submit" class="btn app-btn-primary">Save Changes</button>
-
-									<?php
-
-										include_once(_UTILITIES_PATH_ . "User_Settings_AddBalance.php");
-									?>
+									
 							    </form>
 								    
 						    </div><!--//app-card-body-->
