@@ -1,5 +1,7 @@
 <?php
 
+include_once("Misc.php");
+
 if($_SERVER["REQUEST_METHOD"] === "POST")
 {
     include_once("Database_EstConnection.php");
@@ -87,15 +89,15 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
     // ========== Check If Account is Registered ========== //
     if(empty($errors))
     {
-        $checkUser = $dbHandler -> prepare("SELECT COUNT(*) FROM Users WHERE Account = :Account");
-        $checkUser -> bindParam(':Account', $bAccount);
-        $checkUser -> execute();
+        $checkUser = $dbHandler -> prepare("SELECT COUNT(*) FROM User_Basics WHERE Account = :Account");
+        $checkUser-> bindParam(':Account', $bAccount);
+        $checkUser-> execute();
 
-        if($checkUser->fetchColumn() > 0) $ERR_REGISTER_MESSAGE .= "This account has been registered\\n";
+        if($checkUser -> fetchColumn() > 0) $ERR_REGISTER_MESSAGE .= "This account has been registered\\n";
 
-        $checkEmail = $dbHandler -> prepare("SELECT COUNT(*) FROM Users WHERE Email = :Email");
-        $checkEmail -> bindParam(':Email', $bEmail);
-        $checkEmail -> execute();
+        $checkEmail = $dbHandler -> prepare("SELECT COUNT(*) FROM User_Basics WHERE Email = :Email");
+        $checkEmail-> bindParam(':Email', $bEmail);
+        $checkEmail-> execute();
 
         if($checkEmail -> fetchColumn() > 0) $ERR_REGISTER_MESSAGE .= "This email has been registered\\n";
     }
@@ -113,32 +115,56 @@ if($_SERVER["REQUEST_METHOD"] === "POST")
             $bHashedPassword = password_hash($bPassword, PASSWORD_DEFAULT);
         }
 
-        try {
-            $SQL_STATMENT = $dbHandler -> prepare("INSERT INTO 
-                                            Users (UID, Permission, RealName, Email, PhoneNumber, Birthday, Account, Password) 
-                                            VALUES 
-                                            (:UID, :Permission, :RealName, :Email, :PhoneNumber, :Birthday, :Account, :Password)");
+        try{
+
+            $USER_BASICS = 
+            "
+                INSERT INTO User_Basics ( UserID,  Account,  Email)
+                VALUES
+                                        (:UserID, :Account, :Email)
+            ";
+
+            $USER_PRIVACY = 
+            "
+                INSERT INTO User_Privacy ( UserID,  RealName,  Birthday,  PhoneNumber)
+                VALUES
+                                         (:UserID, :RealName, :Birthday, :PhoneNumber)
+            ";
+
             
-            $bUserID     = GenerateUniqueSEQ(length: 8);
-            $bPermission = 'USER';
+            $USER_SECURITY = 
+            "
+                INSERT INTO User_Security ( UserID,  Permission,  Password)
+                VALUES
+                                          (:UserID, :Permission, :Password)
+            ";
 
-            // ========== Permission ==========
-            $SQL_STATMENT->bindParam(':UID'         , $bUserID);
-            $SQL_STATMENT->bindParam(':Permission'  , $bPermission);
+            $bUserID = GenerateGUIDv4();
+            $bPermission = "USER";
+            
+            $FLAG_REGISTER_SUCCESS = true;
+            // Table: User_Basic
+            $SQL_STATMENT = $dbHandler -> prepare($USER_BASICS);
+            $SQL_STATMENT-> bindParam(":UserID",    $bUserID);
+            $SQL_STATMENT-> bindParam(":Account",   $bAccount);
+            $SQL_STATMENT-> bindParam(":Email",     $bEmail);
+            $FLAG_REGISTER_SUCCESS &= $SQL_STATMENT-> execute();
 
-            // ========== Basic ==========
-            $SQL_STATMENT->bindParam(':Account'     , $bAccount);
-            $SQL_STATMENT->bindParam(':Email'       , $bEmail);
+            // Table: User_Basic
+            $SQL_STATMENT = $dbHandler -> prepare($USER_PRIVACY);
+            $SQL_STATMENT-> bindParam(":UserID",        $bUserID);
+            $SQL_STATMENT-> bindParam(":RealName",      $bRealName);
+            $SQL_STATMENT-> bindParam(":Birthday",      $bBirthday);
+            $SQL_STATMENT-> bindParam(":PhoneNumber",   $bPhoneNumber);
+            $FLAG_REGISTER_SUCCESS &= $SQL_STATMENT-> execute();
 
-            // ========== Password ==========
-            $SQL_STATMENT->bindParam(':Password'    , $bHashedPassword);
+            // Table: User_Basic
+            $SQL_STATMENT = $dbHandler -> prepare($USER_SECURITY);
+            $SQL_STATMENT-> bindParam(":UserID",        $bUserID);
+            $SQL_STATMENT-> bindParam(":Permission",    $bPermission);
+            $SQL_STATMENT-> bindParam(":Password",      $bHashedPassword);
+            $FLAG_REGISTER_SUCCESS &= $SQL_STATMENT-> execute();
 
-            // ========== Again, the infomation probably not that really important ==========
-            $SQL_STATMENT->bindParam(':RealName'    , $bRealName);
-            $SQL_STATMENT->bindParam(':Birthday'    , $bBirthday);
-            $SQL_STATMENT->bindParam(':PhoneNumber' , $bPhoneNumber);
-
-            $FLAG_REGISTER_SUCCESS = $SQL_STATMENT->execute();
         
             if($FLAG_REGISTER_SUCCESS){
                 echo

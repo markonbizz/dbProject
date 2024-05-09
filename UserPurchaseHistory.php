@@ -1,3 +1,15 @@
+<?php
+
+	session_start();
+
+	if(!defined("_UTILITIES_PATH_")){
+
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
+
+	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -20,6 +32,13 @@
 
 	<!-- Override CSS -->  
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
+	
+	<?php
+
+		Session_CheckAuthLevel("USER");
+
+	?>
+
 </head> 
 
 <body class="app">   	
@@ -195,7 +214,7 @@
 				    
 				    <div class="col-auto">
 					     <div class="page-utilities">
-						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
 							    <div class="col-auto">
 								    <form class="table-search-form row gx-1 align-items-center">
@@ -208,6 +227,9 @@
 					                </form>
 							    </div><!--//col-->
 								
+								<div class="col-auto pt-2">
+									<h5> Period: </h5>
+								</div>
 							    <div class="col-auto">
 								    <select class="form-select w-auto" >
 										  <option selected value="option-1">All</option>

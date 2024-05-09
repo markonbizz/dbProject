@@ -10,28 +10,21 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     $bPassword = $_POST['fPassword'] ?? '';
 
     // Look up the user in login credential.
-    $SQL_STATMENT = $dbHandler -> prepare("SELECT * FROM Users WHERE Account = :Account");
+    $SQL_STATMENT = $dbHandler -> prepare("SELECT * FROM User_Basics WHERE Account = :Account");
     $SQL_STATMENT -> bindParam(':Account', $bAccount);
     $SQL_STATMENT -> execute();
+    $User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
 
-    $targetUser = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
-
-    
+    $SQL_STATMENT = $dbHandler -> prepare("SELECT * FROM User_Security WHERE UserID = :UserID");
+    $SQL_STATMENT -> bindParam(':UserID', $User_Basics["UserID"]);
+    $SQL_STATMENT -> execute();
+    $User_Security = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
 
 /* ================================================================================================ */
 
     // Verify & Login
-
-    if(!($targetUser)){
-        echo 
-        "
-            <script>
-                alert(\" Login Failed: Invalid User or Password \");
-                window.location.href = \"Login.php\";
-            </script>
-        "; 
-    }else if(($targetUser) && !password_verify($bPassword, $targetUser["Password"])){
-
+    if(!(password_verify($bPassword, $User_Security["Password"])) || !($User_Basics) || !($User_Security)){
+        
         echo 
         "
             <script>
@@ -48,11 +41,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             "System-Wide". 
         */
 
-        $_SESSION["Account"]    = $targetUser["Account"];
-        $_SESSION["Email"]      = $targetUser["Email"];
-        $_SESSION["Permission"] = $targetUser["Permission"];
+        $_SESSION["UserID"]     = $User_Security["UserID"];
+        $_SESSION["Account"]    = $User_Basics["Account"];
+        $_SESSION["Email"]      = $User_Basics["Email"];
+        $_SESSION["Permission"] = $User_Security["Permission"];
 
-        if(isset($_SESSION["Account"]) && ($targetUser["Permission"] == "ADMIN")){
+
+        if(isset($_SESSION["Account"]) && ($User_Security["Permission"] === "ADMIN")){
 
             echo 
             "

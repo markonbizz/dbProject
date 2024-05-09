@@ -6,6 +6,8 @@
 
 		define("_UTILITIES_PATH_", "assets/main/php/");
 	}
+
+	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +32,13 @@
 
 	<!-- Override CSS -->  
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
+
+	<?php
+
+		Session_CheckAuthLevel("USER");
+
+	?>
+	
 </head> 
 
 <body class="app">   	
@@ -211,6 +220,8 @@
 								
 						        <div class="col mt-5">
 									<?php
+
+
 
 										include_once(_UTILITIES_PATH_ . "Render_User_Home_WelcomeTitle.php");
 

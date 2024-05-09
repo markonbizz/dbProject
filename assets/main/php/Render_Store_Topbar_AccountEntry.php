@@ -7,7 +7,7 @@ $entry =
     "ifLogout"  => "Login.php"
 ];
 
-if(isset($_SESSION["Account"]) && ($_SESSION["Permission"] === "ADMIN")){
+if(isset($_SESSION["Account"]) && ($_SESSION["Permission"] == "ADMIN")){
 
     echo 
     "
@@ -18,7 +18,7 @@ if(isset($_SESSION["Account"]) && ($_SESSION["Permission"] === "ADMIN")){
             </a>
         </div>
     ";
-}else if(isset($_SESSION["Account"]) && ($_SESSION["Permission"] === "USER")){
+}else if(isset($_SESSION["Account"]) && ($_SESSION["Permission"] == "USER")){
 
     echo 
     "

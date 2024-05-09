@@ -1,3 +1,15 @@
+<?php
+
+	session_start();
+
+	if(!defined("_UTILITIES_PATH_")){
+
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
+
+	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -21,6 +33,12 @@
 	<!-- Override CSS -->  
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 
+	<?php
+
+		Session_CheckAuthLevel("USER");
+
+	?>
+	
 </head> 
 
 <body class="app">   	
@@ -212,12 +230,17 @@
 							    
 								<hr class="my-4">
 							    
-								<form class="settings-form">
+								<form class="settings-form" action="UserAccountSettings.php" method="post">
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Add Balance:</label>
-									    <input type="number" class="form-control" id="setting-input-2" placeholder="$" required>
+									    <input type="number" name="fTranscation" class="form-control" id="setting-input-2" placeholder="$" required>
 									</div>
-									<button type="submit" class="btn app-btn-primary">Send Top-Ups</button>
+									<button type="submit" class="btn app-btn-primary">Save Changes</button>
+
+									<?php
+
+										include_once(_UTILITIES_PATH_ . "User_Settings_AddBalance.php");
+									?>
 							    </form>
 								    
 						    </div><!--//app-card-body-->
@@ -244,17 +267,24 @@
 		                <div class="app-card app-card-settings shadow-sm p-4">
 						    
 						    <div class="app-card-body">
-							    <form class="settings-form">
+							    <form class="settings-form" action="asset/main/php/User_Settings_ChangeGeneral.php" method="post">
+									
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Real Name</label>
-									    <input type="text" class="form-control" id="setting-input-2" value="Steve Doe" required>
+									    <input type="text" name="fChangeName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
 									</div>
 								    <div class="mb-3">
-									    <label for="setting-input-3" class="form-label">Email Address</label>
-									    <input type="email" class="form-control" id="setting-input-3" value="hello@companywebsite.com">
+									    <label for="setting-input-3" class="form-label">Email</label>
+									    <input type="email" name="fChangeEmail" class="form-control" id="setting-input-3" placeholder="Example: abc@axy.com">
 									</div>
+									<div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Address</label>
+									    <input type="text" name="fChangeAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
+									</div>
+								
 									<button type="submit" class="btn app-btn-primary">Save Changes</button>
-							    </form>
+							    
+								</form>
 						    </div><!--//app-card-body-->
 						    
 						</div><!--//app-card-->
@@ -277,19 +307,19 @@
 		                <div class="app-card app-card-settings shadow-sm p-4">
 						    
 						    <div class="app-card-body">
-							    <form class="settings-form">
+							    <form class="settings-form" action="asset/main/php/User_Settings_ChangePassword.php" method="post">
 									
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Old Password</label>
-									    <input type="text" class="form-control" id="setting-input-2" required>
+									    <input type="text" name="fOldPassword" class="form-control" id="setting-input-2" required>
 									</div>
 								    <div class="mb-3">
 									    <label for="setting-input-3" class="form-label">New Password</label>
-									    <input type="email" class="form-control" id="setting-input-3">
+									    <input type="email" name="fChangePassword" class="form-control" id="setting-input-3">
 									</div>
 									<div class="mb-3">
 									    <label for="setting-input-3" class="form-label">Repeat New Password</label>
-									    <input type="email" class="form-control" id="setting-input-3">
+									    <input type="email" name="fChangePassword_Again" class="form-control" id="setting-input-3">
 									</div>
 									
 									<button type="submit" class="btn app-btn-primary">Save Changes</button>

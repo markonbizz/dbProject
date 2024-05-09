@@ -12,7 +12,7 @@ try{
     // Set PDO ERR Mode as Expection
     $dbHandler -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-}catch (PDOException $err){
+}catch (PDOException $e){
 
-    echo "Failed to connect to database: " . $err->getMessage();
+    echo "Failed to connect to database: " . $e->getMessage();
 }
