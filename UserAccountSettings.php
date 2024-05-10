@@ -280,15 +280,19 @@
 
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Real Name</label>
-									    <input type="text" name="fChangeName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
+									    <input type="text" name="fUpdateName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Phone Number</label>
+									    <input type="text" name="fUpdatePhoneNumber" class="form-control" id="setting-input-2" placeholder="Example: 0912345678" required>
 									</div>
 								    <div class="mb-3">
 									    <label for="setting-input-3" class="form-label">Email</label>
-									    <input type="email" name="fChangeEmail" class="form-control" id="setting-input-3" placeholder="Example: abc@axy.com">
+									    <input type="email" name="fUpdateEmail" class="form-control" id="setting-input-3" placeholder="Example: abc@axy.com">
 									</div>
 									<div class="mb-3">
 									    <label for="setting-input-3" class="form-label">Address</label>
-									    <input type="text" name="fChangeAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
+									    <input type="text" name="fUpdateAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
 									</div>
 								
 									<button type="submit" name="fUpdateUserGeneral" value="true" class="btn app-btn-primary">Save Changes</button>
@@ -326,15 +330,15 @@
 									
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Old Password</label>
-									    <input type="text" name="fVerifyPassword" class="form-control" id="setting-input-2" required>
+									    <input type="text" name="fOldPasswordVerify" class="form-control" id="setting-input-2" required>
 									</div>
 								    <div class="mb-3">
 									    <label for="setting-input-3" class="form-label">New Password</label>
-									    <input type="email" name="fChangePassword" class="form-control" id="setting-input-3">
+									    <input type="email" name="fUpdatePassword" class="form-control" id="setting-input-3">
 									</div>
 									<div class="mb-3">
 									    <label for="setting-input-3" class="form-label">Repeat New Password</label>
-									    <input type="email" name="fChangePassword_Again" class="form-control" id="setting-input-3">
+									    <input type="email" name="fUpdatePassword_Again" class="form-control" id="setting-input-3">
 									</div>
 									
 									<button name="fUpdateUserPassword" value="true" type="submit" class="btn app-btn-primary">Save Changes</button>

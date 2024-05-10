@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
     $bEmail   = $_POST["fEmail"]   ?? "";
 
     // Binding info to search equal value in db.
-    $SQL_STATMENT = $dbHandler->prepare("SELECT * FROM Users WHERE Account = :Account");
+    $SQL_STATMENT = $dbHandler->prepare("SELECT * FROM User_Basics WHERE Account = :Account");
     $SQL_STATMENT ->bindParam(':Account', $bAccount);
     $SQL_STATMENT ->execute();
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"){
 
 /* ================================================================================================ */
 
-    $_SESSION["bAccount"] = $targetUser["Account"];
+    $_SESSION["bUserID"] = $targetUser["UserID"];
 
     if(($targetUser['Account'] == $bAccount) && ($targetUser['Email'] == $bEmail)){
 

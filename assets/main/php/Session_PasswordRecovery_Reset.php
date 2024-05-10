@@ -12,12 +12,13 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 
         $bHashedPassword = password_hash($bNewPassword, PASSWORD_DEFAULT);
 
-        $SQL_STATMENT = $dbHandler->prepare("UPDATE Users SET Password=:Password WHERE Account=:Account");
-        $SQL_STATMENT -> bindParam(':Account', $_SESSION["bAccount"]);
+        $SQL_STATMENT = $dbHandler->prepare("UPDATE User_Security SET Password = :Password WHERE UserID = :UserID");
+        $SQL_STATMENT -> bindParam(':UserID', $_SESSION["bUserID"]);
         $SQL_STATMENT -> bindParam(':Password', $bHashedPassword);
-        $is_reset_success = $SQL_STATMENT->execute();
+        
+        if($SQL_STATMENT->execute()){
 
-        if($is_reset_success){
+            unset($_SESSION["bUserID"]);
 
             echo
             "
