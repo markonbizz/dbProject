@@ -221,8 +221,6 @@
 						        <div class="col mt-5">
 									<?php
 
-
-
 										include_once(_UTILITIES_PATH_ . "Render_User_Home_WelcomeTitle.php");
 
 									?>

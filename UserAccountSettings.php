@@ -178,7 +178,7 @@
 
 						    <li class="nav-item">
 						        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-						        <a class="nav-link" href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">
+						        <a class="nav-link" href="assets/main/php/Session_Logout.php">
 							        <span class="nav-icon">
 							            <svg class="bi bi-box-arrow-left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
 											<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
@@ -224,7 +224,7 @@
 							    
 								<div class="mb-2">
 									<h3>
-										Current Total Balance:
+										Total:
 										
 										&nbsp;&nbsp;
 
@@ -260,8 +260,8 @@
 				<!-- ==================================================================================================================== -->
 
 					<div class="col-12 col-md-4">
-		                <h3 class="section-title">Plan</h3>
-		                <div class="section-intro">Settings section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="help.html">Learn more</a></div>
+		                <h2 class="section-title">Balance</h2>
+		                <div class="section-intro">In this section, you can change your amount freely.</div>
 	                </div>
 
                 </div><!--//row-->
@@ -279,19 +279,19 @@
 							    <form name="fChangeGeneralForm" class="settings-form" action="UserAccountSettings.php" method="post">
 
 									<div class="mb-3">
-									    <label for="setting-input-2" class="form-label">Real Name</label>
+									    <label for="setting-input-2" class="form-label">Real Name:</label>
 									    <input type="text" name="fUpdateName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
 									</div>
 									<div class="mb-3">
-									    <label for="setting-input-2" class="form-label">Phone Number</label>
+									    <label for="setting-input-2" class="form-label">Phone Number:</label>
 									    <input type="text" name="fUpdatePhoneNumber" class="form-control" id="setting-input-2" placeholder="Example: 0912345678" required>
 									</div>
 								    <div class="mb-3">
-									    <label for="setting-input-3" class="form-label">Email</label>
+									    <label for="setting-input-3" class="form-label">Email:</label>
 									    <input type="email" name="fUpdateEmail" class="form-control" id="setting-input-3" placeholder="Example: abc@axy.com">
 									</div>
 									<div class="mb-3">
-									    <label for="setting-input-3" class="form-label">Address</label>
+									    <label for="setting-input-3" class="form-label">Address:</label>
 									    <input type="text" name="fUpdateAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
 									</div>
 								
@@ -310,50 +310,34 @@
 	                </div>
 
 					<div class="col-12 col-md-4">
-		                <h3 class="section-title">General</h3>
-		                <div class="section-intro">Settings section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="help.html">Learn more</a></div>
-	                </div>
+		                <h2 class="section-title">General</h2>
+		                <div class="section-intro">This section allows you to change your name, address, phone number, and email.</div>
+	               
+				   		<hr class="my-4">
+				    </div>
 
-                </div><!--//row-->
+					<!-- ==================================================================================================================== -->
 
-<!-- =========================================================================================================================================================================================================================================== -->
-
-                <hr class="my-4">
-
-                <div class="row py-4 g-4 settings-section">
-
-	                <div class="col-12 col-md-8">
+					<div class="col-12 col-md-8">
 		                <div class="app-card app-card-settings shadow-sm p-4">
-						    
-							<div class="mb-2">
-								<h3>
-									User Infomation:
-									
-									&nbsp;&nbsp;
-
-									<?php
-										include_once(_UTILITIES_PATH_ . "Render_User_Settings_TotalBalance.php");
-									?>
-								</h3>
-							</div>
-							
-							<hr class="my-4">
-
 
 						    <div class="app-card-body">
-							    <form class="settings-form" action="asset/main/php/User_Settings_ChangePassword.php" method="post">
+							    <form class="settings-form" action="UserAccountSettings.php" method="post">
 									
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Old Password</label>
-									    <input type="text" name="fOldPasswordVerify" class="form-control" id="setting-input-2" required>
+									    <input type="password" name="fOldPasswordVerify" class="form-control" id="setting-input-2" required>
 									</div>
+
+									<hr class="my-4">
+
 								    <div class="mb-3">
 									    <label for="setting-input-3" class="form-label">New Password</label>
-									    <input type="email" name="fUpdatePassword" class="form-control" id="setting-input-3">
+									    <input type="password" name="fUpdatePassword" class="form-control" id="setting-input-3">
 									</div>
 									<div class="mb-3">
 									    <label for="setting-input-3" class="form-label">Repeat New Password</label>
-									    <input type="email" name="fUpdatePassword_Again" class="form-control" id="setting-input-3">
+									    <input type="password" name="fUpdatePassword_Again" class="form-control" id="setting-input-3">
 									</div>
 									
 									<button name="fUpdateUserPassword" value="true" type="submit" class="btn app-btn-primary">Save Changes</button>
@@ -370,13 +354,17 @@
 						</div><!--//app-card-->
 	                </div>
 
+					<!-- ==================================================================================================================== -->
+
 					<div class="col-12 col-md-4">
-		                <h3 class="section-title">Account Security</h3>
-		                <div class="section-intro">Settings section intro goes here. Morbi vehicula, est eget fermentum ornare. </div>
-	                </div>
+
+		                <h2 class="section-title">Security</h2>
+		                <div class="section-intro">This section allows you to change your password.</div>
+	                
+						<hr class="my-4">
+					</div>
 
                 </div><!--//row-->
-
 <!-- =========================================================================================================================================================================================================================================== -->
 
 		<!-- Main Page - Portal Template Author Signature -->
