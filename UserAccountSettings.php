@@ -230,7 +230,7 @@
 							    
 								<hr class="my-4">
 							    
-								<form class="settings-form" action="UserAccountSettings.php" method="post">
+								<form name="fAddBalanceForm" class="settings-form" action="UserAccountSettings.php" method="post">
 
 									<?php
 									
@@ -270,8 +270,14 @@
 		                <div class="app-card app-card-settings shadow-sm p-4">
 						    
 						    <div class="app-card-body">
-							    <form class="settings-form" action="asset/main/php/User_Settings_ChangeGeneral.php" method="post">
+							    <form name="fChangeGeneralForm" class="settings-form" action="UserAccountSettings.php" method="post">
 									
+									<?php
+
+										include_once(_UTILITIES_PATH_ . "User_Settings_ChangeGeneral.php");
+
+									?>
+
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Real Name</label>
 									    <input type="text" name="fChangeName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
