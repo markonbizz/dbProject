@@ -1,5 +1,7 @@
 <?php
 
+	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+
 	session_start();
 
 	if(!defined("_UTILITIES_PATH_")){
@@ -230,22 +232,22 @@
 							    
 								<hr class="my-4">
 							    
-								<form name="fAddBalanceForm" class="settings-form" action="UserAccountSettings.php" method="post">
-
-									<?php
-									
-										include_once(_UTILITIES_PATH_ . "User_Settings_AddBalance.php");
-
-									?>
+								<form class="settings-form" action="UserAccountSettings.php" method="post">
 
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Add Balance:</label>
 									    <input type="number" name="fTranscation" class="form-control" id="setting-input-2" placeholder="$" required>
 									</div>
-									<button type="submit" class="btn app-btn-primary">Save Changes</button>
-									
-							    </form>
-								    
+									<button type="submit" name="fUpdateUserBalance" value="true" class="btn app-btn-primary">Save Changes</button>
+								
+								</form>
+							
+								<?php
+
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdateBalance.php");
+								
+								?>
+
 						    </div><!--//app-card-body-->
 						    
 						</div><!--//app-card-->
@@ -271,12 +273,6 @@
 						    
 						    <div class="app-card-body">
 							    <form name="fChangeGeneralForm" class="settings-form" action="UserAccountSettings.php" method="post">
-									
-									<?php
-
-										include_once(_UTILITIES_PATH_ . "User_Settings_ChangeGeneral.php");
-
-									?>
 
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Real Name</label>
@@ -291,11 +287,17 @@
 									    <input type="text" name="fChangeAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
 									</div>
 								
-									<button type="submit" class="btn app-btn-primary">Save Changes</button>
+									<button type="submit" name="fUpdateUserGeneral" value="true" class="btn app-btn-primary">Save Changes</button>
 							    
 								</form>
+
+								<?php
+
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdateGeneral.php");
+
+								?>
+								
 						    </div><!--//app-card-body-->
-						    
 						</div><!--//app-card-->
 	                </div>
 
@@ -320,7 +322,7 @@
 									
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Old Password</label>
-									    <input type="text" name="fOldPassword" class="form-control" id="setting-input-2" required>
+									    <input type="text" name="fVerifyPassword" class="form-control" id="setting-input-2" required>
 									</div>
 								    <div class="mb-3">
 									    <label for="setting-input-3" class="form-label">New Password</label>
@@ -331,7 +333,7 @@
 									    <input type="email" name="fChangePassword_Again" class="form-control" id="setting-input-3">
 									</div>
 									
-									<button type="submit" class="btn app-btn-primary">Save Changes</button>
+									<button name="fUpdateUserPassword" value="true" type="submit" class="btn app-btn-primary">Save Changes</button>
 							    
 								</form>
 						    </div><!--//app-card-body-->
