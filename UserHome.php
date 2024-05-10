@@ -219,19 +219,17 @@
 						    <div class="row gx-5 gy-4">
 								
 						        <div class="col mt-5">
-									<?php
-
-
-
-										include_once(_UTILITIES_PATH_ . "Render_User_Home_WelcomeTitle.php");
-
-									?>
+									<h4>
+										<?php include_once(_UTILITIES_PATH_ . "Render_User_Home_WelcomeTitle.php"); ?>
+									</h4>
 								</div>
 
 								<div class="col-md-auto m-auto mt-5">
 									<h6> Total Balance </h6>
 									<div class="col-md-auto">
-										<h4> $40000000000 </h4>
+
+										<?php include_once(_UTILITIES_PATH_ . "Render_User_Home_TotalBalance.php"); ?>
+									
 									</div>
 								</div>
 
@@ -242,7 +240,11 @@
 								<div class="col-0 col-lg-2 m-auto mt-5">
 									<h6> Total Spent </h6>
 									<div class="col col-lg-2">
-										<h4> $41500000 </h4>
+										<div class="col-md-auto">
+										
+											<?php include_once(_UTILITIES_PATH_ . "Render_User_Home_TotalSpent.php"); ?>
+									
+										</div>
 									</div>
 								</div>
 						    

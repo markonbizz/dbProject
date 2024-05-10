@@ -225,8 +225,12 @@
 								<div class="mb-2">
 									<h3>
 										Current Total Balance:
+										
 										&nbsp;&nbsp;
-										$463521324
+
+										<?php
+											include_once(_UTILITIES_PATH_ . "Render_User_Settings_TotalBalance.php");
+										?>
 									</h3>
 								</div>
 							    

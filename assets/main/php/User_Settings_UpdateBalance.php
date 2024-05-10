@@ -25,7 +25,10 @@ if(($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateUserBalance"] == t
         {
             echo 
             "
-                <script> alert('Transcation successfully added !') </script>
+                <script> 
+                    alert('Transcation successfully added !') 
+                    window.location.href = \"UserAccountSettings.php\";
+                </script>
             ";
         }
 
