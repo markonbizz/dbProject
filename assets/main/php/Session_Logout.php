@@ -2,7 +2,7 @@
 
 session_start();
 
-$redirect_dst = "../../../index.php";
+$redirect_dst = "../../../Login.php";
 
 if (ini_get("session.use_cookies")){
 

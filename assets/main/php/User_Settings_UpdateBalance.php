@@ -1,6 +1,6 @@
 <?php
 
-if(($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateUserBalance"] == true))
+if(($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateUserBalance"] === true))
 {
     include_once("Database_EstConnection.php");
 

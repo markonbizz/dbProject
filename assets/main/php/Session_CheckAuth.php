@@ -1,8 +1,6 @@
 <?php
 
-function _logout_(){
-
-    $redirect_dst = "../index.php";
+function _logout_(string $redirect_dst = "../Login.php", string $msg = "Logout Successfully !"){
 
     if (ini_get("session.use_cookies")){
 
@@ -20,7 +18,7 @@ function _logout_(){
         echo 
         "
             <script>
-                alert(\" Logout Successfully ! \");
+                alert(\" {$msg} \");
                 window.location.href = \"{$redirect_dst}\";
             </script>
         ";
