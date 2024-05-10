@@ -325,6 +325,21 @@
 	                <div class="col-12 col-md-8">
 		                <div class="app-card app-card-settings shadow-sm p-4">
 						    
+							<div class="mb-2">
+								<h3>
+									User Infomation:
+									
+									&nbsp;&nbsp;
+
+									<?php
+										include_once(_UTILITIES_PATH_ . "Render_User_Settings_TotalBalance.php");
+									?>
+								</h3>
+							</div>
+							
+							<hr class="my-4">
+
+
 						    <div class="app-card-body">
 							    <form class="settings-form" action="asset/main/php/User_Settings_ChangePassword.php" method="post">
 									
@@ -344,8 +359,14 @@
 									<button name="fUpdateUserPassword" value="true" type="submit" class="btn app-btn-primary">Save Changes</button>
 							    
 								</form>
+
+								<?php
+
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdatePassword.php");
+
+								?>
+
 						    </div><!--//app-card-body-->
-						    
 						</div><!--//app-card-->
 	                </div>
 
