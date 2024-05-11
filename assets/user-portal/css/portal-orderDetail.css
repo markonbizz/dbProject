@@ -1,0 +1,6 @@
+@media(min-width: 1200px){
+    .app-wrapper{
+        margin-left:250px;
+        margin-right:250px;
+    }
+}
