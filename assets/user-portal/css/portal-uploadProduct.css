@@ -1,0 +1,69 @@
+@font-face {
+  font-family: Poppins-Thin;
+  font-weight: 100;
+  src: url('../fonts/poppins/Poppins-Thin.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Light;
+  font-weight: 100;
+  src: url('../fonts/poppins/Poppins-Light.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  font-weight: 100;
+  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Medium;
+  font-weight: 300;
+  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-SemiBold;
+  font-weight: 500;
+  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  font-weight: 700;
+  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-ExtraBold;
+  font-weight: 900;
+  src: url('../fonts/poppins/Poppins-ExtraBold.ttf'); 
+}
+
+html body {
+
+    font-family: Poppins-Regular, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+strong, #bold {
+    font-family: Poppins-ExtraBold;
+}
+
+@media(min-width: 1200px){
+    .app-wrapper{
+        margin-left:250px;
+        margin-right:250px;
+    }
+}
+
+.form-control.ProductDescription{
+
+  height: 7rem;
+}
+
+.btn{
+
+    height: 4rem;
+    width: 100%;
+}

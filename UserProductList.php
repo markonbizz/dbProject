@@ -211,106 +211,114 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 			    
-			    <div class="app-card shadow-sm mb-4 border-left-decoration">
-				    <div class="inner">
-					    <div class="app-card-body p-3 p-lg-4">
-						    
+			    <div class="row g-3 mb-4 align-items-center justify-content-between">
+				    
+				    <div class="col-auto">
+					     <div class="page-utilities">
+						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
-						    <div class="row gx-5 gy-4">
+							    <div class="col-auto">
+								    <form class="table-search-form row gx-1 align-items-center">
+					                    <div class="col-auto">
+					                        <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
+					                    </div>
+					                    <div class="col-auto">
+					                        <button type="submit" class="btn app-btn-secondary">Search</button>
+					                    </div>
+					                </form>
+							    </div><!--//col-->
+								<div class="col-auto">
+									<form class="settings-form" action="UserUploadProduct.php">
+										<button type="submit" name="fUploadProduct" value="true" class="btn app-btn-primary" style="width: 15rem;">Upload</button>
+									</form>
+							    </div>
 
-						        <div class="col mt-5">
-									<h2>Welcome, User!</h2>
-								</div>
-
-								<div class="col-md-auto m-auto mt-5">
-									<h6> Total Balance </h6>
-									<div class="col-md-auto">
-										<h4> $40000000000 </h4>
-									</div>
-								</div>
-								
-								<div class="col col-lg-2 m-auto mt-5">
-									<h6> Total Spent </h6>
-									<div class="col col-lg-2">
-										<h4> $41500000 </h4>
-									</div>
-								</div>
-						    
-							</div><!--//row-->
-					    </div><!--//app-card-body-->
-					    
-				    </div><!--//inner-->
-			    </div><!--//app-card-->
-
+						    </div><!--//row-->
+					    </div><!--//table-utilities-->
+				    </div><!--//col-auto-->
+			    </div><!--//row-->
+			   
 <!-- =========================================================================================================================================================================================================================================== -->
-
-				<!-- Main Page - Trans History Brief -->
-
-			    <div class="row">
-
-			        <div class="col">
-				        <div class="app-card app-card-stats-table h-100 shadow-sm">
-					        <div class="app-card-header p-3">
-						        <div class="row justify-content-between align-items-center">
-							        <div class="col-auto">
-						                <h4 class="app-card-title">Recent Purchase</h4>
-							        </div><!--//col-->
-						        </div><!--//row-->
-					        </div><!--//app-card-header-->
-
-
-					        <div class="app-card-body p-4">
-						        <div class="table-responsive">
-							        <table class="table table-borderless mb-0">
+				
+				<div class="tab-content" id="orders-table-tab-content">
+			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+					    <div class="app-card app-card-orders-table shadow-sm mb-5">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+							        <table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="meta">Item ID</th>
-												<th class="meta">Name</th>
-												<th class="meta stat-cell">Price</th>
-												<th class="meta stat-cell">Date</th>
+												<th class="cell">Order</th>
+												<th class="cell">Date</th>
+												<th class="cell">Total</th>
+												<th class="cell"></th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td><a href="#">#0011</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
+												<td class="cell">#15346</td>
+												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
+												<td class="cell">$259.35</td>
+												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
 											</tr>
 											<tr>
-												<td><a href="#">#1245</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
+												<td class="cell">#15345</td>
+												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+												<td class="cell">$96.20</td>
+												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
 											</tr>
 											<tr>
-												<td><a href="#">#2765</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
+												<td class="cell">#15344</td>
+												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+												<td class="cell">$123.00</td>
+												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
 											</tr>
+											
 											<tr>
-												<td><a href="#">#1276 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
+												<td class="cell">#15343</td>
+												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+												<td class="cell">$199.00</td>
+												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
 											</tr>
+											
 											<tr>
-												<td><a href="#">#2333 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
+												<td class="cell">#15342</td>
+												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+												<td class="cell">$59.00</td>
+												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
 											</tr>
+											
+											<tr>
+												<td class="cell">#15341</td>
+												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+												<td class="cell">$678.26</td>
+												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
+											</tr>
+		
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
-					        </div><!--//app-card-body-->
+						       
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
 
+<!-- =========================================================================================================================================================================================================================================== -->
 
-							
-				        </div><!--//app-card-->
-			        </div><!--//col-->
-			    </div><!--//row-->
+						<nav class="app-pagination">
+							<ul class="pagination justify-content-center">
+								<li class="page-item disabled">
+									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+							    </li>
+								<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item">
+								    <a class="page-link" href="#">Next</a>
+								</li>
+							</ul>
+						</nav><!--//app-pagination-->
+						
+			        </div><!--//tab-pane-->
 
 <!-- =========================================================================================================================================================================================================================================== -->
 

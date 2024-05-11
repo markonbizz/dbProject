@@ -30,27 +30,30 @@ function _logout_(string $redirect_dst = "../Login.php", string $msg = "Logout S
     exit();
 }
 
-function Session_CheckAuthLevel(string $checkAuth, string $checkStatus = "login"){
+function Session_CheckAuthLevel(string $checkAuth, string $checkStatus = "login", bool $active = true){
 
-    if(!isset($_SESSION["Account"]) && ($checkStatus === "login")){
+    if($active)
+    {
+        if(!isset($_SESSION["Account"]) && ($checkStatus === "login")){
 
-        echo 
-        "
-            <script>
-                alert('No login status detectd, redirect to main page.');
-            </script>
-        ";
-        
-        _logout_();
-    }else if((isset($_SESSION["Account"])) && ($_SESSION["Permission"] !== $checkAuth)){
+            echo 
+            "
+                <script>
+                    alert('No login status detectd, redirect to main page.');
+                </script>
+            ";
+            
+            _logout_();
+        }else if((isset($_SESSION["Account"])) && ($_SESSION["Permission"] !== $checkAuth)){
 
-        echo 
-        "
-            <script>
-                alert('Unauthorized access detectd, redirect to main page.'); 
-            </script>
-        ";
-        
-        _logout_();
+            echo 
+            "
+                <script>
+                    alert('Unauthorized access detectd, redirect to main page.'); 
+                </script>
+            ";
+            
+            _logout_();
+        }
     }
 }
