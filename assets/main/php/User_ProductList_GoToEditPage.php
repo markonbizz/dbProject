@@ -19,7 +19,6 @@ if (($_SERVER['REQUEST_METHOD'] === "POST") && ($_POST['fRequestEditProduct'])) 
     $SQL_STATMENT-> bindParam(':ProductID',     $_POST['fEditTargetProduct']);
     $SQL_STATMENT-> bindParam(':UploaderID',    $_SESSION['UserID']);
     $SQL_STATMENT-> execute();
-    $bEditTargetProduct = $_POST['fEditTargetProduct'];
 
     if ($SQL_STATMENT -> rowCount() > 0) {
         

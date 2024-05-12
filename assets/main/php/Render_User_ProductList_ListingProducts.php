@@ -46,14 +46,14 @@ try{
                 <td class=\"cell\">     {$_ROW_["UploadDate"]}      </td>
                 <td class=\"cell text-end\">
                 
-                    <form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserEditProduct.php\" method=\"post\">
+                    <form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
                         <input name=\"fEditTargetProduct\" value=\"{$_ROW_["ProductID"]}\" type=\"hidden\">
                         <button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
                     </form>
 
                     &nbsp;
 
-                    <form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"{}\" method=\"post\">
+                    <form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
                         <input name=\"fRemoveTargetProduct\" value=\"{$_ROW_["ProductID"]}\" type=\"hidden\">
                         <button name=\"fRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
                     </form>

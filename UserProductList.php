@@ -247,7 +247,7 @@
 					                </form>
 							    </div><!--//col-->
 								<div class="col-auto">
-									<form class="settings-form" action="UserUploadProduct.php">
+									<form class="settings-form" action="UserUploadProduct.php" method="get">
 										<button type="submit" name="fUploadProduct" value="true" class="btn app-btn-primary" style="width: 15rem;">Upload</button>
 									</form>
 							    </div>

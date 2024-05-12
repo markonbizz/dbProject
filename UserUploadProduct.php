@@ -35,7 +35,7 @@
 
 	<?php
 
-		Session_CheckAuthLevel("USER", active: false);
+		Session_CheckAuthLevel("USER", active: true);
 
 	?>
 </head> 

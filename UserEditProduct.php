@@ -35,7 +35,7 @@
 
 	<?php
 
-		Session_CheckAuthLevel("USER", active: false);
+		Session_CheckAuthLevel("USER", active: true);
 
 	?>
 </head> 
@@ -78,26 +78,29 @@
 	    
 	    <div class="app-content mr-5 pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
-			    
-				<div class="col-12 col-md-8">
-					<form class="settings-form" action="UserProductList.php">
-						<button type="submit" name="fGoBack" value="true" class="btn app-btn-primary" style="width: max-content; height:max-content">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-								<path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-							</svg>
-							Go Back
-						</button>
-					</form>
-				</div> 
 
 				<div class="row py-4 g-4 settings-section">
+
+					<div class="col-12 col-md-8">
+						<form class="settings-form" action="UserProductList.php">
+							<button type="submit" name="fGoBack" value="true" class="btn app-btn-primary" style="width: max-content; height:max-content">
+								<div class="icon icon-badge app-utility-item">
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+										<path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+									</svg>
+								</div>
+								&nbsp;
+								Go Back
+							</button>
+						</form>
+					</div> 
 
 	                <div class="col-12 col-md-8">
 		                <div class="app-card app-card-settings shadow-sm p-4">
 							
 							<div class="app-card-body">
 
-								<form name="fUploadProductForm" class="settings-form" action="UserUploadProduct.php" method="post" enctype="multipart/form-data">
+								<form name="fUploadProductForm" class="settings-form" action="UserEditProduct.php" method="post" enctype="multipart/form-data">
 									
 									<div class="mb-3">
 										<label for="setting-input-2" class="form-label">Image</label>
@@ -138,13 +141,22 @@
     									<textarea name="fProductDescription" class="form-control ProductDescription" id="ProductDescription"></textarea>
 									</div>
 
-									<button type="submit" name="fUploadProduct" value="true" class="btn app-btn-primary">Upload</button>
+									<button type="submit" name="fUpdateProduct" value="true" class="btn app-btn-primary">
+										<div class="icon icon-badge app-utility-item">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+												<path d="M11 2H9v3h2z"/>
+												<path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"/>
+											</svg>
+										</div>
+										&nbsp;
+										Save Changes
+									</button>
 							    
 								</form>
 								
 								<?php
 
-									include_once(_UTILITIES_PATH_ . "User_ProductList_UploadProduct.php");
+									include_once(_UTILITIES_PATH_ . "User_ProductList_UpdateTargetProduct.php");
 								
 								?>
 
@@ -157,15 +169,16 @@
 						    <div class="app-card-body">
 							    
 								<h2 class="section-title">Product Image Preview</h2>
-								<img id="blah" src="#" alt="Product Image Gose Here" style="max-width: 40%; max-height: 40%;"/>
+								<img id="blah" src="#" alt="Product Image Gose Here" style="max-width: 45%; max-height: 45%;"/>
 								
 								<hr class="my-4">
 
 								<div class="mb-2">
-									<h1 class="section-title">Product Current Info</h1>
+									<h1 class="section-title">Target Product Info</h1>
+									<?php
+										include_once(_UTILITIES_PATH_ . "Render_User_EditProduct_ShowTargetProductInfo.php");
+									?>
 								</div>
-							    
-								
 							    
 								<!-- Info Goes Here -->
 
