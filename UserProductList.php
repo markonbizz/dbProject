@@ -36,7 +36,7 @@
 	<?php
 
 		include_once(_UTILITIES_PATH_ . "User_ProductList_GoToEditPage.php");
-		// include_once(_UTILITIES_PATH_ . "User_ProductList_RemoveProduct.php");
+		include_once(_UTILITIES_PATH_ . "User_ProductList_RemoveProduct.php");
 
 	?>
 </head> 
@@ -277,6 +277,7 @@
 												<th class="cell">Name</th>
 												<th class="cell">Price</th>
 												<th class="cell">Date</th>
+												<th class="cell">Description</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>

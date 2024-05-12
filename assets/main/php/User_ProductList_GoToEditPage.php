@@ -1,6 +1,6 @@
 <?php
 
-if (($_SERVER['REQUEST_METHOD'] === "POST") && ($_POST['fRequestEditProduct'])) {
+if (($_SERVER['REQUEST_METHOD'] === "POST") && isset($_POST['fRequestEditProduct'])) {
 
     include_once("Database_EstConnection.php");
 
@@ -21,8 +21,9 @@ if (($_SERVER['REQUEST_METHOD'] === "POST") && ($_POST['fRequestEditProduct'])) 
     $SQL_STATMENT-> execute();
 
     if ($SQL_STATMENT -> rowCount() > 0) {
-        
-        echo '<script>window.location.href = "UserEditProduct.php?ProductID=' . $_POST['fEditTargetProduct'] . '";</script>';
+
+        $_SESSION["ProductID"] = $_POST['fEditTargetProduct'];
+        echo '<script>window.location.href = "UserEditProduct.php";</script>';
         exit;
     } else {
        

@@ -31,36 +31,38 @@ try{
 
     $SQL_STATMENT = $dbHandler -> prepare($MERGE_TABLES);
     $SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-    $SQL_STATMENT-> execute();
 
-    while($_ROW_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC))
-    {
+    if($SQL_STATMENT-> execute()){
 
-        echo 
-        "
-            <tr>
-                <td class=\"cell\">#    {$_ROW_["ProductID"]}       </td>
-                <td class=\"cell\">     {$_ROW_["CategoryName"]}    </td>
-                <td class=\"cell\">     {$_ROW_["Name"]}            </td>
-                <td class=\"cell\">\$   {$_ROW_["Price"]}           </td>
-                <td class=\"cell\">     {$_ROW_["UploadDate"]}      </td>
-                <td class=\"cell text-end\">
-                
-                    <form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-                        <input name=\"fEditTargetProduct\" value=\"{$_ROW_["ProductID"]}\" type=\"hidden\">
-                        <button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
-                    </form>
+        while($_ROW_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC))
+        {
+            echo 
+            "
+                    <tr>
+                        <td class=\"cell\">#    {$_ROW_["ProductID"]}       </td>
+                        <td class=\"cell\">     {$_ROW_["CategoryName"]}    </td>
+                        <td class=\"cell\">     {$_ROW_["Name"]}            </td>
+                        <td class=\"cell\">\$   {$_ROW_["Price"]}           </td>
+                        <td class=\"cell\">     {$_ROW_["UploadDate"]}      </td>
+                        <td class=\"cell\">     {$_ROW_["Description"]}     </td>
+                        <td class=\"cell text-end\">
+                        
+                            <form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+                                <input name=\"fEditTargetProduct\" value=\"{$_ROW_["ProductID"]}\" type=\"hidden\">
+                                <button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
+                            </form>
 
-                    &nbsp;
+                            &nbsp;
 
-                    <form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-                        <input name=\"fRemoveTargetProduct\" value=\"{$_ROW_["ProductID"]}\" type=\"hidden\">
-                        <button name=\"fRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
-                    </form>
+                            <form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+                                <input name=\"fRemoveTargetProduct\" value=\"{$_ROW_["ProductID"]}\" type=\"hidden\">
+                                <button name=\"fRequestRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
+                            </form>
 
-                </td>
-            </tr>
-        ";
+                        </td>
+                    </tr>
+                ";
+        }
     }
 
 }catch(PDOException $ERR){

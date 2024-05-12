@@ -54,11 +54,10 @@ function GetCategoryID(string $Name){
 /* ================================================================================================================================================================================================================== */
 
 
-
 if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
 
     include_once("Database_EstConnection.php");
-    
+
     $bUpdateProductImage          = $_FILES['fProductImage'];
     $bUpdateProductName           = $_POST['fProductName'];
 
@@ -97,7 +96,7 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
             if ($imageContent !== false){
 
                 $UPDATE_PRODUCT =
-                "
+                '
                     UPDATE 
                         `Products`
                     SET 
@@ -113,7 +112,7 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
                             AND
                             `UploaderID`    = :UploaderID
                         )
-                ";
+                ';
 
                 $SQL_STATMENT = $dbHandler->prepare($UPDATE_PRODUCT);
                 
@@ -127,14 +126,14 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
                     $SQL_STATMENT-> bindParam(":CategoryID", $bUpdateProductCategory);
                 }
 
-                $SQL_STATMENT-> bindParam(":ProductID",     $_POST['ProductID']);
-                $SQL_STATMENT-> bindParam(":UploaderID",    $_SESSION['UserID']);
+                $SQL_STATMENT-> bindParam(':ProductID',     $_SESSION["ProductID"]);
+                $SQL_STATMENT-> bindParam(':UploaderID',    $_SESSION['UserID']);
                 
-                $SQL_STATMENT-> bindParam(":Image",         $imageContent, PDO::PARAM_LOB);
-                $SQL_STATMENT-> bindParam(":Name",          $bUpdateProductName);
-                $SQL_STATMENT-> bindParam(":Price",         $bUpdateProductPrice);
-                $SQL_STATMENT-> bindParam(":Description",   $bUpdateProductDescription);
-                $SQL_STATMENT-> bindParam(":UploadDate",    $bUpdateProductUploadDate);
+                $SQL_STATMENT-> bindParam(':Image',         $imageContent, PDO::PARAM_LOB);
+                $SQL_STATMENT-> bindParam(':Name',          $bUpdateProductName);
+                $SQL_STATMENT-> bindParam(':Price',         $bUpdateProductPrice);
+                $SQL_STATMENT-> bindParam(':Description',   $bUpdateProductDescription);
+                $SQL_STATMENT-> bindParam(':UploadDate',    $bUpdateProductUploadDate);
 
                 if ($SQL_STATMENT->execute()){
 
@@ -142,7 +141,13 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
                     "
                         <script>
                             alert('Product updated successfully');
-                            window.location.href = \"#\";
+                        </script>
+                    ";
+                    unset($_SESSION["ProductID"]);
+                    echo
+                    "   
+                        <script>
+                            window.location.href = \"UserProductList.php\";
                         </script>
                     ";
                 } else {

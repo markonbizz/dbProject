@@ -1,8 +1,10 @@
 <?php
 
-if($_POST["ProductID"]){
+if($_SESSION["ProductID"]){
 										
     include_once("Database_EstConnection.php");
+
+    $TGT_PRODUCT = $_SESSION["ProductID"];
 
     $MERGE_TABLES = 
     "
@@ -26,7 +28,7 @@ if($_POST["ProductID"]){
 
     $SQL_STATMENT = $dbHandler->prepare($MERGE_TABLES);
     $SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-    $SQL_STATMENT-> bindParam(":ProductID", $_POST["ProductID"]);
+    $SQL_STATMENT-> bindParam(":ProductID", $_SESSION["ProductID"]);
     
     try{
 
@@ -38,9 +40,9 @@ if($_POST["ProductID"]){
             echo
             "
                 <h6 style='display: inline-block;'>Image:</h6>
-
+                    
                     <img src='data:image/jpeg;base64,".base64_encode($targetProduct['Image'])."' alt='Product Image' style='max-width: 35%; max-height: 35%;'>
-                
+                    
                 <hr class='my-4'>
                 <h6>Product:&nbsp;        {$targetProduct["Name"]}</h6>
                 <h6>Category:&nbsp;       {$targetProduct["CategoryName"]}</h6>
