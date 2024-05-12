@@ -34,10 +34,28 @@ try{
 
     if($SQL_STATMENT-> execute()){
 
-        while($_ROW_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC))
-        {
+        if(!$SQL_STATMENT->rowCount()){
+
             echo 
             "
+                <tr>
+                    <td class=\"cell\"></td>
+                    <td class=\"cell\"></td>
+                    <td class=\"cell\">
+                        <h6> Nothing but Chickens here :) </h6>
+                    </td>
+                    <td class=\"cell\"></td>
+                    <td class=\"cell\"></td>
+                    <td class=\"cell\"></td>
+                    <td class=\"cell\"></td>
+                </tr>
+            ";
+        }else{
+
+            while($_ROW_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC))
+            {
+                echo 
+                "
                     <tr>
                         <td class=\"cell\">#    {$_ROW_["ProductID"]}       </td>
                         <td class=\"cell\">     {$_ROW_["CategoryName"]}    </td>
@@ -62,9 +80,9 @@ try{
                         </td>
                     </tr>
                 ";
+            }
         }
     }
-
 }catch(PDOException $ERR){
 
     echo "Database Error: " . $ERR -> getMessage();
