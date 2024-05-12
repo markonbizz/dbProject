@@ -107,6 +107,16 @@ button.close:focus{
     background:#18ba70;
     border-color:#18ba70
 }
+.app-btn-danger{
+    background:#a31515;
+    color:#fff;
+    border-color:#a31515
+}
+.app-btn-danger:hover,.app-btn-danger:active{
+    color:#fff;
+    background:#ba1818;
+    border-color:#ba1818
+}
 .app-btn-secondary{
     background:#fff;
     color:#5d6778;

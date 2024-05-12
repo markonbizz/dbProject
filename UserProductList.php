@@ -1,3 +1,15 @@
+<?php
+
+	session_start();
+
+	if(!defined("_UTILITIES_PATH_")){
+
+		define("_UTILITIES_PATH_", "assets/main/php/");
+	}
+
+	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -20,6 +32,12 @@
 
 	<!-- Override CSS -->  
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
+
+	<?php
+
+		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductEdit.php");
+
+	?>
 </head> 
 
 <body class="app">   	
@@ -243,58 +261,30 @@
 				<div class="tab-content" id="orders-table-tab-content">
 			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
-						    <div class="app-card-body">
+						    <div class="app-card-body px-4 pt-4">
 							    <div class="table-responsive">
+
+									<?php
+										include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Pagination.php");
+									?>
+
 							        <table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">Order</th>
+												<th class="cell">Product ID</th>
+												<th class="cell">Category</th>
+												<th class="cell">Name</th>
+												<th class="cell">Price</th>
 												<th class="cell">Date</th>
-												<th class="cell">Total</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell">$259.35</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell">$96.20</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell">$123.00</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15343</td>
-												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-												<td class="cell">$199.00</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15342</td>
-												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-												<td class="cell">$59.00</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15341</td>
-												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-												<td class="cell">$678.26</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-		
+
+												<?php
+													include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Pagination.php");
+												?>
+
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
@@ -307,6 +297,9 @@
 						<nav class="app-pagination">
 							<ul class="pagination justify-content-center">
 								<li class="page-item disabled">
+									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">First</a>
+							    </li>
+								<li class="page-item disabled">
 									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
 							    </li>
 								<li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -315,6 +308,9 @@
 								<li class="page-item">
 								    <a class="page-link" href="#">Next</a>
 								</li>
+								<li class="page-item disabled">
+									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Last</a>
+							    </li>
 							</ul>
 						</nav><!--//app-pagination-->
 						
