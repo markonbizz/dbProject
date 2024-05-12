@@ -35,7 +35,8 @@
 
 	<?php
 
-		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductEdit.php");
+		include_once(_UTILITIES_PATH_ . "User_ProductList_GoToEditPage.php");
+		// include_once(_UTILITIES_PATH_ . "User_ProductList_RemoveProduct.php");
 
 	?>
 </head> 
@@ -263,12 +264,12 @@
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
 						    <div class="app-card-body px-4 pt-4">
 							    <div class="table-responsive">
-
+									
 									<?php
-										include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Pagination.php");
+										include_once(_UTILITIES_PATH_ . "User_ProductList_Pagination_Base.php");
 									?>
-
-							        <table class="table app-table-hover mb-0 text-left">
+									
+									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
 												<th class="cell">Product ID</th>
@@ -280,11 +281,11 @@
 											</tr>
 										</thead>
 										<tbody>
+											<?php
 
-												<?php
-													include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Pagination.php");
-												?>
+												include_once(_UTILITIES_PATH_ . "Render_User_ProductList_ListingProducts.php");
 
+											?>
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
@@ -296,21 +297,11 @@
 
 						<nav class="app-pagination">
 							<ul class="pagination justify-content-center">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">First</a>
-							    </li>
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-							    </li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item">
-								    <a class="page-link" href="#">Next</a>
-								</li>
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Last</a>
-							    </li>
+								
+								<?php
+									include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Pagination.php");
+								?>
+
 							</ul>
 						</nav><!--//app-pagination-->
 						

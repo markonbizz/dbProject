@@ -1,51 +1,104 @@
 <?php
 
 include_once("Database_EstConnection.php");
+include_once("User_ProductList_Pagination_Base.php");
 
-define("MAX_PRODUCTS_PERPAGE", 8);
-
-$MERGE_TABLES = 
+$SEARCH_PRODUCTS = 
 "
-    SELECT 
-        C.Name AS CategoryName, 
-        P.*
+    SELECT
+        COUNT(*)
     FROM 
-        `Products` P
-    INNER JOIN
-        `Categories` C
-    ON
-        C.CategoryID = P.CategoryID
+        Products
+    WHERE
+        UploaderID = :UploaderID
 ";
 
-try{
+$SQL_STATMENT = $dbHandler -> prepare($SEARCH_PRODUCTS);
+$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+$SQL_STATMENT-> execute();
 
-    $SQL_STATMENT = $dbHandler -> prepare($MERGE_TABLES);
-    $SQL_STATMENT-> execute();
-    while($_ROW_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC))
-    {
-        echo 
-        "
-            <tr>
-                <td class=\"cell\">#".  $_ROW_["ProductID"]     ."</td>
-                <td class=\"cell\">".   $_ROW_["CategoryName"]  ."</td>
-                <td class=\"cell\">".   $_ROW_["Name"]          ."</td>
-                <td class=\"cell\">$".  $_ROW_["Price"]         ."</td>
-                <td class=\"cell\">".   $_ROW_["UploadDate"]    ."</td>
-                <td class=\"cell text-end\">
-                    <form class=\"fEditForm\" style=\"display: inline-block;\">
-                        <input name=\"fEditTargetProduct\" class=\"\" value=\"\" type=\"hidden\">
-                        <button name=\"fEditProduct\" class=\"btn app-btn-primary\">Edit</button>
-                    </form>
-                    &nbsp;
-                    <form class=\"fRemoveForm\" style=\"display: inline-block;\">
-                        <input name=\"fRemoveTargetProduct\" class=\"\" value=\"\" type=\"hidden\">
-                        <button name=\"fRemoveProduct\" class=\"btn app-btn-danger\">Edit</button>
-                    </form>
-                </td>
-            </tr>
-        ";
-    }
-}catch(PDOException $ERR){
+$totalProducts = $SQL_STATMENT -> fetchColumn();
+$totalPages = ceil($totalProducts / MAX_DATA_PERPAGE);
 
-    echo "Database Error: " . $ERR -> getMessage();
+
+// =====================================================================
+// =========================== First Page =========================== 
+// =====================================================================
+echo 
+"
+    <li class=\"page-item\"> <!-- First Page -->
+        <a class=\"page-link\" href=\"?CurrentPageIndex=1\" tabindex=\"-1\" aria-disabled=\"false\">First</a>
+    </li>
+";
+
+// =====================================================================
+// =========================== Previous Page =========================== 
+// =====================================================================
+if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){
+
+    $tmp = (int)$_GET["CurrentPageIndex"] - 1;
+
+    echo 
+    "
+        <li class=\"page-item\"> <!-- Previous Page -->
+            <a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}\" tabindex=\"-1\" aria-disabled=\"false\">Previous</a>
+        </li>
+    ";
+}else{
+
+    echo 
+    "
+        <li class=\"page-item disable\"> <!-- Previous Page -->
+            <a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Previous</a>
+        </li>
+    ";
 }
+
+// =============================================================
+// =========================== Pages =========================== 
+// =============================================================
+for($i = 1; $i <= $totalPages; $i++){
+
+    if(isset($_GET["CurrentPageIndex"]) && ($i == (int)$_GET["CurrentPageIndex"])){
+
+        echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}\">{$i}</a></li>";
+    }else{
+
+        echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}\">{$i}</a></li>";
+    }
+}
+
+
+// =================================================================
+// =========================== Next Page =========================== 
+// =================================================================
+if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $totalPages)){
+
+    $tmp = (int)$_GET["CurrentPageIndex"] + 1;
+
+    echo 
+    "
+        <li class=\"page-item\"> <!-- Previous Page -->
+            <a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}\" tabindex=\"-1\" aria-disabled=\"false\">Next</a>
+        </li>
+    ";
+}else{
+
+    echo 
+    "
+        <li class=\"page-item disable\"> <!-- Previous Page -->
+            <a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Next</a>
+        </li>
+    ";
+}
+
+
+// =================================================================
+// =========================== Last Page =========================== 
+// =================================================================
+echo
+"
+    <li class=\"page-item\"> <!-- End Page -->
+        <a class=\"page-link\" href=\"?CurrentPageIndex={$totalPages}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
+    </li>
+";
