@@ -118,7 +118,7 @@
 										<select name="fProductCategory" class="form-select mb-3" onchange="UploadCategoryOptionCheck(this);">
 											<?php
 
-												include_once(_UTILITIES_PATH_ . "Render_User_UploadProduct_AvaliableCategories.php");
+												include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Upload&Edit_ListExistedCategories.php");
 											
 											?>
 											<option value="0" id="OptionOther">Other</option>
@@ -156,7 +156,7 @@
 								
 								<?php
 
-									include_once(_UTILITIES_PATH_ . "User_ProductList_UploadProduct.php");
+									include_once(_UTILITIES_PATH_ . "User_ProductList_UploadProduct_Upload.php");
 								
 								?>
 

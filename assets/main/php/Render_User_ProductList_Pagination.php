@@ -1,25 +1,10 @@
 <?php
 
-include_once("Database_EstConnection.php");
-include_once("User_ProductList_Pagination_Base.php");
+include_once("User_ProductList_SearchProduct.php");
+include_once("Render_User_ProductList_Listing.php");
 
-$SEARCH_PRODUCTS = 
-"
-    SELECT
-        COUNT(*)
-    FROM 
-        Products
-    WHERE
-        UploaderID = :UploaderID
-";
-
-$SQL_STATMENT = $dbHandler -> prepare($SEARCH_PRODUCTS);
-$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-$SQL_STATMENT-> execute();
-
-$totalProducts = $SQL_STATMENT -> fetchColumn();
-$totalPages = ceil($totalProducts / MAX_DATA_PERPAGE);
-
+$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_STATMENT -> rowCount();
+$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
 
 // =====================================================================
 // =========================== First Page =========================== 
@@ -57,7 +42,7 @@ if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){
 // =============================================================
 // =========================== Pages =========================== 
 // =============================================================
-for($i = 1; $i <= $totalPages; $i++){
+for($i = 1; $i <= $PAGINATION_ARGS["TOTAL_PAGES"]; $i++){
 
     if(isset($_GET["CurrentPageIndex"]) && ($i == (int)$_GET["CurrentPageIndex"])){
 
@@ -72,7 +57,7 @@ for($i = 1; $i <= $totalPages; $i++){
 // =================================================================
 // =========================== Next Page =========================== 
 // =================================================================
-if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $totalPages)){
+if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $PAGINATION_ARGS["TOTAL_PAGES"])){
 
     $tmp = (int)$_GET["CurrentPageIndex"] + 1;
 
@@ -99,6 +84,6 @@ if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $totalP
 echo
 "
     <li class=\"page-item\"> <!-- End Page -->
-        <a class=\"page-link\" href=\"?CurrentPageIndex={$totalPages}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
+        <a class=\"page-link\" href=\"?CurrentPageIndex={$PAGINATION_ARGS["TOTAL_PAGES"]}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
     </li>
 ";

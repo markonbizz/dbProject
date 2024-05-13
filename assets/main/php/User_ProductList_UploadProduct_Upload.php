@@ -55,7 +55,7 @@ function GetCategoryID(string $Name){
 
 
 
-if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUploadProduct"])) {
+if (($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUploadProduct"]) && ($_POST["fUploadProduct"])) {
 
     include_once("Database_EstConnection.php");
     
