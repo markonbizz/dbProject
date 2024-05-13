@@ -239,7 +239,12 @@
 								
 						        <div class="col mt-5">
 									<h4>
-										<?php include_once(_UTILITIES_PATH_ . "Render_User_Home_WelcomeTitle.php"); ?>
+										<?php 
+											echo
+												"
+													<h2>Welcome, <strong>{$_SESSION["Account"]}</strong>!</h2>
+												";
+										?>
 									</h4>
 								</div>
 
@@ -247,7 +252,20 @@
 									<h6> Total Balance </h6>
 									<div class="col-md-auto">
 
-										<?php include_once(_UTILITIES_PATH_ . "Render_User_Home_TotalBalance.php"); ?>
+										<?php 
+											include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+											$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalBalance FROM User_Basics WHERE UserID = :UserID");
+											$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> execute();
+
+											$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
+
+											if($User_Basics){
+												
+												echo "<h3>$" . $User_Basics["TotalBalance"] . "</h3>";
+											}
+										?>
 									
 									</div>
 								</div>
@@ -261,7 +279,20 @@
 									<div class="col col-lg-2">
 										<div class="col-md-auto">
 										
-											<?php include_once(_UTILITIES_PATH_ . "Render_User_Home_TotalSpent.php"); ?>
+											<?php 
+												include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+												$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalSpent FROM User_Basics WHERE UserID = :UserID");
+												$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+												$SQL_STATMENT-> execute();
+
+												$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
+
+												if($User_Basics){
+													
+													echo "<h3>$" . $User_Basics["TotalSpent"] . "</h3>";
+												}
+											?>
 									
 										</div>
 									</div>
@@ -342,21 +373,6 @@
 				        </div><!--//app-card-->
 			        </div><!--//col-->
 			    </div><!--//row-->
-
-<!-- =========================================================================================================================================================================================================================================== -->
-
-		<!-- Main Page - Portal Template Author Signature -->
-	    <footer class="app-footer">
-		    <div class="container text-center py-3">
-		         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
-		       
-		    </div>
-	    </footer><!--//app-footer-->
-	    
-    </div><!--//app-wrapper-->    					
-
-
 
 <!-- =========================================================================================================================================================================================================================================== -->
 <!-- =========================================================================================================================================================================================================================================== -->

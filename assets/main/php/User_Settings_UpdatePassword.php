@@ -6,6 +6,7 @@ if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUpdateUserPassword"
     include_once("Database_EstConnection.php");
 
     if($_POST["fUpdateUserPassword"] == true){
+    
         $bOldPasswordVerify     = $_POST["fOldPasswordVerify"]      ?? "";
         $bChangePassword        = $_POST["fUpdatePassword"]         ?? "";
         $bChangePassword_Again  = $_POST["fUpdatePassword_Again"]   ?? "";

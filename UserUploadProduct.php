@@ -116,11 +116,35 @@
 									    <label for="setting-input-2" class="form-label">Category</label>
 
 										<select name="fProductCategory" class="form-select mb-3" onchange="UploadCategoryOptionCheck(this);">
-											<?php
-
-												include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Upload&Edit_ListExistedCategories.php");
 											
+											
+											<!-- Listing All Avaliable Categories -->
+											<?php
+												include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+												$SQL_STATMENT = $dbHandler -> prepare("SELECT * FROM `Categories`");
+
+												try{
+
+													if($SQL_STATMENT -> execute())
+													{
+														while($DATA = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC))
+														{
+															echo 
+															"
+																<option value=\"{$DATA["CategoryID"]}\">{$DATA["Name"]}</option>
+															";
+														}
+													}
+
+												}catch(PDOException $ERR){
+
+													echo "Database Error:" . $ERR->getMessage();
+												}
 											?>
+
+
+
 											<option value="0" id="OptionOther">Other</option>
 										</select>
 									
@@ -154,11 +178,13 @@
 							    
 								</form>
 								
-								<?php
 
+
+								<?php
 									include_once(_UTILITIES_PATH_ . "User_ProductList_UploadProduct_Upload.php");
-								
 								?>
+
+
 
 						    </div><!--//app-card-body-->
 						</div><!--//app-card-->
