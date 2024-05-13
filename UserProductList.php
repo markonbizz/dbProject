@@ -251,22 +251,21 @@
 
 										include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
-										$count =  "";
+										$PAGINATION_TABLE = "";
 
 										$PAGINATION_ARGS =
 										[
-											"MAX_RECS_PERPAGE"  => 8,
-											"START_POS"         => 1,
+											"MAX_RECS_PERPAGE"  => 9,
+											"START_POS"         => 0,
 											"TOTAL_RECS"        => 0,
 											"TOTAL_PAGES"       => 0
 										];
 
-										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList'])){
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList']) && isset($_GET["fProductListSearchHolder"])){
 
-											$bSearchHolder = $_GET["fProductListSearchHolder"] ?? "";
-											$bSearchHolder = "%" . $bSearchHolder . "%";
+											$bSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
 
-											$SEARCH_TABLE =
+											$LISTING_TABLE =
 											"
 												SELECT
 													C.Name AS CategoryName,
@@ -281,7 +280,7 @@
 													`UploaderID` = :UploaderID
 											";
 
-											$count =
+											$PAGINATION_TABLE =
 											"
 												SELECT
 													COUNT(*)
@@ -297,57 +296,49 @@
 
 											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
 
-												$SEARCH_TABLE .=
+												$LISTING_TABLE .=
 												"   
 													AND
 													(
 														C.Name            LIKE :SearchTerm
-														or
+														OR
 														P.Name            LIKE :SearchTerm
-							
 													)
 												";
 
-												$count .=
+												$PAGINATION_TABLE .=
 												"   
 													AND
 													(
 														C.Name            LIKE :SearchTerm
-														or
+														OR
 														P.Name            LIKE :SearchTerm
 													)
 												";
 											}
 
 											{// Limiting Recs on page
-												$SEARCH_TABLE .=
+												$LISTING_TABLE .=
 												'
 													LIMIT
-													:startPage, :endPage
+													:START_POS, :MAX_RECS_PERPAGE
 												';
-
-												// $count .=
-												// '
-												// 	LIMIT
-												// 		'. $PAGINATION_ARGS["START_POS"] .', '. $PAGINATION_ARGS["MAX_RECS_PERPAGE"] .'
-												// ';
 											}
 
-											$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
+											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
 											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
 
-											$countStmt = $dbHandler -> prepare($count);
-											$countStmt -> bindParam(":UploaderID", $_SESSION["UserID"]);
-
+											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
+											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
 
 											if(!empty($bSearchHolder))
 											{
 												$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
-												$countStmt -> bindParam(":SearchTerm", $bSearchHolder);
+												$SQL_PAGINATION_STATMENT -> bindParam(":SearchTerm", $bSearchHolder);
 											}
 										}else{
 
-											$SEARCH_TABLE = 
+											$LISTING_TABLE = 
 											"
 												SELECT
 													C.Name AS CategoryName,
@@ -361,10 +352,10 @@
 												WHERE
 													P.UploaderID = :UploaderID
 												LIMIT
-													:startPage, :endPage
+													:START_POS, :MAX_RECS_PERPAGE
 											";
 
-											$count =
+											$PAGINATION_TABLE =
 											"
 												SELECT
 													COUNT(*)
@@ -378,11 +369,11 @@
 													`UploaderID` = :UploaderID
 											";
 
-											$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
+											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
 											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
 
-											$countStmt = $dbHandler -> prepare($count);
-											$countStmt -> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
+											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
 											
 										}
 
@@ -440,11 +431,11 @@
 													$PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
 												}
 
-												$SQL_STATMENT -> bindParam(':startPage', $PAGINATION_ARGS["START_POS"], PDO::PARAM_INT);
-												$SQL_STATMENT -> bindParam(':endPage', $PAGINATION_ARGS["MAX_RECS_PERPAGE"], PDO::PARAM_INT);
+												$SQL_STATMENT -> bindParam(':START_POS', $PAGINATION_ARGS["START_POS"], PDO::PARAM_INT);
+												$SQL_STATMENT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"], PDO::PARAM_INT);
 
 												if($SQL_STATMENT -> execute()){
-													$countStmt -> execute();
+													$SQL_PAGINATION_STATMENT -> execute();
 
 													if(!($SQL_STATMENT -> rowCount())){
 
@@ -498,13 +489,6 @@
 											?>
 										</tbody>
 									</table>
-
-									<?php
-
-										// include_once(_UTILITIES_PATH_ . "User_ProductList_GoToEditPage.php");
-										// include_once(_UTILITIES_PATH_ . "User_ProductList_RemoveProduct.php");
-									
-									?>
 						        </div><!--//table-responsive-->
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
@@ -515,79 +499,8 @@
 							<ul class="pagination justify-content-center">
 								
 								<?php
-									// if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList'])){
 
-									// 	$bSearchHolder = $_GET["fProductListSearchHolder"] ?? "";
-									// 	$bSearchHolder = "%" . $bSearchHolder . "%";
-
-									// 	$SEARCH_TABLE =
-									// 	"
-									// 		SELECT
-									// 			C.Name AS CategoryName,
-									// 			P.*
-									// 		FROM
-									// 			`Products` P
-									// 		JOIN
-									// 			`Categories` C
-									// 		ON
-									// 			C.CategoryID = P.CategoryID 
-									// 		WHERE
-									// 			`UploaderID` = :UploaderID
-									// 	";
-
-									// 	if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
-
-									// 		$SEARCH_TABLE .=
-									// 		"   
-									// 			AND
-									// 			(
-									// 				C.Name            LIKE :SearchTerm
-									// 				or
-									// 				P.Name            LIKE :SearchTerm
-						
-									// 			)
-									// 		";
-									// 	}
-
-									// 	{// Limiting Recs on page
-									// 		$SEARCH_TABLE .=
-									// 		'
-									// 			LIMIT
-									// 				'. $PAGINATION_ARGS["START_POS"] .', '. $PAGINATION_ARGS["MAX_RECS_PERPAGE"] .'
-									// 		';
-									// 	}
-
-									// 	$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
-									// 	$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-
-									// 	if(!empty($bSearchHolder))
-									// 	{
-									// 		$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
-									// 	}
-									// }else{
-
-									// 	$SEARCH_TABLE = 
-									// 	"
-									// 		SELECT
-									// 			C.Name AS CategoryName,
-									// 			P.*
-									// 		FROM 
-									// 			Products P
-									// 		JOIN
-									// 			Categories C
-									// 		ON
-									// 			C.CategoryID = P.CategoryID
-									// 		WHERE
-									// 			P.UploaderID = :UploaderID
-									// 		LIMIT
-									// 			". $PAGINATION_ARGS["START_POS"] .", ". $PAGINATION_ARGS["MAX_RECS_PERPAGE"] ."
-									// 	";
-
-									// 	$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
-									// 	$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-									// }
-
-									$PAGINATION_ARGS["TOTAL_RECS"]  = $countStmt -> fetchColumn();
+									$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_PAGINATION_STATMENT -> fetchColumn();
 									$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
 
 									// =====================================================================

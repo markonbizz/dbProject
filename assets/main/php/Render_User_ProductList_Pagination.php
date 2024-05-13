@@ -2,9 +2,69 @@
 
 include_once("Database_EstConnection.php");
 
-$SQL_STATMENT -> execute();
+include_once("User_ProductList_SearchProduct.php");
 
-$PAGINATION_ARGS["TOTAL_RECS"]  = (int)($SQL_STATMENT -> fetchColumn());
+if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList'])){
+
+    $bSearchHolder = "%". ($_GET["fProductListSearchHolder"] ?? "") . "%";
+
+    $PAGINATION_TABLE = "
+
+        SELECT
+            COUNT(*)
+        FROM
+            `Products` P
+        JOIN
+            `Categories` C
+        ON
+            C.CategoryID = P.CategoryID 
+        WHERE
+            `UploaderID` = :UploaderID
+    ";
+
+    if (!empty($bTargetSearchHolder)){ // if search holder is not empty, append the search target.
+
+        $PAGINATION_TABLE .= "
+           
+            AND
+            (
+                Name            LIKE :SearchTerm
+                OR
+                CategoryName    LIKE :SearchTerm
+            )
+        ";
+    }
+
+    $SQL_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
+    $SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+    if(!empty($bTargetSearchHolder))
+    {
+        $SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
+    }
+}else{
+
+    $PAGINATION_TABLE = "
+
+        SELECT
+            COUNT(*)
+        FROM
+            `Products` P
+        JOIN
+            `Categories` C
+        ON
+            C.CategoryID = P.CategoryID 
+        WHERE
+            `UploaderID` = :UploaderID
+    ";
+
+    $SQL_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
+    $SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+}
+
+$SQL_STATMENT-> execute();
+
+$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_STATMENT -> fetchColumn();
 $PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
 
 // =====================================================================

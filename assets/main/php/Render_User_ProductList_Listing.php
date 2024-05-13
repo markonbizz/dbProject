@@ -1,11 +1,16 @@
 <?php
 
+include_once("User_ProductList_SearchProduct.php");
+
 if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"])){
 
     $CurrentPage = (((int)$_GET["CurrentPageIndex"] - 1) > 0) ? (int)$_GET["CurrentPageIndex"] - 1: 0;
 
     $PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
 }
+
+$SQL_STATMENT-> bindParam(":START_POS",         $PAGINATION_ARGS["START_POS"],        PDO::PARAM_INT);
+$SQL_STATMENT-> bindParam(":MAX_RECS_PERPAGE",  $PAGINATION_ARGS["MAX_RECS_PERPAGE"], PDO::PARAM_INT);
 
 if($SQL_STATMENT -> execute()){
 
