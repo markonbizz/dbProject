@@ -500,6 +500,11 @@
 								
 								<?php
 
+									// This prevent CurrentPageIndex duplicate
+									$LISTING_PRESERVED = $_GET;
+									unset($LISTING_PRESERVED['CurrentPageIndex']);
+									$LISTING_PRESERVED = http_build_query($LISTING_PRESERVED);
+
 									$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_PAGINATION_STATMENT -> fetchColumn();
 									$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
 
@@ -509,7 +514,7 @@
 									echo 
 									"
 										<li class=\"page-item\"> <!-- First Page -->
-											<a class=\"page-link\" href=\"?CurrentPageIndex=1\" tabindex=\"-1\" aria-disabled=\"false\">First</a>
+											<a class=\"page-link\" href=\"?CurrentPageIndex=1&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">First</a>
 										</li>
 									";
 
@@ -523,7 +528,7 @@
 										echo 
 										"
 											<li class=\"page-item\"> <!-- Previous Page -->
-												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}\" tabindex=\"-1\" aria-disabled=\"false\">Previous</a>
+												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">Previous</a>
 											</li>
 										";
 									}else{
@@ -543,10 +548,10 @@
 
 										if(isset($_GET["CurrentPageIndex"]) && ($i == (int)$_GET["CurrentPageIndex"])){
 
-											echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}\">{$i}</a></li>";
+											echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">{$i}</a></li>";
 										}else{
 
-											echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}\">{$i}</a></li>";
+											echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">{$i}</a></li>";
 										}
 									}
 
@@ -561,7 +566,7 @@
 										echo 
 										"
 											<li class=\"page-item\"> <!-- Previous Page -->
-												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}\" tabindex=\"-1\" aria-disabled=\"false\">Next</a>
+												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">Next</a>
 											</li>
 										";
 									}else{
@@ -581,9 +586,11 @@
 									echo
 									"
 										<li class=\"page-item\"> <!-- End Page -->
-											<a class=\"page-link\" href=\"?CurrentPageIndex={$PAGINATION_ARGS["TOTAL_PAGES"]}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
+											<a class=\"page-link\" href=\"?CurrentPageIndex={$PAGINATION_ARGS["TOTAL_PAGES"]}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
 										</li>
 									";
+
+									unset($_GET["CurrentPageIndex"]);
 								?>
 
 							</ul>
