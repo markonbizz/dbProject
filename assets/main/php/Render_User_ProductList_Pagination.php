@@ -1,9 +1,10 @@
 <?php
 
-include_once("User_ProductList_SearchProduct.php");
-include_once("Render_User_ProductList_Listing.php");
+include_once("Database_EstConnection.php");
 
-$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_STATMENT -> rowCount();
+$SQL_STATMENT -> execute();
+
+$PAGINATION_ARGS["TOTAL_RECS"]  = (int)($SQL_STATMENT -> fetchColumn());
 $PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
 
 // =====================================================================

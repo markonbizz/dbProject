@@ -266,6 +266,7 @@
 											$SEARCH_TABLE =
 											"
 												SELECT
+													COUNT(P.ProductID),
 													C.Name AS CategoryName,
 													P.*
 												FROM
@@ -278,7 +279,7 @@
 													`UploaderID` = :UploaderID
 											";
 
-											if (!empty($bTargetSearchHolder)){ // if search holder is not empty, append the search target.
+											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
 
 												$SEARCH_TABLE .=
 												"   
@@ -302,7 +303,7 @@
 											$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
 											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
 
-											if(!empty($bTargetSearchHolder))
+											if(!empty($bSearchHolder))
 											{
 												$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
 											}
@@ -311,6 +312,7 @@
 											$SEARCH_TABLE = 
 											"
 												SELECT
+													COUNT(P.ProductID),
 													C.Name AS CategoryName,
 													P.*
 												FROM 
@@ -452,7 +454,7 @@
 							<ul class="pagination justify-content-center">
 								
 								<?php
-									$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_STATMENT -> rowCount();
+									$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_STATMENT -> fetchColumn();
 									$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
 
 									// =====================================================================
