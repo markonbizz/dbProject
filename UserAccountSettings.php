@@ -1,7 +1,5 @@
 <?php
 
-	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-
 	session_start();
 
 	if(!defined("_UTILITIES_PATH_")){
