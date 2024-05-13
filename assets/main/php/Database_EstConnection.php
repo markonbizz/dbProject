@@ -3,7 +3,7 @@
 $SQL_URL        = "localhost:3306";
 $DB_TARGET      = "DEArmory";
 $PMA_USER       = "root";
-$PMA_PASSWORD   = "#u2324";
+$PMA_PASSWORD   = "root";
 
 try{
         
