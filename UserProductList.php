@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 
 	<?php
+		
 		Session_CheckAuthLevel(checkAuth: "USER");
 		
 		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductOperation.php");
@@ -243,12 +244,150 @@
 					                    <div class="col-auto">
 					                        <button name="fRequestSearchOnProductList" value="true" type="submit" class="btn app-btn-secondary">Search</button>
 					                    </div>
-
-										<?php
-
-											include_once(_UTILITIES_PATH_ . "User_ProductList_SearchProduct.php");
-										?>
 					                </form>
+
+
+									<?php
+
+										include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+										$count =  "";
+
+										$PAGINATION_ARGS =
+										[
+											"MAX_RECS_PERPAGE"  => 8,
+											"START_POS"         => 1,
+											"TOTAL_RECS"        => 0,
+											"TOTAL_PAGES"       => 0
+										];
+
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList'])){
+
+											$bSearchHolder = $_GET["fProductListSearchHolder"] ?? "";
+											$bSearchHolder = "%" . $bSearchHolder . "%";
+
+											$SEARCH_TABLE =
+											"
+												SELECT
+													C.Name AS CategoryName,
+													P.*
+												FROM
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
+												WHERE
+													`UploaderID` = :UploaderID
+											";
+
+											$count =
+											"
+												SELECT
+													COUNT(*)
+												FROM
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
+												WHERE
+													`UploaderID` = :UploaderID
+											";
+
+											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
+
+												$SEARCH_TABLE .=
+												"   
+													AND
+													(
+														C.Name            LIKE :SearchTerm
+														or
+														P.Name            LIKE :SearchTerm
+							
+													)
+												";
+
+												$count .=
+												"   
+													AND
+													(
+														C.Name            LIKE :SearchTerm
+														or
+														P.Name            LIKE :SearchTerm
+													)
+												";
+											}
+
+											{// Limiting Recs on page
+												$SEARCH_TABLE .=
+												'
+													LIMIT
+													:startPage, :endPage
+												';
+
+												// $count .=
+												// '
+												// 	LIMIT
+												// 		'. $PAGINATION_ARGS["START_POS"] .', '. $PAGINATION_ARGS["MAX_RECS_PERPAGE"] .'
+												// ';
+											}
+
+											$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
+											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+											$countStmt = $dbHandler -> prepare($count);
+											$countStmt -> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+
+											if(!empty($bSearchHolder))
+											{
+												$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
+												$countStmt -> bindParam(":SearchTerm", $bSearchHolder);
+											}
+										}else{
+
+											$SEARCH_TABLE = 
+											"
+												SELECT
+													C.Name AS CategoryName,
+													P.*
+												FROM 
+													Products P
+												JOIN
+													Categories C
+												ON
+													C.CategoryID = P.CategoryID
+												WHERE
+													P.UploaderID = :UploaderID
+												LIMIT
+													:startPage, :endPage
+											";
+
+											$count =
+											"
+												SELECT
+													COUNT(*)
+												FROM
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
+												WHERE
+													`UploaderID` = :UploaderID
+											";
+
+											$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
+											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+											$countStmt = $dbHandler -> prepare($count);
+											$countStmt -> bindParam(":UploaderID", $_SESSION["UserID"]);
+											
+										}
+
+										
+									?>
 							    </div><!--//col-->
 								
 								<div class="col-auto">
@@ -294,8 +433,68 @@
 										<tbody>
 											<?php
 
-												include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Listing.php");
+												if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"])){
 
+													$CurrentPage = (((int)$_GET["CurrentPageIndex"] - 1) > 0) ? (int)$_GET["CurrentPageIndex"] - 1: 0;
+
+													$PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
+												}
+
+												$SQL_STATMENT -> bindParam(':startPage', $PAGINATION_ARGS["START_POS"], PDO::PARAM_INT);
+												$SQL_STATMENT -> bindParam(':endPage', $PAGINATION_ARGS["MAX_RECS_PERPAGE"], PDO::PARAM_INT);
+
+												if($SQL_STATMENT -> execute()){
+													$countStmt -> execute();
+
+													if(!($SQL_STATMENT -> rowCount())){
+
+														echo 
+														"
+															<tr>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\">
+																	<h6> Nothing but Chickens here :) </h6>
+																</td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+															</tr>
+														";
+													}else{
+														
+														while($_RECS_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC)){
+
+															echo 
+															"
+																<tr>
+																	<td class=\"cell\">#    {$_RECS_["ProductID"]}       </td>
+																	<td class=\"cell\">     {$_RECS_["CategoryName"]}    </td>
+																	<td class=\"cell\">     {$_RECS_["Name"]}            </td>
+																	<td class=\"cell\">\$   {$_RECS_["Price"]}           </td>
+																	<td class=\"cell\">     {$_RECS_["UploadDate"]}      </td>
+																	<td class=\"cell\">     {$_RECS_["Description"]}     </td>
+																	<td class=\"cell text-end\">
+																	
+																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+																			<input name=\"fEditTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
+																			<button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
+																		</form>
+
+																		&nbsp;
+
+																		<form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+																			<input name=\"fRemoveTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
+																			<button name=\"fRequestRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
+																		</form>
+
+																	</td>
+																</tr>
+															";
+														}
+													}
+												}
 											?>
 										</tbody>
 									</table>
@@ -307,7 +506,6 @@
 									
 									?>
 						        </div><!--//table-responsive-->
-						       
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
 
@@ -317,9 +515,162 @@
 							<ul class="pagination justify-content-center">
 								
 								<?php
+									// if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList'])){
 
-									include_once(_UTILITIES_PATH_ . "Render_User_ProductList_Pagination.php");
-								
+									// 	$bSearchHolder = $_GET["fProductListSearchHolder"] ?? "";
+									// 	$bSearchHolder = "%" . $bSearchHolder . "%";
+
+									// 	$SEARCH_TABLE =
+									// 	"
+									// 		SELECT
+									// 			C.Name AS CategoryName,
+									// 			P.*
+									// 		FROM
+									// 			`Products` P
+									// 		JOIN
+									// 			`Categories` C
+									// 		ON
+									// 			C.CategoryID = P.CategoryID 
+									// 		WHERE
+									// 			`UploaderID` = :UploaderID
+									// 	";
+
+									// 	if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
+
+									// 		$SEARCH_TABLE .=
+									// 		"   
+									// 			AND
+									// 			(
+									// 				C.Name            LIKE :SearchTerm
+									// 				or
+									// 				P.Name            LIKE :SearchTerm
+						
+									// 			)
+									// 		";
+									// 	}
+
+									// 	{// Limiting Recs on page
+									// 		$SEARCH_TABLE .=
+									// 		'
+									// 			LIMIT
+									// 				'. $PAGINATION_ARGS["START_POS"] .', '. $PAGINATION_ARGS["MAX_RECS_PERPAGE"] .'
+									// 		';
+									// 	}
+
+									// 	$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
+									// 	$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+									// 	if(!empty($bSearchHolder))
+									// 	{
+									// 		$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
+									// 	}
+									// }else{
+
+									// 	$SEARCH_TABLE = 
+									// 	"
+									// 		SELECT
+									// 			C.Name AS CategoryName,
+									// 			P.*
+									// 		FROM 
+									// 			Products P
+									// 		JOIN
+									// 			Categories C
+									// 		ON
+									// 			C.CategoryID = P.CategoryID
+									// 		WHERE
+									// 			P.UploaderID = :UploaderID
+									// 		LIMIT
+									// 			". $PAGINATION_ARGS["START_POS"] .", ". $PAGINATION_ARGS["MAX_RECS_PERPAGE"] ."
+									// 	";
+
+									// 	$SQL_STATMENT = $dbHandler -> prepare($SEARCH_TABLE);
+									// 	$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+									// }
+
+									$PAGINATION_ARGS["TOTAL_RECS"]  = $countStmt -> fetchColumn();
+									$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
+
+									// =====================================================================
+									// =========================== First Page =========================== 
+									// =====================================================================
+									echo 
+									"
+										<li class=\"page-item\"> <!-- First Page -->
+											<a class=\"page-link\" href=\"?CurrentPageIndex=1\" tabindex=\"-1\" aria-disabled=\"false\">First</a>
+										</li>
+									";
+
+									// =====================================================================
+									// =========================== Previous Page =========================== 
+									// =====================================================================
+									if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){
+
+										$tmp = (int)$_GET["CurrentPageIndex"] - 1;
+
+										echo 
+										"
+											<li class=\"page-item\"> <!-- Previous Page -->
+												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}\" tabindex=\"-1\" aria-disabled=\"false\">Previous</a>
+											</li>
+										";
+									}else{
+
+										echo 
+										"
+											<li class=\"page-item disable\"> <!-- Previous Page -->
+												<a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Previous</a>
+											</li>
+										";
+									}
+
+									// =============================================================
+									// =========================== Pages =========================== 
+									// =============================================================
+									for($i = 1; $i <= $PAGINATION_ARGS["TOTAL_PAGES"]; $i++){
+
+										if(isset($_GET["CurrentPageIndex"]) && ($i == (int)$_GET["CurrentPageIndex"])){
+
+											echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}\">{$i}</a></li>";
+										}else{
+
+											echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}\">{$i}</a></li>";
+										}
+									}
+
+
+									// =================================================================
+									// =========================== Next Page =========================== 
+									// =================================================================
+									if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $PAGINATION_ARGS["TOTAL_PAGES"])){
+
+										$tmp = (int)$_GET["CurrentPageIndex"] + 1;
+
+										echo 
+										"
+											<li class=\"page-item\"> <!-- Previous Page -->
+												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}\" tabindex=\"-1\" aria-disabled=\"false\">Next</a>
+											</li>
+										";
+									}else{
+
+										echo 
+										"
+											<li class=\"page-item disable\"> <!-- Previous Page -->
+												<a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Next</a>
+											</li>
+										";
+									}
+
+
+									// =================================================================
+									// =========================== Last Page =========================== 
+									// =================================================================
+									echo
+									"
+										<li class=\"page-item\"> <!-- End Page -->
+											<a class=\"page-link\" href=\"?CurrentPageIndex={$PAGINATION_ARGS["TOTAL_PAGES"]}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
+										</li>
+									";
 								?>
 
 							</ul>
