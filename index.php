@@ -112,10 +112,79 @@
                                 include_once(_UTILITIES_PATH_ . "Render_Store_Topbar_AccountEntry.php");
                                 echo "&nbsp";
                                 echo "&nbsp";
-                                include_once(_UTILITIES_PATH_ . "Render_Store_Topbar_LogoutEntry.php");
-                            
+                                if(isset($_SESSION["Account"])){
+
+                                    echo
+                                    "
+                                        <div class=\"header__top__right__auth\">
+                                            <a id=\"RequestUserLogout\">
+                                                <i class=\"fa fa-sign-out\"></i>
+                                                <strong> Logout </strong>
+                                            </a>
+                                        </div>
+                                    ";
+                                }
                             ?>
 
+                            <!-- SweetAlert2 Logout Prompts -->
+                            <?php
+
+                                echo "
+                                    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                                    <script>
+
+                                        document.addEventListener('DOMContentLoaded', function() {
+
+                                            const RequestUserLogout = document.getElementById('RequestUserLogout');
+
+                                            RequestUserLogout.addEventListener('click', function() {
+
+                                                Swal.fire({
+
+                                                    title: 'Logout Confirmation',
+                                                    text: 'Are you sure you want to logout?',
+                                                    icon: 'warning',
+                                                    showCancelButton: true,
+                                                    confirmButtonText: 'Yes, logout',
+                                                    cancelButtonText: 'Cancel'
+
+                                                }).then((result) => {
+
+                                                    if (result.isConfirmed){
+
+                                                        fetch('assets/main/php/Session_Logout.php', {
+                                                            method: 'POST',
+                                                        }).then(respond => {
+
+                                                            if(respond.ok){
+
+                                                                Swal.fire({
+                    
+                                                                    title:  'Logouts Successfully',
+                                                                    icon:   'success',
+                                                                    confirmButtonText:  'Okay'
+                                                                
+                                                                }).then((result) => {
+                                                                    
+                                                                    if(result.isConfirmed){
+
+                                                                        window.location.href = 'Login.php';
+                                                                    }
+                                                                });
+                                                            }
+                                                        }).catch(error => {
+                                                            
+                                                            console.error('Error:', error);
+                                                        });
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                ";
+                            ?>
+
+                            </script>  
                         </div>
                     </div>
                 </div>
@@ -164,17 +233,32 @@
                             <span>Quick Access</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+
+                            
+                            
+                            <?php
+
+                                include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+                                $CATEGORIES = "
+
+                                    SELECT * FROM Categories
+                                ";
+
+                                $SQL_STATMENT = $dbHandler -> prepare($CATEGORIES);
+                                
+                                if($SQL_STATMENT -> execute()){
+
+                                    while($availableCategories = $SQL_STATMENT -> fetch()){
+
+                                        echo "<li><a href=\"Shop.php?RequestedCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                    }
+                                }
+
+                            ?>
+
+
+
                         </ul>
                     </div>
                 </div>

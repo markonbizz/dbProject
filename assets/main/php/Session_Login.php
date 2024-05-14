@@ -25,13 +25,25 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
     // Verify & Login
     if(!(password_verify($bPassword, $User_Security["Password"])) || !($User_Basics) || !($User_Security)){
         
-        echo 
-        "
-            <script>
-                alert(\" Login Failed: Invalid User or Password \");
-                window.location.href = \"Login.php\";
-            </script>
-        "; 
+        echo "
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                <script>
+                    Swal.fire({
+                    
+                        title:  'Login Failed',
+                        text:   'Please check your infomation was entered correctly',
+                        icon:   'error',
+                        confirmButtonText:  'Okay'
+                    
+                    }).then((result) => {
+                        
+                        if(result.isConfirmed){
+
+                            window.location.href = 'Login.php';
+                        }
+                    });
+                </script>    
+            ";
     }else{
     
         /*
@@ -49,22 +61,47 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
 
         if(isset($_SESSION["Account"]) && ($User_Security["Permission"] === "ADMIN")){
 
-            echo 
-            "
+            echo "
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                 <script>
-                    alert(\" Login Successfully ! \");
-                    window.location.href = \"AdminHome.php\";
-                </script>
+                    window.location.href = 'index.php';
+                    Swal.fire({
+                    
+                        title:  'Login Successfully',
+                        text:   'Now you will be redirected to main page',
+                        icon:   'success',
+                        confirmButtonText:  'Okay'
+                    
+                    }).then((result) => {
+                        
+                        if(result.isConfirmed){
+
+                            window.location.href = 'AdminHome.php';
+                        }
+                    });
+                </script>    
             ";
         }else{
 
-            echo 
-            "
+            echo "
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                 <script>
-                    alert(\" Login Successfully ! \");
-                    window.location.href = \"index.php\";
-                </script>
-            "; 
+                    Swal.fire({
+                    
+                        title:  'Login Successfully',
+                        text:   'Now you will be redirected to main page',
+                        icon:   'success',
+                        confirmButtonText:  'Okay'
+                    
+                    }).then((result) => {
+                        
+                        if(result.isConfirmed){
+
+                            window.location.href = 'index.php';
+                        }
+                    });
+                </script>    
+            ";
         }
     }
 }

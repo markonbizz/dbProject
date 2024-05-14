@@ -195,7 +195,7 @@
 
 						    <li class="nav-item">
 						        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-						        <a class="nav-link" href="assets/main/php/Session_Logout.php">
+						        <a class="nav-link" id="RequestUserLogout">
 							        <span class="nav-icon">
 							            <svg class="bi bi-box-arrow-left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
 											<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
@@ -204,10 +204,66 @@
 							        </span>
 			                        <span class="nav-link-text">Log out</span>
 						        </a><!--//nav-link-->
+
+								<!-- SweetAlert2 Logout Prompts -->
+								<?php
+
+									echo "
+										<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+										<script>
+
+											document.addEventListener('DOMContentLoaded', function() {
+
+												const RequestUserLogout = document.getElementById('RequestUserLogout');
+
+												RequestUserLogout.addEventListener('click', function() {
+
+													Swal.fire({
+
+														title: 'Logout Confirmation',
+														text: 'Are you sure you want to logout?',
+														icon: 'warning',
+														showCancelButton: true,
+														confirmButtonText: 'Yes, logout',
+														cancelButtonText: 'Cancel'
+
+													}).then((result) => {
+
+														if (result.isConfirmed){
+
+															fetch('assets/main/php/Session_Logout.php', {
+																method: 'POST',
+															}).then(respond => {
+
+																if(respond.ok){
+
+																	Swal.fire({
+						
+																		title:  'Logouts Successfully',
+																		icon:   'success',
+																		confirmButtonText:  'Okay'
+																	
+																	}).then((result) => {
+																		
+																		if(result.isConfirmed){
+
+																			window.location.href = 'Login.php';
+																		}
+																	});
+																}
+															}).catch(error => {
+																
+																console.error('Error:', error);
+															});
+														}
+													});
+												});
+											});
+										</script>
+									";
+								?>
+
 						    </li><!--//nav-item-->
-					    
-						
-						
 						</ul><!--//footer-menu-->
 				    </nav>
 			    </div><!--//app-sidepanel-footer-->
