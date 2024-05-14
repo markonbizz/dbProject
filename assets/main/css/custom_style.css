@@ -35,6 +35,7 @@ body div.shoping__cart__btns a:hover{
     transition: ease-in 0.1s;
 }
 
-.knx-content-pos{
-
+.hero__search__form form button .site-btn:hover{
+    transition: ease-in-out 50ms;
+    background-color:#55bd8c;
 }

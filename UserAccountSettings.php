@@ -247,7 +247,7 @@
 																		
 																		if(result.isConfirmed){
 
-																			window.location.href = 'Login.php';
+																			window.location.href = 'index.php';
 																		}
 																	});
 																}
