@@ -191,7 +191,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="index.php">Home</a></li>
-                            <li class="active"><a href="Shop.php">Shop</a></li>
+                            <li class="active"><a href="Shop.php">Products</a></li>
                             <li><a href="Contact.php">Contact</a></li>
                         </ul>
                     </nav>
@@ -261,6 +261,11 @@
                                 <input type="text" placeholder="What do yo u need?">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
+
+                            <?php // Product Searching
+
+                            ?>
+
                         </div>
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
@@ -342,29 +347,51 @@
 
                     <!-- Listing Found Products -->
                     <div class="row">
+
+                        <?php // Product Rendering
+
+                        ?>
+
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="assets/main/images/product/product-1.jpg">
+
+                                <div class="product__item__pic">
+                                    <img class="set-bg" src="assets/main/images/product/product-1.jpg">
                                     <ul class="product__item__pic__hover">
-                                        <!-- <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </li>
                                     </ul>
                                 </div>
+
                                 <div class="product__item__text">
-                                    <h6><a href="#">Product 01</a></h6>
+                                    <h6><a href="ItemDetail.php">Product 01</a></h6> <!-- Product Namn -->
                                     <h5>$30.00</h5>
                                 </div>
+
                             </div>
                         </div>
+
+
+
                     </div>
 
 
+
                     <div class="product__pagination">
+
+                        <!-- Previous -->
+                        <a href="#">
+                            <i class="fa fa-long-arrow-left"></i>
+                        </a>
+                        
+                        <!-- Pages -->
                         <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+
+                        <!-- Next -->
+                        <a href="#">
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
                     </div>
 
 

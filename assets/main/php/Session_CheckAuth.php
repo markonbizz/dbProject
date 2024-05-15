@@ -24,7 +24,6 @@ function _logout_(string $redirect_dst = "../Login.php", string $msg = "Logout S
         ";
     }
 
-
     session_destroy();
 
     exit();
