@@ -649,9 +649,7 @@
 										</li>
 									";
 
-									unset($_GET["CurrentPageIndex"]);
 								?>
-
 							</ul>
 						</nav><!--//app-pagination-->
 						

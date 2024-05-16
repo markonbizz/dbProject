@@ -6,7 +6,6 @@
 
 		define("_UTILITIES_PATH_", "assets/main/php/");
 	}
-
 ?>
 
 <!DOCTYPE html>
@@ -227,9 +226,6 @@
 
                             
                             <?php
-
-
-
                                 include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
                                 $CATEGORIES = "
@@ -237,16 +233,15 @@
                                     SELECT * FROM Categories
                                 ";
 
-                                $SQL_STATMENT = $dbHandler -> prepare($CATEGORIES);
+                                $LIST_CATEGORIES_STMT = $dbHandler -> prepare($CATEGORIES);
                                 
-                                if($SQL_STATMENT -> execute()){
+                                if($LIST_CATEGORIES_STMT -> execute()){
 
-                                    while($availableCategories = $SQL_STATMENT -> fetch()){
+                                    while($availableCategories = $LIST_CATEGORIES_STMT -> fetch()){
 
-                                        echo "<li><a href=\"Shop.php?RequestedCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                        echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                     }
                                 }
-
                             ?>
 
 
@@ -257,14 +252,132 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+
+                            <form name="ShopSearchForm" action="Shop.php" method="get">
+
+                                <input name="fShopSearchHolder" type="text" placeholder="What's your jam?">
+                                <button name="fRequestShopSearch" value="true" type="submit" class="site-btn">SEARCH</button>
                             </form>
 
-                            <?php // Product Searching
 
+
+                            <?php
+                                include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+                                $PAGINATION_TABLE = "";
+
+                                $PAGINATION_ARGS =
+                                [
+                                    "MAX_RECS_PERPAGE"  => 9,
+                                    "START_POS"         => 0,
+                                    "TOTAL_RECS"        => 0,
+                                    "TOTAL_PAGES"       => 0
+                                ];
+
+                                if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestShopSearch']) && ($_GET['fRequestShopSearch']) && isset($_GET["fShopSearchHolder"])){
+
+                                    $bSearchHolder = "%" . ($_GET["fShopSearchHolder"] ?? "") . "%";
+
+                                    $LISTING_TABLE =
+                                    "
+                                        SELECT
+                                            C.Name AS CategoryName,
+                                            P.*
+                                        FROM
+                                            `Products` P
+                                        JOIN
+                                            `Categories` C
+                                        ON
+                                            C.CategoryID = P.CategoryID
+                                        
+                                    ";
+
+                                    $PAGINATION_TABLE =
+                                    "
+                                        SELECT
+                                            COUNT(*)
+                                        FROM
+                                            `Products` P
+                                        JOIN
+                                            `Categories` C
+                                        ON
+                                            C.CategoryID = P.CategoryID
+                                    ";
+
+                                    if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
+
+                                        $LISTING_TABLE .=
+                                        "   
+                                            WHERE
+                                            (
+                                                C.Name            LIKE :SearchTerm
+                                                OR
+                                                P.Name            LIKE :SearchTerm
+                                            )
+                                        ";
+
+                                        $PAGINATION_TABLE .=
+                                        "   
+                                            WHERE
+                                            (
+                                                C.Name            LIKE :SearchTerm
+                                                OR
+                                                P.Name            LIKE :SearchTerm
+                                            )
+                                        ";
+                                    }
+
+                                    {// Limiting Recs on page
+                                        $LISTING_TABLE .=
+                                        '
+                                            LIMIT
+                                                :START_POS, :MAX_RECS_PERPAGE
+                                        ';
+                                    }
+
+                                    $SEARCH_STMT            = $dbHandler -> prepare($LISTING_TABLE);
+                                    $SEARCH_PAGINATION_STMT = $dbHandler -> prepare($PAGINATION_TABLE);
+
+                                    if(!empty($bSearchHolder))
+                                    {
+                                        $SEARCH_STMT            -> bindParam(":SearchTerm", $bSearchHolder);
+                                        $SEARCH_PAGINATION_STMT -> bindParam(":SearchTerm", $bSearchHolder);
+                                    }
+                                }else{
+
+                                    $LISTING_TABLE = 
+                                    "
+                                        SELECT
+                                            C.Name AS CategoryName,
+                                            P.*
+                                        FROM 
+                                            Products P
+                                        JOIN
+                                            Categories C
+                                        ON
+                                            C.CategoryID = P.CategoryID
+                                        LIMIT
+                                            :START_POS, :MAX_RECS_PERPAGE
+                                    ";
+
+                                    $PAGINATION_TABLE =
+                                    "
+                                        SELECT
+                                            COUNT(*)
+                                        FROM
+                                            `Products` P
+                                        JOIN
+                                            `Categories` C
+                                        ON
+                                            C.CategoryID = P.CategoryID 
+                                    ";
+
+                                    $SEARCH_STMT            = $dbHandler -> prepare($LISTING_TABLE);
+                                    $SEARCH_PAGINATION_STMT = $dbHandler -> prepare($PAGINATION_TABLE);
+                                }
                             ?>
+
+
 
                         </div>
                         <div class="hero__search__phone">
@@ -298,11 +411,8 @@
                             <ul>
 
 
-
+                                <!-- List All Existed Categories -->
                                 <?php
-
-
-
                                     include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
                                     $CATEGORIES = "
@@ -310,18 +420,45 @@
                                         SELECT * FROM Categories
                                     ";
 
-                                    $SQL_STATMENT = $dbHandler -> prepare($CATEGORIES);
+                                    $LIST_CATEGORIES_STMT = $dbHandler -> prepare($CATEGORIES);
                                     
-                                    if($SQL_STATMENT -> execute()){
+                                    if($LIST_CATEGORIES_STMT -> execute()){
 
-                                        while($availableCategories = $SQL_STATMENT -> fetch()){
+                                        while($availableCategories = $LIST_CATEGORIES_STMT -> fetch()){
 
-                                            echo "<li><a href=\"Shop.php?RequestedCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                            echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                         }
                                     }
-
                                 ?>
+                                
+                                <!-- Categories Search -->
+                                <?php
+                                    include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
+                                    if(isset($_GET["fShopSearchCategoryID"]) && ($_GET["fShopSearchCategoryID"])){
+
+                                        $bSidePanelCategoryID = $_GET["fShopSearchCategoryID"] ?? "";
+
+                                        $SEARCH_ON_CATEGORIES = "
+
+                                            SELECT * FROM Products
+                                            WHERE CategoryID = :CategoryID
+                                            LIMIT :START_POS, :MAX_RECS_PERPAGE
+                                        ";
+
+                                        $PAGINATION_ON_CATEGORIES = "
+
+                                            SELECT COUNT(*) FROM Products
+                                            WHERE CategoryID = :CategoryID
+                                        ";
+
+                                        $CATEGORY_SEARCH_STMT = $dbHandler -> prepare($SEARCH_ON_CATEGORIES);
+                                        $CATEGORY_SEARCH_STMT-> bindParam(":CategoryID", $bSidePanelCategoryID, PDO::PARAM_INT);
+
+                                        $CATEGORY_PAGINATION_STMT = $dbHandler -> prepare($SEARCH_ON_CATEGORIES);
+                                        $CATEGORY_PAGINATION_STMT-> bindParam(":CategoryID", $bSidePanelCategoryID, PDO::PARAM_INT);
+                                    }
+                                ?>
 
 
                             </ul>
@@ -348,53 +485,151 @@
                     <!-- Listing Found Products -->
                     <div class="row">
 
-                        <?php // Product Rendering
+                        <?php // Product Rendering FROM SearchHolder
+                            if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"])){
 
+                                $CurrentPage = (((int)$_GET["CurrentPageIndex"] - 1) > 0) ? (int)$_GET["CurrentPageIndex"] - 1: 0;
+
+                                $PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
+                            }
+                            
+                            // IF PRESS CATEGORIES ON THE SIDE PANEL
+                            if(isset($_GET["fShopSearchCategoryID"]) && ($_GET["fShopSearchCategoryID"])){
+
+                                $CATEGORY_SEARCH_STMT -> bindParam(':START_POS',        $PAGINATION_ARGS["START_POS"],          PDO::PARAM_INT);
+                                $CATEGORY_SEARCH_STMT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"],   PDO::PARAM_INT);
+                            }else{
+
+                                $SEARCH_STMT -> bindParam(':START_POS',        $PAGINATION_ARGS["START_POS"],          PDO::PARAM_INT);
+                                $SEARCH_STMT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"],   PDO::PARAM_INT);
+                            }
+
+                            if($SEARCH_STMT -> execute()){
+                                
+                                $SEARCH_PAGINATION_STMT -> execute();
+
+                                while($_RECS_ = $SEARCH_STMT -> fetch(PDO::FETCH_ASSOC)){
+
+                                    echo 
+                                    "
+                                        <div class=\"col-lg-4 col-md-6 col-sm-6\">
+                                            <div class=\"product__item\">
+
+                                                <div class=\"product__item__pic\">
+                                                    <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
+                                                    <ul class=\"product__item__pic__hover\">
+                                                        <li>
+                                                            <a href=\"#\"><i class=\"fa fa-shopping-cart\"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class=\"product__item__text\">
+                                                    <h6><a href=\"ItemDetail.php\">{$_RECS_["Name"]}</a></h6> <!-- Product Name -->
+                                                    <h5>\${$_RECS_["Price"]}</h5>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    ";
+                                }
+                            }
+
+                            else if(($CATEGORY_SEARCH_STMT -> execute()) && isset($_GET["fShopSearchCategoryID"]) && ($_GET["fShopSearchCategoryID"])){
+
+                                $CATEGORY_PAGINATION_STMT -> execute();
+
+                                while($_RECS_ = $SEARCH_STMT -> fetch(PDO::FETCH_ASSOC)){
+
+                                    echo 
+                                    "
+                                        <div class=\"col-lg-4 col-md-6 col-sm-6\">
+                                            <div class=\"product__item\">
+
+                                                <div class=\"product__item__pic\">
+                                                    <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
+                                                    <ul class=\"product__item__pic__hover\">
+                                                        <li>
+                                                            <a href=\"#\"><i class=\"fa fa-shopping-cart\"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class=\"product__item__text\">
+                                                    <h6><a href=\"ItemDetail.php\">{$_RECS_["Name"]}</a></h6> <!-- Product Name -->
+                                                    <h5>\${$_RECS_["Price"]}</h5>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    ";
+                                }
+                            }
                         ?>
-
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-
-                                <div class="product__item__pic">
-                                    <img class="set-bg" src="assets/main/images/product/product-1.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li>
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="product__item__text">
-                                    <h6><a href="ItemDetail.php">Product 01</a></h6> <!-- Product Namn -->
-                                    <h5>$30.00</h5>
-                                </div>
-
-                            </div>
-                        </div>
-
-
 
                     </div>
 
 
 
                     <div class="product__pagination">
+                        <?php
+                            
+                            $LISTING_PRESERVED = $_GET;
+                            unset($LISTING_PRESERVED['CurrentPageIndex']);
+                            if(isset($_GET['fRequestShopSearch']) && ($_GET['fRequestShopSearch']) && isset($_GET["fShopSearchHolder"])){
 
-                        <!-- Previous -->
-                        <a href="#">
-                            <i class="fa fa-long-arrow-left"></i>
-                        </a>
+                                if(isset($_GET['fRequestShopSearch']) && ($_GET['fRequestShopSearch'])){
+
+                                    unset($LISTING_PRESERVED['fShopSearchCategoryID']);
+                                }
+                            }else if(isset($_GET['fRequestShopSearch']) && ($_GET['fRequestShopSearch'])){
+                            
+                                if(isset($_GET['fRequestShopSearch']) && ($_GET['fRequestShopSearch']) && isset($_GET["fShopSearchHolder"])){
+                                
+                                    unset($LISTING_PRESERVED['fRequestShopSearch']);
+                                    unset($LISTING_PRESERVED['fShopSearchHolder']);
+                                }
+                            }
+                            $LISTING_PRESERVED = http_build_query($LISTING_PRESERVED);
+
+                            $PAGINATION_ARGS["TOTAL_RECS"]  = $SEARCH_PAGINATION_STMT -> fetchColumn();
+                            $PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
                         
-                        <!-- Pages -->
-                        <a href="#">1</a>
 
-                        <!-- Next -->
-                        <a href="#">
-                            <i class="fa fa-long-arrow-right"></i>
-                        </a>
+                            // Previous
+                            if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){
+
+                                $tmp = (int)$_GET["CurrentPageIndex"] - 1;
+
+                                echo 
+                                "
+                                    <a href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\">
+                                        <i class=\"fa fa-long-arrow-left\"></i>
+                                    </a>
+                                ";
+                            }
+
+                            // Pages
+                            for($i = 1; $i <= $PAGINATION_ARGS["TOTAL_PAGES"]; $i++){
+
+                                echo "<a href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">$i</a>";
+                            }
+
+                            // Next
+                            if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $PAGINATION_ARGS["TOTAL_PAGES"])){
+
+                                $tmp = (int)$_GET["CurrentPageIndex"] + 1;
+
+                                echo 
+                                "
+                                    <a href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\">
+                                        <i class=\"fa fa-long-arrow-right\"></i>
+                                    </a>
+                                ";
+                            }
+                        ?>
+
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -446,12 +681,6 @@
                             <input type="text" placeholder="Enter your mail">
                             <button type="submit" class="site-btn">Subscribe</button>
                         </form>
-                        <!-- <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div> -->
                     </div>
                 </div>
             </div>
