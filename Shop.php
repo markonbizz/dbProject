@@ -504,10 +504,11 @@
                                                     
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
                                                     
-                                                    <form action=\"{_UTILITIES_PATH_ . Store_AddToCart.php}\" method=\"post\" class=\"product__item__pic__hover\">
+                                                    <form action=\"assets/main/php/Store_AddToCart.php\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
                                                         <input name='fAddProductQuantity' type='hidden' value='1'>
-                                                        
+                                                        <input name='fAddProductPrice' type='hidden' value='{$_RECS_["Price"]}'>
+
                                                         <button name='fRequestAddToCart' value='true'><i class=\"fa fa-shopping-cart\"></i></button>  
                                                     </form>
                                                 
@@ -538,10 +539,11 @@
                                                 <div class=\"product__item__pic\">
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
                                                     
-                                                    <form action=\"{_UTILITIES_PATH_ . Store_AddToCart.php}\" method=\"post\" class=\"product__item__pic__hover\">
+                                                    <form action=\"assets/main/php/Store_AddToCart.php\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
                                                         <input name='fAddProductQuantity' type='hidden' value='1'>
-                                                        
+                                                        <input name='fAddProductPrice' type='hidden' value='{$_RECS_["Price"]}'>
+
                                                         <button name='fRequestAddToCart' value='true'><i class=\"fa fa-shopping-cart\"></i></button>  
                                                     </form>
                                                     
@@ -557,8 +559,54 @@
                                     ";
                                 }
                             }
+                        ?>
 
-                            include_once(_UTILITIES_PATH_ . "Store_AddToCart.php");
+                        <!-- Shop / Add Product to Cart Functionality -->
+                        <?php
+                            if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestAddToCart"]) && ($_POST["fRequestAddToCart"])){
+
+                                Session_CheckAuthLevel("USER", "Login.php");
+
+                                if(isset($_POST["fAddProductID"]) && ($_POST["fAddProductID"]) && isset($_POST["fAddProductQuantity"]) && ($_POST["fAddProductQuantity"])){
+
+                                    $INSERT_TO_CART = "
+                                        INSERT INTO Cart ( CustomerID,  ProductID,  Quantity,  PayAmount) 
+                                                        VALUES
+                                                        (:CustomerID, :ProductID, :Quantity, :PayAmount)
+                                    ";
+
+                                    $bCustomerID        = $_SESSION["UserID"]           ?? "";
+                                    $bProductID         = $_POST["fAddProductID"]       ?? "";
+                                    $bProductQuantity   = $_POST["fAddProductQuantity"] ?? 1;
+                                    $bProductPrice      = $_POST["fAddProductPrice"]    ?? "";
+                                    
+                                    $bProductPayAmount  = $bProductPrice * $bProductQuantity;
+
+                                    $ADDCART_STMT = $dbHandler -> prepare($INSERT_TO_CART);
+                                    $ADDCART_STMT-> bindParam(":CustomerID",  $bCustomerID,         PDO::PARAM_STR);
+                                    $ADDCART_STMT-> bindParam(":ProductID",   $bProductID,          PDO::PARAM_INT);
+                                    $ADDCART_STMT-> bindParam(":Quantity",    $bProductQuantity,    PDO::PARAM_INT);
+                                    $ADDCART_STMT-> bindParam(":PayAmount",   $bProductPayAmount,   PDO::PARAM_INT);
+
+                                    try{
+                                    
+                                        if($ADDCART_STMT -> execute()){
+
+                                            echo
+                                            "
+                                                <script>
+                                                    alert(\"Product Successfullt Added.\");
+                                                    window.location.href = \"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\";
+                                                </script>
+                                            ";
+                                        }
+
+                                    }catch(PDOException $ERR){
+                                    
+                                        echo "DATABASE ERROR:" . $ERR -> getMessage();
+                                    }
+                                }
+                            }
                         ?>
                     </div>
 

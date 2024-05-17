@@ -7,6 +7,8 @@
 		define("_UTILITIES_PATH_", "assets/main/php/");
 	}
 
+    include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+    include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +39,53 @@
     <link rel="stylesheet" href="assets/main/css/custom_style.css" type="text/css">
 
     <?php
+        if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestAddToCart"]) && ($_POST["fRequestAddToCart"])){
+
+            Session_CheckAuthLevel("USER", "Login.php");
+
+            if(isset($_POST["fAddProductID"]) && ($_POST["fAddProductID"]) && isset($_POST["fAddProductQuantity"]) && ($_POST["fAddProductQuantity"])){
+
+                $INSERT_TO_CART = "
+                    INSERT INTO Cart ( CustomerID,  ProductID,  Quantity,  PayAmount) 
+                                    VALUES
+                                    (:CustomerID, :ProductID, :Quantity, :PayAmount)
+                ";
+
+                $bCustomerID        = $_SESSION["UserID"]           ?? "";
+                $bProductID         = $_POST["fAddProductID"]       ?? "";
+                $bProductQuantity   = $_POST["fAddProductQuantity"] ?? 1;
+                $bProductPrice      = $_POST["fAddProductPrice"]    ?? "";
+                
+                $bProductPayAmount  = $bProductPrice * $bProductQuantity;
+
+                $ADDCART_STMT = $dbHandler -> prepare($INSERT_TO_CART);
+                $ADDCART_STMT-> bindParam(":CustomerID",  $bCustomerID,         PDO::PARAM_STR);
+                $ADDCART_STMT-> bindParam(":ProductID",   $bProductID,          PDO::PARAM_INT);
+                $ADDCART_STMT-> bindParam(":Quantity",    $bProductQuantity,    PDO::PARAM_INT);
+                $ADDCART_STMT-> bindParam(":PayAmount",   $bProductPayAmount,   PDO::PARAM_INT);
+
+                try{
+                
+                    if($ADDCART_STMT -> execute()){
+
+                        echo
+                        "
+                            <script>
+                                alert(\"Product Successfullt Added.\");
+                                window.location.href = \"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\";
+                            </script>
+                        ";
+                    }
+
+                }catch(PDOException $ERR){
+                
+                    echo "DATABASE ERROR:" . $ERR -> getMessage();
+                }
+            }
+        }
+    ?>
+
+    <?php
     
         include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
@@ -45,14 +94,11 @@
             SELECT * FROM Products
             WHERE ProductID = :ProductID
         ";
-
-        if(isset($_GET["ProductID"]) && ($_GET["ProductID"])){
         
-            $bTargetProductID = $_GET["ProductID"];
+        $bTargetProductID = $_GET["ProductID"] ?? "";
 
-            $TARGET_PRODUCT_STMT = $dbHandler -> prepare($FETCH_PRODUCT_INFO );    
-            $TARGET_PRODUCT_STMT-> bindParam(":ProductID", $bTargetProductID, PDO::PARAM_INT);
-        }
+        $TARGET_PRODUCT_STMT = $dbHandler -> prepare($FETCH_PRODUCT_INFO );    
+        $TARGET_PRODUCT_STMT-> bindParam(":ProductID", $bTargetProductID, PDO::PARAM_INT);
     ?>
 
 </head>
@@ -373,19 +419,20 @@
                             ";
                         ?>
 
-                        <form action="" method="post">
+                        <form action="ItemDetail.php" method="post">
 
                             <div class="product__details__quantity">
                                 <div class="quantity" style="display: inline-block; margin-right: 10px;">
                                     <div class="product-qty">
                                         <span class="dec qtybtn" onclick="decreaseQuantity()">-</span>
-                                        <input type="text" id="quantity" name="fAddProductQuantity" value="1" readonly>
+                                        <input type="text" id="quantity" value="1" readonly>
                                         <span class="inc qtybtn" onclick="increaseQuantity()">+</span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <input type="hidden" name="fAddProductID" value="<?php echo $bProduct["Price"]; ?>">
+                            <input type="hidden" name="fAddProductID" value="<?php echo $bProduct["ProductID"]; ?>">
+                            <input type="hidden" name="fAddProductPrice" value="<?php echo $bProduct["Price"]; ?>">
                             <input type="hidden" id="quantity-input" name="fAddProductQuantity" value="1">
                             <button name='fRequestAddToCart' value='true' class="primary-btn" style="display:inline-block; border: none;">ADD TO CARD</button>
 
