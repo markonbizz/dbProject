@@ -437,7 +437,7 @@
 
                                     if(isset($_GET["fShopSearchCategoryID"]) && ($_GET["fShopSearchCategoryID"])){
 
-                                        $bSidePanelCategoryID = $_GET["fShopSearchCategoryID"] ?? "";
+                                        $bSidePanelCategoryID = (int)($_GET["fShopSearchCategoryID"] ?? "");
 
                                         $SEARCH_ON_CATEGORIES = "
 
@@ -455,7 +455,7 @@
                                         $CATEGORY_SEARCH_STMT = $dbHandler -> prepare($SEARCH_ON_CATEGORIES);
                                         $CATEGORY_SEARCH_STMT-> bindParam(":CategoryID", $bSidePanelCategoryID, PDO::PARAM_INT);
 
-                                        $CATEGORY_PAGINATION_STMT = $dbHandler -> prepare($SEARCH_ON_CATEGORIES);
+                                        $CATEGORY_PAGINATION_STMT = $dbHandler -> prepare($PAGINATION_ON_CATEGORIES);
                                         $CATEGORY_PAGINATION_STMT-> bindParam(":CategoryID", $bSidePanelCategoryID, PDO::PARAM_INT);
                                     }
                                 ?>
@@ -493,18 +493,18 @@
                                 $PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
                             }
                             
-                            // IF PRESS CATEGORIES ON THE SIDE PANEL
-                            if(isset($_GET["fShopSearchCategoryID"]) && ($_GET["fShopSearchCategoryID"])){
-
+                            // IF PRESS SEARCH ON THE SIDE PANEL
+                            if(isset($_GET["fShopSearchCategoryID"])){
+                                
+                                // IF PRESS CATEGORIES ON THE SIDE PANEL
                                 $CATEGORY_SEARCH_STMT -> bindParam(':START_POS',        $PAGINATION_ARGS["START_POS"],          PDO::PARAM_INT);
                                 $CATEGORY_SEARCH_STMT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"],   PDO::PARAM_INT);
-                            }else{
-
-                                $SEARCH_STMT -> bindParam(':START_POS',        $PAGINATION_ARGS["START_POS"],          PDO::PARAM_INT);
-                                $SEARCH_STMT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"],   PDO::PARAM_INT);
                             }
 
-                            if($SEARCH_STMT -> execute()){
+                            $SEARCH_STMT -> bindParam(':START_POS',        $PAGINATION_ARGS["START_POS"],          PDO::PARAM_INT);
+                            $SEARCH_STMT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"],   PDO::PARAM_INT);
+                            
+                            if(($SEARCH_STMT -> execute()) && isset($_GET['fRequestShopSearch'])){
                                 
                                 $SEARCH_PAGINATION_STMT -> execute();
 
@@ -535,11 +535,11 @@
                                 }
                             }
 
-                            else if(($CATEGORY_SEARCH_STMT -> execute()) && isset($_GET["fShopSearchCategoryID"]) && ($_GET["fShopSearchCategoryID"])){
+                            else if(($CATEGORY_SEARCH_STMT -> execute()) && isset($_GET["fShopSearchCategoryID"])){
 
                                 $CATEGORY_PAGINATION_STMT -> execute();
 
-                                while($_RECS_ = $SEARCH_STMT -> fetch(PDO::FETCH_ASSOC)){
+                                while($_RECS_ = $CATEGORY_SEARCH_STMT -> fetch(PDO::FETCH_ASSOC)){
 
                                     echo 
                                     "
