@@ -1,5 +1,21 @@
 <?php
 
+function _logout_(){
+
+    if(!session_status()){
+        
+        session_start();
+    }
+    
+    session_unset();
+    
+    if(session_status()){
+
+        session_destroy();
+    }
+    exit();
+}
+
 if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUpdateUserPassword"]))
 {
 
@@ -32,7 +48,14 @@ if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUpdateUserPassword"
                     
                         if($SQL_STATMENT->execute()){
                             
-                            _logout_("Login.php", "Password is successfully changed, now logging out");
+                            echo "
+                                <script>
+                                    alert('Password is successfully changed, now logging out');
+                                    window.location.href = \"Login.php\";
+                                </script>
+                            ";
+
+                            _logout_();
                         }
                     }catch(PDOException $ERR_){
 
@@ -46,7 +69,7 @@ if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUpdateUserPassword"
 
                             alert(\" Change Password Failed: New password is not matched \");
                             window.location.href = \" UserAccountSettings.php \";
-                        </script>
+                        </>
                     ";
                 }
             }else{

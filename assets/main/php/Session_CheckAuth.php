@@ -1,58 +1,27 @@
 <?php
 
-function _logout_(string $redirect_dst = "../Login.php", string $msg = "Logout Successfully !"){
-
-    if (ini_get("session.use_cookies")){
-
-        $params = session_get_cookie_params();
-
-        setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]);
-    }   
-
-    if((isset($_SESSION["Account"]))){
-
-        $_SESSION = array();
-        
-        echo 
-        "
-            <script>
-                alert(\" {$msg} \");
-                window.location.href = \"{$redirect_dst}\";
-            </script>
-        ";
-    }
-
-    session_destroy();
-
-    exit();
-}
-
-function Session_CheckAuthLevel(string $checkAuth, string $checkStatus = "login", bool $active = true){
+function Session_CheckAuthLevel(string $checkAuth = "USER", string $redirect_dst = "Login.php", bool $active = true){
 
     if($active)
     {
-        if(!isset($_SESSION["Account"]) && ($checkStatus === "login")){
+        if(!($_SESSION["UserID"]) && !(isset($_SESSION["UserID"]))){
 
-            echo 
-            "
+            echo
+            '
                 <script>
-                    alert('No login status detectd, redirect to main page.');
+                    alert("Caution: Anonymously User Detected, Redirecting to Login Page...");
+                    window.location.href = "' . $redirect_dst . '"
                 </script>
-            ";
-            
-            _logout_();
-        }else if((isset($_SESSION["Account"])) && ($_SESSION["Permission"] !== $checkAuth)){
-
-            echo 
-            "
+            ';
+        }else if(($_SESSION["Permission"] !== $checkAuth) && !(isset($_SESSION["Permission"]))){
+        
+            echo
+            '
                 <script>
-                    alert('Unauthorized access detectd, redirect to main page.'); 
+                    alert("Caution: Unauthorized Access Detected, Redirecting to Login Page...");
+                    window.location.href = "' . $redirect_dst . '"
                 </script>
-            ";
-            
-            _logout_();
+            ';
         }
     }
 }
