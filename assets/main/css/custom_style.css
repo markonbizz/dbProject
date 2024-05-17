@@ -79,3 +79,61 @@ body div.shoping__cart__btns a:hover{
 	cursor: pointer;
 	display: inline-block;
 }
+
+.product__item__pic__hover {
+	position: absolute;
+	left: 0;
+	bottom: -50px;
+	width: 100%;
+	text-align: center;
+	-webkit-transition: all, 0.5s;
+	-moz-transition: all, 0.5s;
+	-ms-transition: all, 0.5s;
+	-o-transition: all, 0.5s;
+	transition: all, 0.5s;
+}
+
+.product__item__pic__hover button {
+	font-size: 18px;
+	color: #1c1c1c;
+	height: 45px;
+	width: 45px;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #ebebeb;
+	background: #ffffff;
+	display: block;
+	border-radius: 5%;
+	-webkit-transition: all, 0.5s;
+	-moz-transition: all, 0.5s;
+	-ms-transition: all, 0.5s;
+	-o-transition: all, 0.5s;
+	transition: all, 0.5s;
+	list-style: none;
+	display: inline-block;
+	margin-right: 6px;
+}
+
+.product__item__pic__hover button:last-child{
+	margin-right: 0;
+}
+
+.product__item__pic__hover button:hover {
+	background: #15a362;
+	border-color: #15a362;
+}
+
+.product__item__pic__hover button:hover i {
+	color: #ffffff;
+	transform: rotate(360deg);
+}
+
+.product__item__pic__hover button i {
+	position: relative;
+	transform: rotate(0);
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+}

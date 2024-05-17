@@ -190,7 +190,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="index.php">Home</a></li>
-                            <li class="active"><a href="Shop.php">Products</a></li>
+                            <li class="active"><a href="Shop.php?fShopSearchHolder=&fRequestShopSearch=true">Products</a></li>
                             <li><a href="Contact.php">Contact</a></li>
                         </ul>
                     </nav>
@@ -263,6 +263,8 @@
 
                             <?php
                                 include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+                                $display_records = 0;
 
                                 $PAGINATION_TABLE = "";
 
@@ -426,7 +428,7 @@
 
                                         while($availableCategories = $LIST_CATEGORIES_STMT -> fetch()){
 
-                                            echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                            echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                         }
                                     }
                                 ?>
@@ -467,20 +469,6 @@
                 </div>
                 
                 <div class="col-lg-9 col-md-7">
-                    
-
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4"></div>
-
-                        <div class="col-lg-4 col-md-4">
-                            <div class="filter__found">
-                                <h5><strong>16</strong> Products found</h5>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-4 col-md-4"></div>
-                    </div>
-
 
                     <!-- Listing Found Products -->
                     <div class="row">
@@ -517,15 +505,14 @@
 
                                                 <div class=\"product__item__pic\">
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
-                                                    <ul class=\"product__item__pic__hover\">
-                                                        <li>
-                                                            <a href=\"#\"><i class=\"fa fa-shopping-cart\"></i></a>
-                                                        </li>
-                                                    </ul>
+                                                    <form class=\"product__item__pic__hover\">
+                                                        <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
+                                                        <button name='fRequestAddToCart' value='true'><i class=\"fa fa-shopping-cart\"></i></button>  
+                                                    </form>
                                                 </div>
 
                                                 <div class=\"product__item__text\">
-                                                    <h6><a href=\"ItemDetail.php\">{$_RECS_["Name"]}</a></h6> <!-- Product Name -->
+                                                    <h6><a href=\"ItemDetail.php?ProductID={$_RECS_["ProductID"]}\">{$_RECS_["Name"]}</a></h6> <!-- Product Name -->
                                                     <h5>\${$_RECS_["Price"]}</h5>
                                                 </div>
 
@@ -535,7 +522,7 @@
                                 }
                             }
 
-                            else if(($CATEGORY_SEARCH_STMT -> execute()) && isset($_GET["fShopSearchCategoryID"])){
+                            else if(($CATEGORY_SEARCH_STMT -> execute() !== false) && isset($_GET["fShopSearchCategoryID"])){
 
                                 $CATEGORY_PAGINATION_STMT -> execute();
 
@@ -548,15 +535,16 @@
 
                                                 <div class=\"product__item__pic\">
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
-                                                    <ul class=\"product__item__pic__hover\">
-                                                        <li>
-                                                            <a href=\"#\"><i class=\"fa fa-shopping-cart\"></i></a>
-                                                        </li>
-                                                    </ul>
+                                                    
+                                                    <form action=\"{_UTILITIES_PATH_ . }\" method=\"post\"class=\"product__item__pic__hover\">
+                                                        <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
+                                                        <button name='fRequestAddToCart' value='true'><i class=\"fa fa-shopping-cart\"></i></button>  
+                                                    </form>
+                                                    
                                                 </div>
 
                                                 <div class=\"product__item__text\">
-                                                    <h6><a href=\"ItemDetail.php\">{$_RECS_["Name"]}</a></h6> <!-- Product Name -->
+                                                    <h6><a href=\"ItemDetail.php?ProductID={$_RECS_["ProductID"]}\">{$_RECS_["Name"]}</a></h6> <!-- Product Name -->
                                                     <h5>\${$_RECS_["Price"]}</h5>
                                                 </div>
 
@@ -565,6 +553,8 @@
                                     ";
                                 }
                             }
+
+                            include_once(_UTILITIES_PATH_ . "Store_AddToCart.php");
                         ?>
 
                     </div>
@@ -593,8 +583,9 @@
                             $LISTING_PRESERVED = http_build_query($LISTING_PRESERVED);
 
                             $PAGINATION_ARGS["TOTAL_RECS"]  = $SEARCH_PAGINATION_STMT -> fetchColumn();
+                            $display_records = $PAGINATION_ARGS["TOTAL_RECS"];
                             $PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
-                        
+
 
                             // Previous
                             if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){

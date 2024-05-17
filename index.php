@@ -202,7 +202,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="./index.php">Home</a></li>
-                            <li><a href="Shop.php">Shop</a></li>
+                            <li><a href="Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true">Products</a></li>
                             <li><a href="Contact.php">Contact</a></li>
                         </ul>
                     </nav>
@@ -252,7 +252,7 @@
 
                                     while($availableCategories = $SQL_STATMENT -> fetch()){
 
-                                        echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                        echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                     }
                                 }
 
@@ -269,119 +269,10 @@
                             
                             
                             
-                            <form name="fShopSearchForm" action="Shop.php" method="get">
+                            <form name="fShopSearchForm" action="Shop.php?CurrentPageIndex=1" method="get">
                                 <input type="text" name="fShopSearchHolder" placeholder="What's your jam?">
                                 <button type="submit" name="fRequestShopSearch" value="true" class="site-btn">SEARCH</button>
                             </form>
-
-                            <?php
-                                include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
-
-                                $PAGINATION_TABLE = "";
-
-                                $PAGINATION_ARGS =
-                                [
-                                    "MAX_RECS_PERPAGE"  => 9,
-                                    "START_POS"         => 0,
-                                    "TOTAL_RECS"        => 0,
-                                    "TOTAL_PAGES"       => 0
-                                ];
-
-                                if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestShopSearch']) && ($_GET['fRequestShopSearch']) && isset($_GET["fShopSearchHolder"])){
-
-                                    $fShopSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
-
-                                    $LISTING_TABLE =
-                                    "
-                                        SELECT
-                                            C.Name AS CategoryName,
-                                            P.*
-                                        FROM
-                                            `Products` P
-                                        JOIN
-                                            `Categories` C
-                                        ON
-                                            C.CategoryID = P.CategoryID 
-                                    ";
-
-                                    $PAGINATION_TABLE =
-                                    "
-                                        SELECT
-                                            COUNT(*)
-                                        FROM
-                                            `Products` P
-                                        JOIN
-                                            `Categories` C
-                                        ON
-                                            C.CategoryID = P.CategoryID
-                                    ";
-
-                                    if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
-
-                                        $LISTING_TABLE .=
-                                        "   
-                                            AND
-                                            (
-                                                C.Name            LIKE :SearchTerm
-                                                OR
-                                                P.Name            LIKE :SearchTerm
-                                            )
-                                        ";
-
-                                        $PAGINATION_TABLE .=
-                                        "   
-                                            AND
-                                            (
-                                                C.Name            LIKE :SearchTerm
-                                                OR
-                                                P.Name            LIKE :SearchTerm
-                                            )
-                                        ";
-                                    }
-
-                                    {// Limiting Recs on page
-                                        $LISTING_TABLE .=
-                                        '
-                                            LIMIT
-                                            :START_POS, :MAX_RECS_PERPAGE
-                                        ';
-                                    }
-
-                                    if(!empty($bSearchHolder))
-                                    {
-                                        $SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
-                                        $SQL_PAGINATION_STATMENT -> bindParam(":SearchTerm", $bSearchHolder);
-                                    }
-                                }else{
-
-                                    $LISTING_TABLE = 
-                                    "
-                                        SELECT
-                                            C.Name AS CategoryName,
-                                            P.*
-                                        FROM 
-                                            Products P
-                                        JOIN
-                                            Categories C
-                                        ON
-                                            C.CategoryID = P.CategoryID
-                                        LIMIT
-                                            :START_POS, :MAX_RECS_PERPAGE
-                                    ";
-
-                                    $PAGINATION_TABLE =
-                                    "
-                                        SELECT
-                                            COUNT(*)
-                                        FROM
-                                            `Products` P
-                                        JOIN
-                                            `Categories` C
-                                        ON
-                                            C.CategoryID = P.CategoryID 
-                                    ";
-                                }
-                            ?>
 
 
 
@@ -401,7 +292,7 @@
                             <span>DENNIS' Armory</span>
                             <h2>Product<br />100% <br />Guaranteed</h2>
                             <p>Free Pickup and Delivery Available</p>
-                            <a href="Shop.php" class="primary-btn">SHOP NOW</a>
+                            <a href="Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
                 </div>

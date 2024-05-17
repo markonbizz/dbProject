@@ -36,6 +36,25 @@
     <!-- CSS Override -->
     <link rel="stylesheet" href="assets/main/css/custom_style.css" type="text/css">
 
+    <?php
+    
+        include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+        $FETCH_PRODUCT_INFO = "
+
+            SELECT * FROM Products
+            WHERE ProductID = :ProductID
+        ";
+
+        if(isset($_GET["ProductID"]) && ($_GET["ProductID"])){
+        
+            $bTargetProductID = $_GET["ProductID"];
+
+            $TARGET_PRODUCT_STMT = $dbHandler -> prepare($FETCH_PRODUCT_INFO );    
+            $TARGET_PRODUCT_STMT-> bindParam(":ProductID", $bTargetProductID, PDO::PARAM_INT);
+        }
+    ?>
+
 </head>
 
 <body>
@@ -215,7 +234,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="index.php">Home</a></li>
-                            <li class="active"><a href="Shop.php">Products</a></li>
+                            <li class="active"><a href="Shop.php?fShopSearchHolder=&fRequestShopSearch=true">Products</a></li>
                             <li><a href="Contact.php">Contact</a></li>
                         </ul>
                     </nav>
@@ -278,17 +297,21 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
+                        
+                        
+                        
                         <div class="hero__search__form">
-                            <form action="#" action="Shop.php" method="get">
-                                <input type="text" placeholder="What's your jam?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+
+                            <form name="ShopSearchForm" action="Shop.php" method="get">
+
+                                <input name="fShopSearchHolder" type="text" placeholder="What's your jam?">
+                                <button name="fRequestShopSearch" value="true" type="submit" class="site-btn">SEARCH</button>
                             </form>
 
-                            <?php // Product Searching
-
-                            ?>
-
                         </div>
+                        
+                        
+                        
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
                                 <i class="fa fa-phone"></i>
@@ -312,6 +335,26 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
+
+
+
+                        <?php
+                            
+                            if($TARGET_PRODUCT_STMT -> execute()){
+
+                                $bProduct = $TARGET_PRODUCT_STMT -> fetch(PDO::FETCH_ASSOC);
+                            }
+
+                            echo"
+                                <div class=\"product__details__pic__item\">
+                                    <img class=\"product__details__pic__item--large\" src='data:image/jpeg;base64,".base64_encode($bProduct["Image"])."' alt='Product Image'>
+                                </div>
+                            ";
+
+                        ?>
+
+
+
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
                                 src="img/product/details/product-details-1.jpg" alt="">
@@ -320,9 +363,15 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>"Product Name Goes Here"</h3>
-                        
-                        <div class="product__details__price">$"Product Price Goes"</div>
+
+                        <?php
+
+                            echo "
+                                <h3>{$bProduct["Name"]}</h3>
+
+                                <div class=\"product__details__price\">\${$bProduct["Price"]}</div>
+                            ";
+                        ?>
 
                         <form action="" method="post">
 
@@ -330,18 +379,22 @@
                                 <div class="quantity" style="display: inline-block; margin-right: 10px;">
                                     <div class="product-qty">
                                         <span class="dec qtybtn" onclick="decreaseQuantity()">-</span>
-                                        <input type="text" id="quantity" name="quantity" value="1" readonly>
+                                        <input type="text" id="quantity" name="fAddProductQuantity" value="1" readonly>
                                         <span class="inc qtybtn" onclick="increaseQuantity()">+</span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <input type="hidden" name="product_id" value="1">
-                            <input type="hidden" id="quantity-input" name="quantity" value="1">
-                            <button class="primary-btn" style="display:inline-block; border: none;">ADD TO CARD</button>
+                            <input type="hidden" name="fAddProductID" value="<?php echo $bProduct["Price"]; ?>">
+                            <input type="hidden" id="quantity-input" name="fAddProductQuantity" value="1">
+                            <button name='fRequestAddToCart' value='true' class="primary-btn" style="display:inline-block; border: none;">ADD TO CARD</button>
 
                         </form>
                         
+                        <?php // Add To Cart
+
+                        ?>
+
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -358,24 +411,17 @@
 
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                                        suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                        vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                                        accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                                        pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                                        elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                                        et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                                        vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                                        ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                                        elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                        porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                                        nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                                        Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
-                                        porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
-                                        sed sit amet dui. Proin eget tortor risus.</p>
+                                    
+                                    
+                                
+                                    <p>
+                                        <?php
+                                            echo $bProduct["Description"];
+                                        ?>
+                                    </p>
+                                
+                                
+                                
                                 </div>
                             </div>
                     

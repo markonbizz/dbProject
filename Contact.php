@@ -218,7 +218,7 @@
                         <ul>
 
                             <li><a href="index.php">Home</a></li>
-                            <li><a href="Shop.php">Shop</a></li>
+                            <li><a href="Shop.php?fShopSearchHolder=&fRequestShopSearch=true">Products</a></li>
                             <li class="active"><a href="Contact.php">Contact</a></li>
                         
                         </ul>
@@ -244,26 +244,78 @@
 
 
     <!-- Hero Section Begin -->
-    <!-- Hero Section End -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>Quick Access</span>
+                        </div>
+                        <ul>
+                            
 
-    <!-- Breadcrumb Section Begin -->
-        <!-- <section class="breadcrumb-section set-bg" data-setbg="assets/main/images/breadcrumb.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <div class="breadcrumb__text">
-                            <h5>You are now in</h5>
-                            <h2>Contact</h2>
-                            <div class="breadcrumb__option">
-                                <a href="./index.php">Home</a>
-                                <span>Contact</span>
+                            
+                            <?php
+
+                                include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+                                $CATEGORIES = "
+
+                                    SELECT * FROM Categories
+                                ";
+
+                                $SQL_STATMENT = $dbHandler -> prepare($CATEGORIES);
+                                
+                                if($SQL_STATMENT -> execute()){
+
+                                    while($availableCategories = $SQL_STATMENT -> fetch()){
+
+                                        echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                    }
+                                }
+
+                            ?>
+
+
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        
+                        
+                        
+                        <div class="hero__search__form">
+
+                            <form name="ShopSearchForm" action="Shop.php" method="get">
+
+                                <input name="fShopSearchHolder" type="text" placeholder="What's your jam?">
+                                <button name="fRequestShopSearch" value="true" type="submit" class="site-btn">SEARCH</button>
+                            </form>
+
+                        </div>
+                        
+                        
+                        
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+886 &nbsp; 0912345678</h5>
+                                <span>support 24/7 time</span>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
-        </section> -->
-    <!-- Breadcrumb Section End -->
+        </div>
+    </section>
+    <!-- Hero Section End -->
 
     <!-- Contact Section Begin -->
     <section class="contact spad">
