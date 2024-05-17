@@ -260,7 +260,7 @@
                             </form>
 
 
-
+                            <!-- Shop / Search -->
                             <?php
                                 include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
@@ -398,10 +398,6 @@
     </section>
     <!-- Hero Section End -->
 
-    <!-- Breadcrumb Section Begin -->
-    
-    <!-- Breadcrumb Section End -->
-
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
@@ -413,7 +409,7 @@
                             <ul>
 
 
-                                <!-- List All Existed Categories -->
+                                <!-- Shop / Side Panel Categories -->
                                 <?php
                                     include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
@@ -433,7 +429,7 @@
                                     }
                                 ?>
                                 
-                                <!-- Categories Search -->
+                                <!-- Shop / Categories Search -->
                                 <?php
                                     include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
@@ -468,11 +464,12 @@
                     </div>
                 </div>
                 
+
+
                 <div class="col-lg-9 col-md-7">
 
-                    <!-- Listing Found Products -->
+                    <!-- Shop / Products Grids with Add Cart and More Details -->
                     <div class="row">
-
                         <?php // Product Rendering FROM SearchHolder
                             if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"])){
 
@@ -504,11 +501,16 @@
                                             <div class=\"product__item\">
 
                                                 <div class=\"product__item__pic\">
+                                                    
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
-                                                    <form class=\"product__item__pic__hover\">
+                                                    
+                                                    <form action=\"{_UTILITIES_PATH_ . Store_AddToCart.php}\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
+                                                        <input name='fAddProductQuantity' type='hidden' value='1'>
+                                                        
                                                         <button name='fRequestAddToCart' value='true'><i class=\"fa fa-shopping-cart\"></i></button>  
                                                     </form>
+                                                
                                                 </div>
 
                                                 <div class=\"product__item__text\">
@@ -536,8 +538,10 @@
                                                 <div class=\"product__item__pic\">
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
                                                     
-                                                    <form action=\"{_UTILITIES_PATH_ . }\" method=\"post\"class=\"product__item__pic__hover\">
+                                                    <form action=\"{_UTILITIES_PATH_ . Store_AddToCart.php}\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
+                                                        <input name='fAddProductQuantity' type='hidden' value='1'>
+                                                        
                                                         <button name='fRequestAddToCart' value='true'><i class=\"fa fa-shopping-cart\"></i></button>  
                                                     </form>
                                                     
@@ -556,11 +560,10 @@
 
                             include_once(_UTILITIES_PATH_ . "Store_AddToCart.php");
                         ?>
-
                     </div>
 
 
-
+                    <!-- Shop / Pagination -->
                     <div class="product__pagination">
                         <?php
                             
@@ -621,6 +624,7 @@
                         ?>
 
                     </div>
+
                 </div>
             </div>
         </div>
