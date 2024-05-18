@@ -6,10 +6,46 @@
 
 		define("_UTILITIES_PATH_", "assets/main/php/");
 	}
-
+    include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
 ?>
 
+<?php
+    include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");  // Include your database connection
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $action = $_POST['action'];
+    $customerId = $_SESSION["UserID"];
+
+    if ($action == 'update_quantity') {
+        $productId = $_POST['product_id'];
+        $quantity = $_POST['quantity'];
+        $update_query = "UPDATE Cart SET Quantity = :quantity, PayAmount = :payamount WHERE CustomerID = :customerid AND ProductID = :productid LIMIT 1";
+        $update_stmt = $dbHandler->prepare($update_query);
+        $update_stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+        $payamount = calculatePayAmount($productId, $quantity, $dbHandler);
+        $update_stmt->bindParam(':payamount', $payamount, PDO::PARAM_STR);
+        $update_stmt->bindParam(':customerid', $customerId, PDO::PARAM_STR);
+        $update_stmt->bindParam(':productid', $productId, PDO::PARAM_STR);
+        $update_stmt->execute();
+    } elseif ($action == 'delete_product') {
+        $productId = $_POST['product_id'];
+        $delete_query = "DELETE FROM Cart WHERE CustomerID = :customerid AND ProductID = :productid LIMIT 1";
+        $delete_stmt = $dbHandler->prepare($delete_query);
+        $delete_stmt->bindParam(':customerid', $customerId, PDO::PARAM_STR);
+        $delete_stmt->bindParam(':productid', $productId, PDO::PARAM_STR);
+        $delete_stmt->execute();
+    }
+}
+
+function calculatePayAmount($productId, $quantity, $dbHandler) {
+    $query = "SELECT Price FROM Products WHERE ProductID = :productid LIMIT 1";
+    $stmt = $dbHandler->prepare($query);
+    $stmt->bindParam(':productid', $productId, PDO::PARAM_STR);
+    $stmt->execute();
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $product['Price'] * $quantity;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -38,30 +74,10 @@
     <!-- CSS Override -->
     <link rel="stylesheet" href="assets/main/css/custom_style.css" type="text/css">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add event listeners to all close buttons
-            const closeButtons = document.querySelectorAll('.icon_close');
-            closeButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const row = button.closest('tr');
-                    row.remove(); // Remove the entire row from the table
-                    updateTotal(); // Update the total price
-                });
-            });
+    <?php
 
-            // Function to update the total price
-            function updateTotal() {
-                let total = 0;
-                const totalElements = document.querySelectorAll('.shoping__cart__total');
-                totalElements.forEach(function(element) {
-                    total += parseFloat(element.textContent.replace('$', ''));
-                });
-                // Update the total price display
-                document.querySelector('.header__cart__price span').textContent = '$' + total.toFixed(2);
-            }
-        });
-    </script>
+        Session_CheckAuthLevel("USER");
+    ?>
 </head>
 
 <body>
@@ -174,11 +190,17 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
+
                         <ul>
-                            <!-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> -->
-                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
+                            <li>
+                                <a href="Cart.php">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span id="cart-count">0</span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="header__cart__price">Item: <span>$150.00</span></div>
+                    
                     </div>
                 </div>
             </div>
@@ -283,72 +305,85 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="assets/main/images/cart/cart-1.jpg" alt="">
-                                        <h5>Vegetable’s Package</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $55.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $110.00
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="assets/main/images/cart/cart-2.jpg" alt="">
-                                        <h5>Fresh Garden Vegetable</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $39.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $39.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="assets/main/images/cart/cart-3.jpg" alt="">
-                                        <h5>Organic Bananas</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $69.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $69.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
+
+
+
+                                <?php
+                                    $LIST_ALL_INCART_PRODUCT = "
+
+                                        SELECT P.Name  AS ProductName,
+                                               P.Image AS ProductImage,
+                                               P.Price AS ProductPrice,
+                                               C.*
+
+                                        FROM Cart C
+                            
+                                        JOIN Products P
+
+                                        ON P.ProductID = C.ProductID
+
+                                        WHERE CustomerID = :CustomerID
+                                    ";
+
+                                    $LISTING_STMT = $dbHandler -> prepare($LIST_ALL_INCART_PRODUCT);
+                                    $LISTING_STMT-> bindParam(":CustomerID", $_SESSION["UserID"], PDO::PARAM_STR);
+
+                                    if($LISTING_STMT-> execute()){
+
+                                        while($_RECS_ = $LISTING_STMT -> fetch(PDO::FETCH_ASSOC)){
+
+                                            if($_RECS_){
+                                            
+                                                echo "
+                                                    <tr>
+                                                        <td class=\"shoping__cart__item\">
+                                                            <img src='data:image/jpeg;base64,".base64_encode($_RECS_['ProductImage'])."' alt='Product Image' style='max-width: 20%; max-height: 20%;'>
+                                                            <h5>{$_RECS_["ProductName"]}</h5>
+                                                        </td>
+                                                        <td class=\"shoping__cart__price\">
+                                                            \${$_RECS_["ProductPrice"]}
+                                                        </td>
+                                                        <td class=\"shoping__cart__quantity\">
+                                                            <div class=\"quantity\">
+                                                                <div class=\"pro-qty\">
+                                                                    <span class=\"dec qtybtn\" data-id=\"{$_RECS_["ProductID"]}\">-</span>
+                                                                    <input type=\"text\" value=\"{$_RECS_["Quantity"]}\" data-id=\"{$_RECS_["ProductID"]}\" class=\"quantity-input\">
+                                                                    <span class=\"inc qtybtn\" data-id=\"{$_RECS_["ProductID"]}\">+</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class=\"shoping__cart__total\">
+                                                            \${$_RECS_["PayAmount"]}
+                                                        </td>
+                                                        <td class=\"shoping__cart__item__close\">
+                                                            <span class=\"icon_close delete-product\" data-id=\"{$_RECS_["ProductID"]}\"></span>
+                                                        </td>
+                                                    </tr>
+                                                ";
+                                            }else{
+                                            
+                                                echo "
+                                                    <tr>
+                                                        <td class=\"shoping__cart__item\">
+                                                            <h5>Huh, Cart is Empty</h5>
+                                                        </td>
+                                                        <td class=\"shoping__cart__price\">
+                                                        </td>
+                                                        <td class=\"shoping__cart__quantity\">
+                                                        </td>
+                                                        <td class=\"shoping__cart__total\">
+                                                        </td>
+                                                        <td class=\"shoping__cart__item__close\">
+                                                        </td>
+                                                    </tr>
+                                                ";
+                                            }
+                                        }
+                                    }
+                                ?>
+                                
+
+
                             </tbody>
                         </table>
                     </div>
@@ -356,18 +391,13 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="shoping__cart__btns">
-                        <a href="Shop.php?fShopSearchHolder=&fRequestShopSearch=true" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Refresh Cart</a>
-                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
-                            <h5>Discount Codes</h5>
+                            <h5>Address</h5>
                             <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
+                                <input type="text" placeholder="Enter your address">
                                 <button type="submit" class="site-btn">APPLY COUPON</button>
                             </form>
                         </div>
@@ -377,7 +407,6 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
                             <li>Total <span>$454.98</span></li>
                         </ul>
                         <a href="checkout.php" class="primary-btn">PROCEED TO CHECKOUT</a>
@@ -460,7 +489,85 @@
     <script src="assets/main/js/owl.carousel.min.js"></script>
     <script src="assets/main/js/main.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to update the cart count
+            function updateCartCount() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CountCart.php', // A PHP file to get the current cart count
+                    type: 'GET',
+                    success: function(response) {
+                        $('#cart-count').text(response);
+                    }
+                });
+            }
 
+            // Call updateCartCount on page load
+            updateCartCount();
+
+            // Handle quantity change
+            function updateQuantity(productId, quantity) {
+                $.ajax({
+                    url: 'Cart.php',
+                    type: 'POST',
+                    data: {
+                        action: 'update_quantity',
+                        product_id: productId,
+                        quantity: quantity
+                    },
+                    success: function(response) {
+                        // Update the cart count after changing quantity
+                        updateCartCount();
+                        // Optionally reload the page to reflect other changes
+                        location.reload(); 
+                    }
+                });
+            }
+
+            $('.quantity-input').on('change', function() {
+                var productId = $(this).data('id');
+                var newQuantity = $(this).val();
+                updateQuantity(productId, newQuantity);
+            });
+
+            $('.qtybtn').on('click', function() {
+                var $button = $(this);
+                var oldValue = $button.siblings('.quantity-input').val();
+                var productId = $button.data('id');
+                var newVal = $button.hasClass('inc') ? parseInt(oldValue) + 1 : parseInt(oldValue) - 1;
+
+                if (newVal >= 1) {  // Ensure the quantity does not go below 1
+                    $button.siblings('.quantity-input').val(newVal);
+                    updateQuantity(productId, newVal);
+                }
+            });
+            
+            // ===========================================================================================================
+            // Handle Product Deletion
+            // ===========================================================================================================
+            $('.delete-product').on('click', function() {
+                var productId = $(this).data('id');
+
+                $.ajax({
+                    url: 'Cart.php',
+                    type: 'POST',
+                    data: {
+                        action: 'delete_product',
+                        product_id: productId
+                    },
+                    success: function(response) {
+                        // Update the cart count after deleting a product
+                        updateCartCount();
+                        // Optionally reload the page to reflect other changes
+                        location.reload(); 
+                    }
+                });
+            });
+
+
+        });
+    </script>
 </body>
 
 </html>

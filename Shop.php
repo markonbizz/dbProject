@@ -198,7 +198,12 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
+                            <li>
+                                <a href="Cart.php">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span id="cart-count">0</span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="header__cart__price">Item: <span>$150.00</span></div>
                     </div>
@@ -539,7 +544,7 @@
                                                 <div class=\"product__item__pic\">
                                                     <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
                                                     
-                                                    <form action=\"assets/main/php/Store_AddToCart.php\" method=\"post\" class=\"product__item__pic__hover\">
+                                                    <form action=\"Shop.php\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
                                                         <input name='fAddProductQuantity' type='hidden' value='1'>
                                                         <input name='fAddProductPrice' type='hidden' value='{$_RECS_["Price"]}'>
@@ -568,43 +573,65 @@
                                 Session_CheckAuthLevel("USER", "Login.php");
 
                                 if(isset($_POST["fAddProductID"]) && ($_POST["fAddProductID"]) && isset($_POST["fAddProductQuantity"]) && ($_POST["fAddProductQuantity"])){
+                                
+                                    $CHECK_IF_PRODUCT_IS_INCART = "
 
-                                    $INSERT_TO_CART = "
-                                        INSERT INTO Cart ( CustomerID,  ProductID,  Quantity,  PayAmount) 
-                                                        VALUES
-                                                        (:CustomerID, :ProductID, :Quantity, :PayAmount)
+                                        SELECT COUNT(1) FROM Cart WHERE Product = :ProductID LIMIT 1
                                     ";
 
-                                    $bCustomerID        = $_SESSION["UserID"]           ?? "";
-                                    $bProductID         = $_POST["fAddProductID"]       ?? "";
-                                    $bProductQuantity   = $_POST["fAddProductQuantity"] ?? 1;
-                                    $bProductPrice      = $_POST["fAddProductPrice"]    ?? "";
-                                    
-                                    $bProductPayAmount  = $bProductPrice * $bProductQuantity;
+                                    $bTargetProduct = $_POST["fAddProductID"];
+                                    $CHECKER_STMT = $dbHandler -> prepare($CHECK_IF_PRODUCT_IS_INCART);
+                                    $CHECKER_STMT-> bindParam(":ProductID", $bTargetProduct, PDO::PARAM_INT);
+                                    $CHECKER_STMT-> execute();
 
-                                    $ADDCART_STMT = $dbHandler -> prepare($INSERT_TO_CART);
-                                    $ADDCART_STMT-> bindParam(":CustomerID",  $bCustomerID,         PDO::PARAM_STR);
-                                    $ADDCART_STMT-> bindParam(":ProductID",   $bProductID,          PDO::PARAM_INT);
-                                    $ADDCART_STMT-> bindParam(":Quantity",    $bProductQuantity,    PDO::PARAM_INT);
-                                    $ADDCART_STMT-> bindParam(":PayAmount",   $bProductPayAmount,   PDO::PARAM_INT);
+                                    if($CHECKER_STMT-> fetchColumn() !== 0){
 
-                                    try{
-                                    
-                                        if($ADDCART_STMT -> execute()){
+                                        $INSERT_TO_CART = "
+                                            INSERT INTO Cart ( CustomerID,  ProductID,  Quantity,  PayAmount) 
+                                                             VALUES
+                                                             (:CustomerID, :ProductID, :Quantity, :PayAmount)
+                                        ";
 
-                                            echo
-                                            "
-                                                <script>
-                                                    alert(\"Product Successfullt Added.\");
-                                                    window.location.href = \"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\";
-                                                </script>
-                                            ";
+                                        $bCustomerID        = $_SESSION["UserID"]           ?? "";
+                                        $bProductID         = $_POST["fAddProductID"]       ?? "";
+                                        $bProductQuantity   = $_POST["fAddProductQuantity"] ?? 1;
+                                        $bProductPrice      = $_POST["fAddProductPrice"]    ?? "";
+                                        
+                                        $bProductPayAmount  = $bProductPrice * $bProductQuantity;
+
+                                        $ADDCART_STMT = $dbHandler -> prepare($INSERT_TO_CART);
+                                        $ADDCART_STMT-> bindParam(":CustomerID",  $bCustomerID,         PDO::PARAM_STR);
+                                        $ADDCART_STMT-> bindParam(":ProductID",   $bProductID,          PDO::PARAM_INT);
+                                        $ADDCART_STMT-> bindParam(":Quantity",    $bProductQuantity,    PDO::PARAM_INT);
+                                        $ADDCART_STMT-> bindParam(":PayAmount",   $bProductPayAmount,   PDO::PARAM_INT);
+
+                                        try{
+                                        
+                                            if($ADDCART_STMT -> execute()){
+
+                                                echo
+                                                "
+                                                    <script>
+                                                        alert(\"Product Successfullt Added.\");
+                                                        window.location.href = \"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\";
+                                                    </script>
+                                                ";
+                                            }
+
+                                        }catch(PDOException $ERR){
+                                        
+                                            echo "DATABASE ERROR:" . $ERR -> getMessage();
                                         }
+                                    }else{
 
-                                    }catch(PDOException $ERR){
-                                    
-                                        echo "DATABASE ERROR:" . $ERR -> getMessage();
+                                        echo"
+
+                                            <script>
+                                                alert(\"The Product is already in the shopping cart.\");
+                                            </script>                                       
+                                        ";
                                     }
+
                                 }
                             }
                         ?>
@@ -750,6 +777,24 @@
     <script src="assets/main/js/mixitup.min.js"></script>
     <script src="assets/main/js/owl.carousel.min.js"></script>
     <script src="assets/main/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        
+            function updateCartCount() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CountCart.php', // A PHP file to get the current cart count
+                    type: 'GET',
+                    success: function(response) {
+                        $('#cart-count').text(response);
+                    }
+                });
+            }
+            
+            updateCartCount();
+        });
+    </script>
 </body>
 
 </html>

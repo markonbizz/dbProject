@@ -210,7 +210,7 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
+                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                         </ul>
                         <div class="header__cart__price">Item: <span>$150.00</span></div>
                     </div>
@@ -372,6 +372,24 @@
     <script src="assets/main/js/mixitup.min.js"></script>
     <script src="assets/main/js/owl.carousel.min.js"></script>
     <script src="assets/main/js/main.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        
+            function updateCartCount() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CountCart.php', // A PHP file to get the current cart count
+                    type: 'GET',
+                    success: function(response) {
+                        $('#cart-count').text(response);
+                    }
+                });
+            }
+            
+            updateCartCount();
+        });
+    </script>
 </body>
 
 </html>
