@@ -328,52 +328,32 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
 
                                         while($_RECS_ = $LISTING_STMT -> fetch(PDO::FETCH_ASSOC)){
 
-                                            if($_RECS_){
-                                            
-                                                echo "
-                                                    <tr>
-                                                        <td class=\"shoping__cart__item\">
-                                                            <img src='data:image/jpeg;base64,".base64_encode($_RECS_['ProductImage'])."' alt='Product Image' style='max-width: 20%; max-height: 20%;'>
-                                                            <h5>{$_RECS_["ProductName"]}</h5>
-                                                        </td>
-                                                        <td class=\"shoping__cart__price\">
-                                                            \${$_RECS_["ProductPrice"]}
-                                                        </td>
-                                                        <td class=\"shoping__cart__quantity\">
-                                                            <div class=\"quantity\">
-                                                                <div class=\"pro-qty\">
-                                                                    <span class=\"dec qtybtn\" data-id=\"{$_RECS_["ProductID"]}\">-</span>
-                                                                    <input type=\"text\" value=\"{$_RECS_["Quantity"]}\" data-id=\"{$_RECS_["ProductID"]}\" class=\"quantity-input\">
-                                                                    <span class=\"inc qtybtn\" data-id=\"{$_RECS_["ProductID"]}\">+</span>
-                                                                </div>
+                                            echo "
+                                                <tr>
+                                                    <td class=\"shoping__cart__item\">
+                                                        <img src='data:image/jpeg;base64,".base64_encode($_RECS_['ProductImage'])."' alt='Product Image' style='max-width: 20%; max-height: 20%;'>
+                                                        <h5>{$_RECS_["ProductName"]}</h5>
+                                                    </td>
+                                                    <td class=\"shoping__cart__price\">
+                                                        \${$_RECS_["ProductPrice"]}
+                                                    </td>
+                                                    <td class=\"shoping__cart__quantity\">
+                                                        <div class=\"quantity\">
+                                                            <div class=\"pro-qty\">
+                                                                <span class=\"dec qtybtn\" data-id=\"{$_RECS_["ProductID"]}\">-</span>
+                                                                <input type=\"text\" value=\"{$_RECS_["Quantity"]}\" data-id=\"{$_RECS_["ProductID"]}\" class=\"quantity-input\">
+                                                                <span class=\"inc qtybtn\" data-id=\"{$_RECS_["ProductID"]}\">+</span>
                                                             </div>
-                                                        </td>
-                                                        <td class=\"shoping__cart__total\">
-                                                            \${$_RECS_["PayAmount"]}
-                                                        </td>
-                                                        <td class=\"shoping__cart__item__close\">
-                                                            <span class=\"icon_close delete-product\" data-id=\"{$_RECS_["ProductID"]}\"></span>
-                                                        </td>
-                                                    </tr>
-                                                ";
-                                            }else{
-                                            
-                                                echo "
-                                                    <tr>
-                                                        <td class=\"shoping__cart__item\">
-                                                            <h5>Huh, Cart is Empty</h5>
-                                                        </td>
-                                                        <td class=\"shoping__cart__price\">
-                                                        </td>
-                                                        <td class=\"shoping__cart__quantity\">
-                                                        </td>
-                                                        <td class=\"shoping__cart__total\">
-                                                        </td>
-                                                        <td class=\"shoping__cart__item__close\">
-                                                        </td>
-                                                    </tr>
-                                                ";
-                                            }
+                                                        </div>
+                                                    </td>
+                                                    <td class=\"shoping__cart__total\">
+                                                        \${$_RECS_["PayAmount"]}
+                                                    </td>
+                                                    <td class=\"shoping__cart__item__close\">
+                                                        <span class=\"icon_close delete-product\" data-id=\"{$_RECS_["ProductID"]}\"></span>
+                                                    </td>
+                                                </tr>
+                                            ";
                                         }
                                     }
                                 ?>
