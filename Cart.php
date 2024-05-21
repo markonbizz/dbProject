@@ -7,6 +7,8 @@
 		define("_UTILITIES_PATH_", "assets/main/php/");
 	}
     include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+
+    Session_CheckAuthLevel("USER");
 ?>
 
 <?php
@@ -75,11 +77,6 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
 
     <!-- CSS Override -->
     <link rel="stylesheet" href="assets/main/css/custom_style.css" type="text/css">
-
-    <?php
-
-        Session_CheckAuthLevel("USER");
-    ?>
 </head>
 
 <body>

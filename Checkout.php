@@ -6,12 +6,10 @@
 
 		define("_UTILITIES_PATH_", "assets/main/php/");
 	}
-?>
-
-<?php
 
     include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
     Session_CheckAuthLevel();
+
 ?>
 
 <?php
@@ -59,6 +57,9 @@
     <link rel="stylesheet" href="assets/main/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="assets/main/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="assets/main/css/style.css" type="text/css">
+
+    <!-- CSS Override -->
+    <link rel="stylesheet" href="assets/main/css/custom_style.css" type="text/css">
 </head>
 
 <body>
@@ -217,7 +218,6 @@
 
                             
                             <?php
-
                                 include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
                                 $CATEGORIES = "
@@ -229,12 +229,13 @@
                                 
                                 if($SQL_STATMENT -> execute()){
 
+                                    echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\">All</a></li>";
+
                                     while($availableCategories = $SQL_STATMENT -> fetch()){
 
-                                        echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                        echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                     }
                                 }
-
                             ?>
 
 

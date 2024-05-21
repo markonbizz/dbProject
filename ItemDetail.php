@@ -328,9 +328,11 @@
                                 
                                 if($SQL_STATMENT -> execute()){
 
+                                    echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\">All</a></li>";
+
                                     while($availableCategories = $SQL_STATMENT -> fetch()){
 
-                                        echo "<li><a href=\"Shop.php?RequestedCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                        echo "<li><a href=\"Shop.php?CurrentPageIndex=1&RequestedCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                     }
                                 }
 

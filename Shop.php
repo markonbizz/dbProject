@@ -242,9 +242,11 @@
                                 
                                 if($LIST_CATEGORIES_STMT -> execute()){
 
+                                    echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\">All</a></li>";
+
                                     while($availableCategories = $LIST_CATEGORIES_STMT -> fetch()){
 
-                                        echo "<li><a href=\"Shop.php?fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
+                                        echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchCategoryID={$availableCategories["CategoryID"]}\">{$availableCategories["Name"]}</a></li>";   
                                     }
                                 }
                             ?>
@@ -426,6 +428,8 @@
                                     $LIST_CATEGORIES_STMT = $dbHandler -> prepare($CATEGORIES);
                                     
                                     if($LIST_CATEGORIES_STMT -> execute()){
+
+                                        echo "<li><a href=\"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\">All</a></li>";
 
                                         while($availableCategories = $LIST_CATEGORIES_STMT -> fetch()){
 
