@@ -8,8 +8,8 @@
 	}
 
     include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+    
     Session_CheckAuthLevel();
-
 ?>
 
 <?php
@@ -77,9 +77,7 @@
                         <div class="header__top__left">
 
                             <?php
-
                                 include_once(_UTILITIES_PATH_ . "Render_Store_Topbar_LoginWelcome.php");
-                            
                             ?>
                         
                         </div>
@@ -282,14 +280,15 @@
         <div class="container">
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form name="" action="Checkout.php" method="post">
+
+                
+                <form name="fPlaceOrderForm" action="Checkout.php" method="post">
                     <div class="row">
-                        
                         <div class="col-lg-12 col-md-6">
 
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input name="fOrderAddress" type="text" placeholder="Enter your address here, otherwise, using account default" value="" class="checkout__input__add" required>
+                                <input name="fOrderAddress" type="text" placeholder="Enter your address here, otherwise, using account default" value="" class="checkout__input__add">
                             </div>
 
                             <div class="checkout__order">
@@ -335,17 +334,112 @@
                                     ?>
                                 </ul>
                                 <hr>
-                                <div class="checkout__order__total">Total: <span id="total-price">$0</span></div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <div class="checkout__order__total">Total: <span id="total-price1">$0</span></div>
+                                <button name="fRequestPlaceOrder" value="true" type="submit" class="site-btn">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
                 </form>
 
+                
+                
                 <!-- Making Order -->
                 <?php
 
+                    include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
+                    if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestPlaceOrder"]) && ($_POST["fRequestPlaceOrder"])){
+
+                        $COUNT_CART_CONTENT = "
+                            SELECT COUNT(*) FROM Cart WHERE CustomerID = :CustomerID 
+                        ";
+
+                        $bProductListArray  = [];
+                        $bQuantityListArray = [];
+                        $bProductList       = "";
+                        $bQuantityList      = "";
+
+                        
+                        $bCartCustomerID    = $_SESSION["UserID"];
+                        $bOrderDate         = date('Y-m-d H:i:s');
+                        $bOrderAddress      = $_POST["fOrderAddress"] ?? "";
+                        $bCartTotalPayment  = 0;
+
+                        /* ============================================================================================================== */
+
+                        $COUNT_STMT = $dbHandler -> prepare($COUNT_CART_CONTENT);
+                        $COUNT_STMT-> bindParam(":CustomerID", $bCartCustomerID, PDO::PARAM_STR);
+                        $COUNT_STMT-> execute();
+
+                        if(($COUNT_STMT-> fetchColumn() > 0)){
+                            
+                            $FETCH_CART_PRODUCTS = "
+                                SELECT * FROM Cart WHERE CustomerID = :CustomerID 
+                            ";
+                            
+                            $FETCH_STMT = $dbHandler -> prepare($FETCH_CART_PRODUCTS);
+                            $FETCH_STMT-> bindParam(":CustomerID", $bCartCustomerID, PDO::PARAM_STR);
+                            $FETCH_STMT-> execute();
+
+                            while($bCartRecord = $FETCH_STMT -> fetch(PDO::FETCH_ASSOC)){
+
+                                array_push($bProductListArray,  $bCartRecord["ProductID"]);
+                                array_push($bQuantityListArray, $bCartRecord["Quantity"]);
+
+                                $bCartTotalPayment += $bCartRecord["PayAmount"];
+                            }
+
+                            $bProductList  = implode(",", $bProductListArray);
+                            $bQuantityList = implode(",", $bQuantityListArray);
+                        }
+
+                        /* ============================================================================================================== */
+                        /* ============================================================================================================== */
+
+                        if(isset($_POST["fOrderAddress"]) && ($_POST["fOrderAddress"]) && (!empty($bProductListArray)) && (!empty($bQuantityListArray))){
+
+                            $PLACE_ORDER = "
+                                INSERT INTO Orders ( CustomerID,  ProductIDs,  Quantities,  TotalPayment,  Date,  Address)
+                                                   VALUES
+                                                   (:CustomerID, :ProductIDs, :Quantities, :TotalPayment, :Date, :Address)
+                            ";
+
+                            $MAKE_ORDER_STMT = $dbHandler -> prepare($PLACE_ORDER);
+                            $MAKE_ORDER_STMT-> bindParam(":CustomerID",     $bCartCustomerID,   PDO::PARAM_STR);
+                            $MAKE_ORDER_STMT-> bindParam(":ProductIDs",     $bProductList,      PDO::PARAM_STR);
+                            $MAKE_ORDER_STMT-> bindParam(":Quantities",     $bQuantityList,     PDO::PARAM_STR);
+                            $MAKE_ORDER_STMT-> bindParam(":TotalPayment",   $bCartTotalPayment, PDO::PARAM_INT);
+                            $MAKE_ORDER_STMT-> bindParam(":Date",           $bOrderDate,        PDO::PARAM_STR);
+                            $MAKE_ORDER_STMT-> bindParam(":Address",        $bOrderAddress,     PDO::PARAM_STR);
+
+                            try{
+
+                                if($MAKE_ORDER_STMT -> execute()){
+
+                                    $EMPTY_CART_ITEMS = "
+
+                                        DELETE FROM Cart WHERE CustomerID = :CustomerID
+                                    ";
+
+                                    $CLEARCART_STMT = $dbHandler -> prepare($EMPTY_CART_ITEMS);
+                                    $CLEARCART_STMT-> bindParam(":CustomerID", $bCartCustomerID, PDO::PARAM_STR);
+
+                                    if($CLEARCART_STMT-> execute()){
+                                    
+                                        echo "
+                                            <script>
+                                                alert(\"Order Successfully Created!\");
+                                                window.location.href = \"Shop.php?CurrentPageIndex=1&fShopSearchHolder=&fRequestShopSearch=true\";
+                                            </script>
+                                        ";
+                                    }
+                                }
+                            }catch(PDOException $err){
+
+                                echo "DATABASE ERROR: " . $err -> getMessage();
+                            }
+                        }
+                    }
                 ?>
             </div>
         </div>
@@ -400,16 +494,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
-                    </div>
-                </div>
-            </div>
         </div>
     </footer>
     <!-- Footer Section End -->
@@ -445,7 +529,8 @@
                     url: 'assets/main/php/Store_Cart_CalculateTotalAmount.php',
                     type: 'GET',
                     success: function(response) {
-                        $('#total-price').text('$' + response);
+                        $('#total-price0').text('$' + response);
+                        $('#total-price1').text('$' + response);
                     },
                     error: function(xhr, status, error) {
                         console.error('Error fetching cart total:', status, error);
