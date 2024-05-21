@@ -205,7 +205,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="header__cart__price">Item: <span>$150.00</span></div>
+                        <div class="header__cart__price">Total: <span id="total-price0">$0</span></div>
                     </div>
                 </div>
             </div>
@@ -797,6 +797,21 @@
             }
             
             updateCartCount();
+
+            function updateCartTotal() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CalculateTotalAmount.php',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#total-price0').text('$' + response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching cart total:', status, error);
+                    }
+                });
+            }
+
+            updateCartTotal();
         });
     </script>
 </body>

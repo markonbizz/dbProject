@@ -288,9 +288,9 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span>3</span></a></li>
+                            <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                         </ul>
-                        <div class="header__cart__price">Item: <span>$150.00</span></div>
+                        <div class="header__cart__price">Total: <span id="total-price0">$0</span></div>
                     </div>
                 </div>
             </div>
@@ -439,10 +439,6 @@
                             <button name='fRequestAddToCart' value='true' class="primary-btn" style="display:inline-block; border: none;">ADD TO CARD</button>
 
                         </form>
-                        
-                        <?php // Add To Cart
-
-                        ?>
 
                     </div>
                 </div>
@@ -580,6 +576,39 @@
                 document.getElementById('quantity-input').value = quantityInput.value;
             }
         }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        
+            function updateCartCount() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CountCart.php', // A PHP file to get the current cart count
+                    type: 'GET',
+                    success: function(response) {
+                        $('#cart-count').text(response);
+                    }
+                });
+            }
+            
+            updateCartCount();
+
+            function updateCartTotal() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CalculateTotalAmount.php',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#total-price0').text('$' + response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching cart total:', status, error);
+                    }
+                });
+            }
+
+            updateCartTotal();
+        });
     </script>
 </body>
 

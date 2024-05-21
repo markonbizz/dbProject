@@ -4,7 +4,7 @@ function Session_CheckAuthLevel(string $checkAuth = "USER", string $redirect_dst
 
     if($active)
     {
-        if(!($_SESSION["UserID"]) && !(isset($_SESSION["UserID"]))){
+        if(!($_SESSION["UserID"]) || !(isset($_SESSION["UserID"]))){
 
             echo
             '
@@ -13,7 +13,9 @@ function Session_CheckAuthLevel(string $checkAuth = "USER", string $redirect_dst
                     window.location.href = "' . $redirect_dst . '"
                 </script>
             ';
-        }else if(($_SESSION["Permission"] !== $checkAuth) && !(isset($_SESSION["Permission"]))){
+
+            return false;
+        }else if(($_SESSION["Permission"] !== $checkAuth) || !(isset($_SESSION["Permission"]))){
         
             echo
             '
@@ -22,6 +24,11 @@ function Session_CheckAuthLevel(string $checkAuth = "USER", string $redirect_dst
                     window.location.href = "' . $redirect_dst . '"
                 </script>
             ';
+
+            return false;
+        }else{
+
+            return true;
         }
     }
 }

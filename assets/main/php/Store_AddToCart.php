@@ -7,9 +7,7 @@ if(session_status()){
 include_once("Database_EstConnection.php");
 include_once("Session_CheckAuth.php");
 
-if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestAddToCart"]) && ($_POST["fRequestAddToCart"])){
-
-    Session_CheckAuthLevel("USER", "../../../Login.php");
+if(Session_CheckAuthLevel("USER", "../../../Login.php") && ($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestAddToCart"]) && ($_POST["fRequestAddToCart"])){
 
     if(isset($_POST["fAddProductID"]) && ($_POST["fAddProductID"]) && isset($_POST["fAddProductQuantity"]) && ($_POST["fAddProductQuantity"])){
     

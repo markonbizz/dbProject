@@ -192,7 +192,7 @@
                         <ul>
                             <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                         </ul>
-                        <div class="header__cart__price">Item: <span>$150.00</span></div>
+                        <div class="header__cart__price">Total: <span id="total-price0">0</span></div>
                     </div>
                 </div>
             </div>

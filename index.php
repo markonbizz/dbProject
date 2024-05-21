@@ -160,7 +160,7 @@
 
                                                                 Swal.fire({
                     
-                                                                    title:  'Logouts Successfully',
+                                                                    title:  'Logout Successfully',
                                                                     icon:   'success',
                                                                     confirmButtonText:  'Okay'
                                                                 
@@ -168,7 +168,7 @@
                                                                     
                                                                     if(result.isConfirmed){
 
-                                                                        window.location.href = 'Login.php';
+                                                                        window.location.href = 'index.php';
                                                                     }
                                                                 });
                                                             }
@@ -212,7 +212,7 @@
                         <ul>
                             <li><a href="Cart.php"><i class="fa fa-shopping-cart"></i> <span id="cart-count">0</span></a></li>
                         </ul>
-                        <div class="header__cart__price">Item: <span>$150.00</span></div>
+                        <div class="header__cart__price">Total: <span id="total-price0">0</span></div>
                     </div>
                 </div>
             </div>
@@ -390,6 +390,21 @@
             }
             
             updateCartCount();
+
+            function updateCartTotal() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CalculateTotalAmount.php',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#total-price0').text('$' + response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching cart total:', status, error);
+                    }
+                });
+            }
+
+            updateCartTotal();
         });
     </script>
 </body>

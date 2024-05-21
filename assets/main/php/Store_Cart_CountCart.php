@@ -4,7 +4,7 @@ session_start();
 
 include_once("Database_EstConnection.php");
 
-$customerId = $_SESSION["UserID"];
+$customerId = $_SESSION["UserID"] ?? "";
 
 $query = "SELECT COUNT(*) AS TotalProducts FROM Cart WHERE CustomerID = :customerid";
 $stmt = $dbHandler->prepare($query);
