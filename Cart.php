@@ -17,6 +17,7 @@
     $customerId = $_SESSION["UserID"];
 
     if ($action == 'update_quantity') {
+
         $productId = $_POST['product_id'];
         $quantity = $_POST['quantity'];
         $update_query = "UPDATE Cart SET Quantity = :quantity, PayAmount = :payamount WHERE CustomerID = :customerid AND ProductID = :productid LIMIT 1";
@@ -28,6 +29,7 @@
         $update_stmt->bindParam(':productid', $productId, PDO::PARAM_STR);
         $update_stmt->execute();
     } elseif ($action == 'delete_product') {
+
         $productId = $_POST['product_id'];
         $delete_query = "DELETE FROM Cart WHERE CustomerID = :customerid AND ProductID = :productid LIMIT 1";
         $delete_stmt = $dbHandler->prepare($delete_query);
@@ -285,9 +287,6 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
     </section>
     <!-- Hero Section End -->
 
-    <!-- Breadcrumb Section Begin -->
-    <!-- Breadcrumb Section End -->
-
     <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
         <div class="container">
@@ -391,25 +390,12 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                </div>
-                <div class="col-lg-6">
-                    <div class="shoping__continue">
-                        <div class="shoping__discount">
-                            <h5>Address</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your address">
-                                <button type="submit" class="site-btn">APPLY COUPON</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Total: <span id="total-price">$0</span></li>
                         </ul>
-                        <a href="checkout.php" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="Checkout.php" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
@@ -503,8 +489,24 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
                 });
             }
 
-            // Call updateCartCount on page load
             updateCartCount();
+
+            function updateCartTotal() {
+                $.ajax({
+                    url: 'assets/main/php/Store_Cart_CalculateTotalAmount.php',
+                    type: 'GET',
+                    success: function(response) {
+                        $('#total-price').text('$' + response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching cart total:', status, error);
+                    }
+                });
+            }
+
+            // Call updateCartCount on page load
+            
+            updateCartTotal();
 
             // Handle quantity change
             function updateQuantity(productId, quantity) {
@@ -564,8 +566,6 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
                     }
                 });
             });
-
-
         });
     </script>
 </body>
