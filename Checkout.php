@@ -345,7 +345,6 @@
                 
                 <!-- Making Order -->
                 <?php
-
                     include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
                     if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestPlaceOrder"]) && ($_POST["fRequestPlaceOrder"])){
@@ -441,6 +440,9 @@
                         }
                     }
                 ?>
+
+
+                
             </div>
         </div>
     </section>
