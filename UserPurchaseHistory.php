@@ -32,13 +32,13 @@
 
 	<!-- Override CSS -->  
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
-	
+
 	<?php
-
-		Session_CheckAuthLevel("USER");
-
+		
+		Session_CheckAuthLevel(checkAuth: "USER");
+		
+		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductOperation.php");
 	?>
-
 </head> 
 
 <body class="app">   	
@@ -64,7 +64,7 @@
 							</a>
 						</div>					
 
-						<h1 class="app-page-title col">Purchase History</h1>
+						<h1 class="app-page-title col">Home</h1>
 
 					</div><!--//row-->
 	            </div><!--//app-header-content-->
@@ -118,7 +118,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserProductList.php">
+					        <a class="nav-link active" href="UserProductList.php?CurrentPageIndex=1">
 						        <span class="nav-icon">
 									<svg class="bi bi-journals" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
 										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
@@ -136,7 +136,7 @@
 
 						<li class="nav-item">
 					        
-					        <a class="nav-link active" href="UserPurchaseHistory.php">
+					        <a class="nav-link" href="UserPurchaseHistory.php">
 						    
 							    <span class="nav-icon">
 									<svg class="bi bi-receipt" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
@@ -262,7 +262,11 @@
 										</script>
 									";
 								?>
+
+
+								
 						    </li><!--//nav-item-->
+
 						</ul><!--//footer-menu-->
 				    </nav>
 			    </div><!--//app-sidepanel-footer-->
@@ -277,9 +281,10 @@
 <!-- =========================================================================================================================================================================================================================================== -->
 
 
-	<!-- Main Page Content -->
 
-        <div class="app-wrapper">
+	<!-- Main Page Brief Section -->
+
+    <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
@@ -291,16 +296,149 @@
 						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center">
+								    <form class="table-search-form row gx-1 align-items-center" action="UserProductList.php" method="get">
 					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
+					                        <input type="text" id="search-orders" name="fProductListSearchHolder" class="form-control search-orders" placeholder="Search">
 					                    </div>
 					                    <div class="col-auto">
-					                        <button type="submit" class="btn app-btn-secondary">Search</button>
+					                        <button name="fRequestSearchOnProductList" value="true" type="submit" class="btn app-btn-secondary">Search</button>
 					                    </div>
 					                </form>
+
+
+									<?php
+
+										include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+										$PAGINATION_TABLE = "";
+
+										$PAGINATION_ARGS =
+										[
+											"MAX_RECS_PERPAGE"  => 9,
+											"START_POS"         => 0,
+											"TOTAL_RECS"        => 0,
+											"TOTAL_PAGES"       => 0
+										];
+
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList']) && isset($_GET["fProductListSearchHolder"])){
+
+											$bSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
+
+											$LISTING_TABLE =
+											"
+												SELECT
+													C.Name AS CategoryName,
+													P.*
+												FROM
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
+												WHERE
+													`UploaderID` = :UploaderID
+											";
+
+											$PAGINATION_TABLE =
+											"
+												SELECT
+													COUNT(*)
+												FROM
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
+												WHERE
+													`UploaderID` = :UploaderID
+											";
+
+											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
+
+												$LISTING_TABLE .=
+												"   
+													AND
+													(
+														C.Name            LIKE :SearchTerm
+														OR
+														P.Name            LIKE :SearchTerm
+													)
+												";
+
+												$PAGINATION_TABLE .=
+												"   
+													AND
+													(
+														C.Name            LIKE :SearchTerm
+														OR
+														P.Name            LIKE :SearchTerm
+													)
+												";
+											}
+
+											{// Limiting Recs on page
+												$LISTING_TABLE .=
+												'
+													LIMIT
+													:START_POS, :MAX_RECS_PERPAGE
+												';
+											}
+
+											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
+											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
+											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+											if(!empty($bSearchHolder))
+											{
+												$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
+												$SQL_PAGINATION_STATMENT -> bindParam(":SearchTerm", $bSearchHolder);
+											}
+										}else{
+
+											$LISTING_TABLE = 
+											"
+												SELECT
+													C.Name AS CategoryName,
+													P.*
+												FROM 
+													Products P
+												JOIN
+													Categories C
+												ON
+													C.CategoryID = P.CategoryID
+												WHERE
+													P.UploaderID = :UploaderID
+												LIMIT
+													:START_POS, :MAX_RECS_PERPAGE
+											";
+
+											$PAGINATION_TABLE =
+											"
+												SELECT
+													COUNT(*)
+												FROM
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
+												WHERE
+													`UploaderID` = :UploaderID
+											";
+
+											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
+											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+
+											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
+											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
+											
+										}
+
+										
+									?>
 							    </div><!--//col-->
-							    
 						    </div><!--//row-->
 					    </div><!--//table-utilities-->
 				    </div><!--//col-auto-->
@@ -311,62 +449,82 @@
 				<div class="tab-content" id="orders-table-tab-content">
 			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
-						    <div class="app-card-body">
+						    <div class="app-card-body px-4 pt-4">
 							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left">
+									
+									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">Order</th>
+												<th class="cell">Product ID</th>
+												<th class="cell">Category</th>
+												<th class="cell">Name</th>
+												<th class="cell">Price</th>
 												<th class="cell">Date</th>
-												<th class="cell">Total</th>
+												<th class="cell">Description</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell">$259.35</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell">$96.20</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell">$123.00</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15343</td>
-												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-												<td class="cell">$199.00</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15342</td>
-												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-												<td class="cell">$59.00</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15341</td>
-												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-												<td class="cell">$678.26</td>
-												<td class="cell"><a class="btn-sm btn app-btn-primary" href="#">View</a></td>
-											</tr>
-		
+											<?php
+
+												if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"])){
+
+													$CurrentPage = (((int)$_GET["CurrentPageIndex"] - 1) > 0) ? (int)$_GET["CurrentPageIndex"] - 1: 0;
+
+													$PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
+												}
+
+												$SQL_STATMENT -> bindParam(':START_POS', $PAGINATION_ARGS["START_POS"], PDO::PARAM_INT);
+												$SQL_STATMENT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"], PDO::PARAM_INT);
+
+												if($SQL_STATMENT -> execute()){
+													$SQL_PAGINATION_STATMENT -> execute();
+
+													if(!($SQL_STATMENT -> rowCount())){
+
+														echo 
+														"
+															<tr>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\">
+																	<h6> Nothing but Chickens here :) </h6>
+																</td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+															</tr>
+														";
+													}else{
+														
+														while($_RECS_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC)){
+
+															echo 
+															"
+																<tr>
+																	<td class=\"cell\">#    {$_RECS_["ProductID"]}       </td>
+																	<td class=\"cell\">     {$_RECS_["CategoryName"]}    </td>
+																	<td class=\"cell\">     {$_RECS_["Name"]}            </td>
+																	<td class=\"cell\">\$   {$_RECS_["Price"]}           </td>
+																	<td class=\"cell\">     {$_RECS_["UploadDate"]}      </td>
+																	<td class=\"cell\">     {$_RECS_["Description"]}     </td>
+																	<td class=\"cell text-end\">
+																	
+																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+																			<input name=\"fEditTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
+																			<button name=\"fRequestViewOrder\" value=\"true\" class=\"btn app-btn-primary\">View</button>
+																		</form>
+																	</td>
+																</tr>
+															";
+														}
+													}
+												}
+											?>
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
-						       
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
 
@@ -374,161 +532,108 @@
 
 						<nav class="app-pagination">
 							<ul class="pagination justify-content-center">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-							    </li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item">
-								    <a class="page-link" href="#">Next</a>
-								</li>
+								
+								<?php
+
+									// This prevent CurrentPageIndex duplicate
+									$LISTING_PRESERVED = $_GET;
+									unset($LISTING_PRESERVED['CurrentPageIndex']);
+									$LISTING_PRESERVED = http_build_query($LISTING_PRESERVED);
+
+									$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_PAGINATION_STATMENT -> fetchColumn();
+									$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
+
+									// =====================================================================
+									// =========================== First Page =========================== 
+									// =====================================================================
+									echo 
+									"
+										<li class=\"page-item\"> <!-- First Page -->
+											<a class=\"page-link\" href=\"?CurrentPageIndex=1&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">First</a>
+										</li>
+									";
+
+									// =====================================================================
+									// =========================== Previous Page =========================== 
+									// =====================================================================
+									if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){
+
+										$tmp = (int)$_GET["CurrentPageIndex"] - 1;
+
+										echo 
+										"
+											<li class=\"page-item\"> <!-- Previous Page -->
+												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">Previous</a>
+											</li>
+										";
+									}else{
+
+										echo 
+										"
+											<li class=\"page-item disable\"> <!-- Previous Page -->
+												<a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Previous</a>
+											</li>
+										";
+									}
+
+									// =============================================================
+									// =========================== Pages =========================== 
+									// =============================================================
+									for($i = 1; $i <= $PAGINATION_ARGS["TOTAL_PAGES"]; $i++){
+
+										if(isset($_GET["CurrentPageIndex"]) && ($i == (int)$_GET["CurrentPageIndex"])){
+
+											echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">{$i}</a></li>";
+										}else{
+
+											echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">{$i}</a></li>";
+										}
+									}
+
+
+									// =================================================================
+									// =========================== Next Page =========================== 
+									// =================================================================
+									if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $PAGINATION_ARGS["TOTAL_PAGES"])){
+
+										$tmp = (int)$_GET["CurrentPageIndex"] + 1;
+
+										echo 
+										"
+											<li class=\"page-item\"> <!-- Previous Page -->
+												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">Next</a>
+											</li>
+										";
+									}else{
+
+										echo 
+										"
+											<li class=\"page-item disable\"> <!-- Previous Page -->
+												<a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Next</a>
+											</li>
+										";
+									}
+
+
+									// =================================================================
+									// =========================== Last Page =========================== 
+									// =================================================================
+									echo
+									"
+										<li class=\"page-item\"> <!-- End Page -->
+											<a class=\"page-link\" href=\"?CurrentPageIndex={$PAGINATION_ARGS["TOTAL_PAGES"]}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
+										</li>
+									";
+
+								?>
 							</ul>
 						</nav><!--//app-pagination-->
 						
 			        </div><!--//tab-pane-->
 
-<!-- =========================================================================================================================================================================================================================================== -->
-
-			        <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-								    
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-												<td class="cell">John Sanders</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$259.35</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-												<td class="cell">Teresa Holland</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$123.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15343</td>
-												<td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-												<td class="cell">Jayden Massey</td>
-												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$199.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-										
-											
-											<tr>
-												<td class="cell">#15341</td>
-												<td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-												<td class="cell">Raymond Atkins</td>
-												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$678.26</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-		
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-			        
-			        <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-												<td class="cell">Dylan Ambrose</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell"><span class="badge bg-warning">Pending</span></td>
-												<td class="cell">$96.20</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-			        <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											
-										<tr>
-											<td class="cell">#15342</td>
-											<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-											<td class="cell">Reina Brooks</td>
-											<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-											<td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-											<td class="cell">$59.00</td>
-											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-										</tr>
-									
-									</tbody>
-								</table>
-							</div><!--//table-responsive-->
-						</div><!--//app-card-body-->		
-					</div><!--//app-card-->
-			    </div><!--//tab-pane-->
-			</div><!--//tab-content-->
-		</div><!--//container-fluid-->
-	</div><!--//app-content-->
 
 
-
-
+					
 <!-- =========================================================================================================================================================================================================================================== -->
 <!-- =========================================================================================================================================================================================================================================== -->
 
