@@ -115,7 +115,7 @@
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Category</label>
 
-										<select name="fProductCategory" class="form-select mb-3" onchange="UploadCategoryOptionCheck(this);">
+										<select name="fProductCategory" class="form-select mb-3">
 											
 											
 											<!-- Listing All Avaliable Categories -->
@@ -145,14 +145,7 @@
 
 
 
-											<option value="0" id="OptionOther">Other</option>
 										</select>
-									
-										<div class="mb-3" id="fProductCustomCategory_Wrapper" style="display: none;">
-											<label for="setting-input-2" class="form-label">Custom Category</label>
-											<input type="text" name="fProductCustomCategory" class="form-control" id="fProductCustomCategory_Input">
-										</div>
-
 									</div>
 
 									<div class="mb-3">
@@ -224,7 +217,6 @@
     
     <!-- Page Specific JS -->
     <script src="assets/user-portal/js/app.js"></script> 
-	<script src="assets/user-portal/js/uploadProduct_CustomCategorySelected.js"></script>
 	<script src="assets/user-portal/js/uploadProduct_ProductImagePreview.js"></script>
 </body>
 </html> 

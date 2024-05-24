@@ -37,7 +37,7 @@
 		
 		Session_CheckAuthLevel("ADMIN");
 		
-		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductOperation.php");
+		include_once(_UTILITIES_PATH_ . "Admin_UserList_UserOperation.php");
 	?>
 </head> 
 
@@ -99,7 +99,7 @@
 					    <li class="nav-item">
 
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link active" href="AdminHome.php">
+					        <a class="nav-link" href="AdminHome.php">
 						        <span class="nav-icon">
 						        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  								<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
@@ -118,7 +118,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="AdminUserList.php?CurrentPageIndex=1">
+					        <a class="nav-link active" href="AdminUserList.php?CurrentPageIndex=1&fUserListSearchHolder=&fRequestSearchOnUserList=true">
 						        <span class="nav-icon">
 									<svg class="bi bi-journals" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
 										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
@@ -296,18 +296,18 @@
 						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center" action="UserProductList.php" method="get">
+								    <form class="table-search-form row gx-1 align-items-center" action="AdminUserList.php" method="get">
+										<input type="hidden"name="CurrentPageIndex" value="1">
 					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="fProductListSearchHolder" class="form-control search-orders" placeholder="Search">
+					                        <input type="text" id="search-orders" name="fUserListSearchHolder" class="form-control search-orders" placeholder="Search">
 					                    </div>
 					                    <div class="col-auto">
-					                        <button name="fRequestSearchOnProductList" value="true" type="submit" class="btn app-btn-secondary">Search</button>
+					                        <button name="fRequestSearchOnUserList" value="true" type="submit" class="btn app-btn-secondary">Search</button>
 					                    </div>
 					                </form>
 
 
 									<?php
-
 										include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
 										$PAGINATION_TABLE = "";
@@ -320,23 +320,29 @@
 											"TOTAL_PAGES"       => 0
 										];
 
-										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList']) && isset($_GET["fProductListSearchHolder"])){
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnUserList']) && ($_GET['fRequestSearchOnUserList']) && isset($_GET["fUserListSearchHolder"])){
 
-											$bSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
+											$bSearchHolder = "%" . ($_GET["fUserListSearchHolder"] ?? "") . "%";
 
 											$LISTING_TABLE =
 											"
 												SELECT
-													C.Name AS CategoryName,
-													P.*
+													UBase.*,
+													UPvc.*,
+													USec.*
+											
 												FROM
-													`Products` P
+													`User_Basics` 	UBase
 												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
+													`User_Privacy` 	UPvc
+													ON
+														UBase.UserID = UPvc.UserID 
+												JOIN
+													`User_Security`	USec
+													ON
+														UBase.UserID = USec.UserID
 												WHERE
-													`UploaderID` = :UploaderID
+													USec.Permission = :Permission
 											";
 
 											$PAGINATION_TABLE =
@@ -344,13 +350,17 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Products` P
+													`User_Basics` 	UBase
 												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
+													`User_Privacy` 	UPvc
+													ON
+														UBase.UserID = UPvc.UserID 
+												JOIN
+													`User_Security`	USec
+													ON
+														UBase.UserID = USec.UserID
 												WHERE
-													`UploaderID` = :UploaderID
+													USec.Permission = :Permission
 											";
 
 											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
@@ -359,9 +369,19 @@
 												"   
 													AND
 													(
-														C.Name            LIKE :SearchTerm
+														UBase.Account		LIKE :SearchTerm
+														
 														OR
-														P.Name            LIKE :SearchTerm
+														UBase.Email			LIKE :SearchTerm
+														
+														OR
+														UPvc.PhoneNumber	LIKE :SearchTerm
+														
+														OR
+														UPvc.RealName		LIKE :SearchTerm
+														
+														OR
+														UPvc.Address		LIKE :SearchTerm
 													)
 												";
 
@@ -369,9 +389,19 @@
 												"   
 													AND
 													(
-														C.Name            LIKE :SearchTerm
+														UBase.Account		LIKE :SearchTerm
+														
 														OR
-														P.Name            LIKE :SearchTerm
+														UBase.Email			LIKE :SearchTerm
+														
+														OR
+														UPvc.PhoneNumber	LIKE :SearchTerm
+														
+														OR
+														UPvc.RealName		LIKE :SearchTerm
+														
+														OR
+														UPvc.Address		LIKE :SearchTerm
 													)
 												";
 											}
@@ -380,15 +410,17 @@
 												$LISTING_TABLE .=
 												'
 													LIMIT
-													:START_POS, :MAX_RECS_PERPAGE
+														:START_POS, :MAX_RECS_PERPAGE
 												';
 											}
 
+											$bAccountPermission = "USER";
+
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> bindParam(":Permission", $bAccountPermission);
 
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_PAGINATION_STATMENT -> bindParam(":Permission", $bAccountPermission);
 
 											if(!empty($bSearchHolder))
 											{
@@ -400,16 +432,22 @@
 											$LISTING_TABLE = 
 											"
 												SELECT
-													C.Name AS CategoryName,
-													P.*
-												FROM 
-													Products P
+													UBase.*,
+													UPvc.*,
+													USec.*
+											
+												FROM
+													`User_Basics` 	UBase
 												JOIN
-													Categories C
-												ON
-													C.CategoryID = P.CategoryID
+													`User_Privacy` 	UPvc
+													ON
+														UBase.UserID = UPvc.UserID 
+												JOIN
+													`User_Security`	USec
+													ON
+														UBase.UserID = USec.UserID
 												WHERE
-													P.UploaderID = :UploaderID
+													USec.Permission = :Permission
 												LIMIT
 													:START_POS, :MAX_RECS_PERPAGE
 											";
@@ -419,42 +457,30 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Products` P
+													`User_Basics` 	UBase
 												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
+													`User_Privacy` 	UPvc
+													ON
+														UBase.UserID = UPvc.UserID 
+												JOIN
+													`User_Security`	USec
+													ON
+														UBase.UserID = USec.UserID
 												WHERE
-													`UploaderID` = :UploaderID
+													USec.Permission = :Permission
 											";
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> bindParam(":Permission", $bAccountPermission);
 
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
-											
+											$SQL_PAGINATION_STATMENT -> bindParam(":Permission", $bAccountPermission);
 										}
-
-										
 									?>
+
+
+
 							    </div><!--//col-->
-								
-								<div class="col-auto">
-									
-									<form class="settings-form" action="UserUploadProduct.php" method="get">
-										<button type="submit" name="fUploadProduct" value="true" class="btn app-btn-primary" style="width: 15rem;">
-											<div class="icon icon-badge app-utility-item">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
-													<path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z"/>
-													<path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
-												</svg>
-											</div>
-											Upload
-										</button>
-									</form>
-							    
-								</div>
 						    </div><!--//row-->
 					    </div><!--//table-utilities-->
 				    </div><!--//col-auto-->
@@ -471,12 +497,12 @@
 									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">Product ID</th>
-												<th class="cell">Category</th>
-												<th class="cell">Name</th>
-												<th class="cell">Price</th>
-												<th class="cell">Date</th>
-												<th class="cell">Description</th>
+												<th class="cell">Account</th>
+												<th class="cell">Email</th>
+												<th class="cell">Phone Number</th>
+												<th class="cell">Total Balance</th>
+												<th class="cell">Total Spent</th>
+												<th class="cell">UserID</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>
@@ -503,10 +529,10 @@
 															<tr>
 																<td class=\"cell\"></td>
 																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
 																<td class=\"cell\">
 																	<h6> Nothing but Chickens here :) </h6>
 																</td>
-																<td class=\"cell\"></td>
 																<td class=\"cell\"></td>
 																<td class=\"cell\"></td>
 																<td class=\"cell\"></td>
@@ -519,24 +545,24 @@
 															echo 
 															"
 																<tr>
-																	<td class=\"cell\">#    {$_RECS_["ProductID"]}       </td>
-																	<td class=\"cell\">     {$_RECS_["CategoryName"]}    </td>
-																	<td class=\"cell\">     {$_RECS_["Name"]}            </td>
-																	<td class=\"cell\">\$   {$_RECS_["Price"]}           </td>
-																	<td class=\"cell\">     {$_RECS_["UploadDate"]}      </td>
-																	<td class=\"cell\">     {$_RECS_["Description"]}     </td>
+																	<td class=\"cell\">     {$_RECS_["Account"]}       	</td>
+																	<td class=\"cell\">     {$_RECS_["Email"]}    		</td>
+																	<td class=\"cell\">     {$_RECS_["PhoneNumber"]}    </td>
+																	<td class=\"cell\">\$   {$_RECS_["TotalBalance"]}   </td>
+																	<td class=\"cell\">\$   {$_RECS_["TotalSpent"]}     </td>
+																	<td class=\"cell\">     {$_RECS_["UserID"]}     	</td>
 																	<td class=\"cell text-end\">
 																	
-																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-																			<input name=\"fEditTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
-																			<button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
+																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"AdminUserList.php\" method=\"post\">
+																			<input name=\"fFetchTargetUser\" value=\"{$_RECS_["UserID"]}\" type=\"hidden\">
+																			<button name=\"fRequestViewUser\" value=\"true\" class=\"btn app-btn-primary\">View</button>
 																		</form>
 
 																		&nbsp;
 
-																		<form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-																			<input name=\"fRemoveTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
-																			<button name=\"fRequestRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
+																		<form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"AdminUserList.php\" method=\"post\">
+																			<input name=\"fRemoveTargetUser\" value=\"{$_RECS_["UserID"]}\" type=\"hidden\">
+																			<button name=\"fRequestRemoveUser\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
 																		</form>
 
 																	</td>

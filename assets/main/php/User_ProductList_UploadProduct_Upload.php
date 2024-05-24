@@ -106,15 +106,8 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUploadProduct"]) &
 
                 $SQL_STATMENT = $dbHandler->prepare($UPLOAD_PRODUCT);
                 
-                if($_POST['fProductCategory'] == '0'){
-                    InsertNewCategory($bProductCategory);
-                    $TGT_CategoryID = GetCategoryID($bProductCategory);
-                    $SQL_STATMENT-> bindParam(1, $TGT_CategoryID);
-                }else{
-
-                    $SQL_STATMENT-> bindParam(1, $bProductCategory);
-                }
-
+            
+                $SQL_STATMENT-> bindParam(1, $bProductCategory);
                 $SQL_STATMENT-> bindParam(2, $_SESSION['UserID']);
                 $SQL_STATMENT-> bindParam(3, $imageContent, PDO::PARAM_LOB);
                 $SQL_STATMENT-> bindParam(4, $bProductName);
