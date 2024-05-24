@@ -35,8 +35,9 @@
 
 	<?php
 		
-		Session_CheckAuthLevel(checkAuth: "USER");
-
+		Session_CheckAuthLevel("ADMIN");
+		
+		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductOperation.php");
 	?>
 </head> 
 
@@ -98,7 +99,7 @@
 					    <li class="nav-item">
 
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserHome.php">
+					        <a class="nav-link active" href="AdminHome.php">
 						        <span class="nav-icon">
 						        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  								<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
@@ -109,7 +110,7 @@
 					        </a><!--//nav-link-->
 
 					    </li><!--//nav-item-->
-
+					    
 <!-- =========================================================================================================================================================================================================================================== -->
 
 						<!-- Side Panel - Uploaded Products -->
@@ -117,14 +118,14 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserProductList.php?CurrentPageIndex=1">
+					        <a class="nav-link" href="AdminUserList.php?CurrentPageIndex=1">
 						        <span class="nav-icon">
 									<svg class="bi bi-journals" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
 										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
 										<path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
 									</svg>
 								</span>
-								<span class="nav-link-text">Uploaded Products</span>
+								<span class="nav-link-text">Manage Users</span>
 					        </a><!--//nav-link-->
 
 					    </li><!--//nav-item-->
@@ -135,7 +136,7 @@
 
 						<li class="nav-item">
 					        
-					        <a class="nav-link active" href="UserPurchaseHistory.php">
+					        <a class="nav-link" href="AdminCategotyList.php?CurrentPageIndex=1">
 						    
 							    <span class="nav-icon">
 									<svg class="bi bi-receipt" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
@@ -143,7 +144,7 @@
 										<path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
 									</svg>
 						        </span>
-								<span class="nav-link-text">Purchase History</span>
+								<span class="nav-link-text">Uploaded Categories</span>
 					        
 							</a><!--//nav-link-->
 					    </li><!--//nav-item-->
@@ -155,7 +156,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserAccountSettings.php">
+					        <a class="nav-link" href="AdminAccountSettings .php">
 						        <span class="nav-icon">
 									<svg class="bi bi-sliders2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -295,13 +296,12 @@
 						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center" action="UserPurchaseHistory.php" method="get">
-										<input type="hidden" id="search-orders" name="CurrentPageIndex" value="1" class="form-control search-orders" placeholder="Search">
+								    <form class="table-search-form row gx-1 align-items-center" action="UserProductList.php" method="get">
 					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="fPurchaseHistorySearchHolder" class="form-control search-orders" placeholder="Search">
+					                        <input type="text" id="search-orders" name="fProductListSearchHolder" class="form-control search-orders" placeholder="Search">
 					                    </div>
 					                    <div class="col-auto">
-					                        <button name="fRequestSearchOnPurchaseHistory" value="true" type="submit" class="btn app-btn-secondary">Search</button>
+					                        <button name="fRequestSearchOnProductList" value="true" type="submit" class="btn app-btn-secondary">Search</button>
 					                    </div>
 					                </form>
 
@@ -320,18 +320,23 @@
 											"TOTAL_PAGES"       => 0
 										];
 
-										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fPurchaseHistorySearchHolder']) && ($_GET['fRequestSearchOnPurchaseHistory']) && isset($_GET["fPurchaseHistorySearchHolder"])){
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList']) && isset($_GET["fProductListSearchHolder"])){
 
-											$bSearchHolder = "%" . ($_GET["fPurchaseHistorySearchHolder"] ?? "") . "%";
+											$bSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
 
 											$LISTING_TABLE =
 											"
 												SELECT
-													*
+													C.Name AS CategoryName,
+													P.*
 												FROM
-													Orders 
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
 												WHERE
-													`CustomerID` = :CustomerID
+													`UploaderID` = :UploaderID
 											";
 
 											$PAGINATION_TABLE =
@@ -339,9 +344,13 @@
 												SELECT
 													COUNT(*)
 												FROM
-													Orders
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
 												WHERE
-													`CustomerID` = :CustomerID
+													`UploaderID` = :UploaderID
 											";
 
 											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
@@ -350,11 +359,9 @@
 												"   
 													AND
 													(
-														`Address`	LIKE :SearchTerm
+														C.Name            LIKE :SearchTerm
 														OR
-														`OrderID`	LIKE :SearchTerm
-														OR
-														`Date`		LIKE :SearchTerm
+														P.Name            LIKE :SearchTerm
 													)
 												";
 
@@ -362,11 +369,9 @@
 												"   
 													AND
 													(
-														`Address`	LIKE :SearchTerm
+														C.Name            LIKE :SearchTerm
 														OR
-														`OrderID`   LIKE :SearchTerm
-														OR
-														`Date`		LIKE :SearchTerm
+														P.Name            LIKE :SearchTerm
 													)
 												";
 											}
@@ -380,10 +385,10 @@
 											}
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":CustomerID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
 
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":CustomerID", $_SESSION["UserID"]);
+											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
 
 											if(!empty($bSearchHolder))
 											{
@@ -395,11 +400,16 @@
 											$LISTING_TABLE = 
 											"
 												SELECT
-													*
+													C.Name AS CategoryName,
+													P.*
 												FROM 
-													Orders
+													Products P
+												JOIN
+													Categories C
+												ON
+													C.CategoryID = P.CategoryID
 												WHERE
-													`CustomerID` = :CustomerID
+													P.UploaderID = :UploaderID
 												LIMIT
 													:START_POS, :MAX_RECS_PERPAGE
 											";
@@ -409,21 +419,42 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Orders`
+													`Products` P
+												JOIN
+													`Categories` C
+												ON
+													C.CategoryID = P.CategoryID 
 												WHERE
-													`CustomerID` = :CustomerID
+													`UploaderID` = :UploaderID
 											";
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":CustomerID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
 
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":CustomerID", $_SESSION["UserID"]);
+											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
+											
 										}
 
 										
 									?>
 							    </div><!--//col-->
+								
+								<div class="col-auto">
+									
+									<form class="settings-form" action="UserUploadProduct.php" method="get">
+										<button type="submit" name="fUploadProduct" value="true" class="btn app-btn-primary" style="width: 15rem;">
+											<div class="icon icon-badge app-utility-item">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+													<path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z"/>
+													<path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+												</svg>
+											</div>
+											Upload
+										</button>
+									</form>
+							    
+								</div>
 						    </div><!--//row-->
 					    </div><!--//table-utilities-->
 				    </div><!--//col-auto-->
@@ -440,10 +471,12 @@
 									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">Order ID</th>
+												<th class="cell">Product ID</th>
+												<th class="cell">Category</th>
+												<th class="cell">Name</th>
+												<th class="cell">Price</th>
 												<th class="cell">Date</th>
-												<th class="cell">Total Price</th>
-												<th class="cell">Address</th>									
+												<th class="cell">Description</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>
@@ -475,6 +508,8 @@
 																</td>
 																<td class=\"cell\"></td>
 																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
+																<td class=\"cell\"></td>
 															</tr>
 														";
 													}else{
@@ -484,16 +519,26 @@
 															echo 
 															"
 																<tr>
-																	<td class=\"cell\">#    {$_RECS_["OrderID"]}       	</td>
-																	<td class=\"cell\">     {$_RECS_["Date"]}    		</td>
-																	<td class=\"cell\">\$   {$_RECS_["TotalPayment"]}	</td>
-																	<td class=\"cell\">   	{$_RECS_["Address"]}        </td>
+																	<td class=\"cell\">#    {$_RECS_["ProductID"]}       </td>
+																	<td class=\"cell\">     {$_RECS_["CategoryName"]}    </td>
+																	<td class=\"cell\">     {$_RECS_["Name"]}            </td>
+																	<td class=\"cell\">\$   {$_RECS_["Price"]}           </td>
+																	<td class=\"cell\">     {$_RECS_["UploadDate"]}      </td>
+																	<td class=\"cell\">     {$_RECS_["Description"]}     </td>
 																	<td class=\"cell text-end\">
 																	
-																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserOrderInDetails.php\" method=\"get\">
-																			<input name=\"fFetchTargetOrder\" value=\"{$_RECS_["OrderID"]}\" type=\"hidden\">
-																			<button name=\"fRequestViewOrder\" value=\"true\" class=\"btn app-btn-primary\">View</button>
+																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+																			<input name=\"fEditTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
+																			<button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
 																		</form>
+
+																		&nbsp;
+
+																		<form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
+																			<input name=\"fRemoveTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
+																			<button name=\"fRequestRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
+																		</form>
+
 																	</td>
 																</tr>
 															";

@@ -34,10 +34,11 @@
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 
 	<?php
-		
-		Session_CheckAuthLevel(checkAuth: "USER");
+
+		Session_CheckAuthLevel("ADMIN");
 
 	?>
+	
 </head> 
 
 <body class="app">   	
@@ -63,7 +64,7 @@
 							</a>
 						</div>					
 
-						<h1 class="app-page-title col">Home</h1>
+						<h1 class="app-page-title col">Settings</h1>
 
 					</div><!--//row-->
 	            </div><!--//app-header-content-->
@@ -98,7 +99,7 @@
 					    <li class="nav-item">
 
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserHome.php">
+					        <a class="nav-link active" href="AdminHome.php">
 						        <span class="nav-icon">
 						        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  								<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
@@ -109,7 +110,7 @@
 					        </a><!--//nav-link-->
 
 					    </li><!--//nav-item-->
-
+					    
 <!-- =========================================================================================================================================================================================================================================== -->
 
 						<!-- Side Panel - Uploaded Products -->
@@ -117,14 +118,14 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserProductList.php?CurrentPageIndex=1">
+					        <a class="nav-link" href="AdminUserList.php?CurrentPageIndex=1">
 						        <span class="nav-icon">
 									<svg class="bi bi-journals" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
 										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
 										<path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
 									</svg>
 								</span>
-								<span class="nav-link-text">Uploaded Products</span>
+								<span class="nav-link-text">Manage Users</span>
 					        </a><!--//nav-link-->
 
 					    </li><!--//nav-item-->
@@ -135,7 +136,7 @@
 
 						<li class="nav-item">
 					        
-					        <a class="nav-link active" href="UserPurchaseHistory.php">
+					        <a class="nav-link" href="AdminCategotyList.php?CurrentPageIndex=1">
 						    
 							    <span class="nav-icon">
 									<svg class="bi bi-receipt" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
@@ -143,7 +144,7 @@
 										<path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
 									</svg>
 						        </span>
-								<span class="nav-link-text">Purchase History</span>
+								<span class="nav-link-text">Uploaded Categories</span>
 					        
 							</a><!--//nav-link-->
 					    </li><!--//nav-item-->
@@ -155,7 +156,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserAccountSettings.php">
+					        <a class="nav-link" href="AdminAccountSettings .php">
 						        <span class="nav-icon">
 									<svg class="bi bi-sliders2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -246,7 +247,7 @@
 																		
 																		if(result.isConfirmed){
 
-																			window.location.href = 'Login.php';
+																			window.location.href = 'index.php';
 																		}
 																	});
 																}
@@ -262,10 +263,7 @@
 									";
 								?>
 
-
-								
 						    </li><!--//nav-item-->
-
 						</ul><!--//footer-menu-->
 				    </nav>
 			    </div><!--//app-sidepanel-footer-->
@@ -281,338 +279,196 @@
 
 
 
-	<!-- Main Page Brief Section -->
+	<!-- Main Page Content -->
 
     <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
-			    
-			    <div class="row g-3 mb-4 align-items-center justify-content-between">
-				    
-				    <div class="col-auto">
-					     <div class="page-utilities">
-						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
-							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center" action="UserPurchaseHistory.php" method="get">
-										<input type="hidden" id="search-orders" name="CurrentPageIndex" value="1" class="form-control search-orders" placeholder="Search">
-					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="fPurchaseHistorySearchHolder" class="form-control search-orders" placeholder="Search">
-					                    </div>
-					                    <div class="col-auto">
-					                        <button name="fRequestSearchOnPurchaseHistory" value="true" type="submit" class="btn app-btn-secondary">Search</button>
-					                    </div>
-					                </form>
+				<div class="row pt-4 pb-4 g-4 settings-section">
+
+				<!-- ==================================================================================================================== -->
+
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    
+								<div class="mb-2">
+									<h3>
+										Total:
+										
+										&nbsp;&nbsp;
 
 
-									<?php
 
-										include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+										<?php
+											include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
-										$PAGINATION_TABLE = "";
+											$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalBalance FROM User_Basics WHERE UserID = :UserID");
+											$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> execute();
 
-										$PAGINATION_ARGS =
-										[
-											"MAX_RECS_PERPAGE"  => 9,
-											"START_POS"         => 0,
-											"TOTAL_RECS"        => 0,
-											"TOTAL_PAGES"       => 0
-										];
+											$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
 
-										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fPurchaseHistorySearchHolder']) && ($_GET['fRequestSearchOnPurchaseHistory']) && isset($_GET["fPurchaseHistorySearchHolder"])){
-
-											$bSearchHolder = "%" . ($_GET["fPurchaseHistorySearchHolder"] ?? "") . "%";
-
-											$LISTING_TABLE =
-											"
-												SELECT
-													*
-												FROM
-													Orders 
-												WHERE
-													`CustomerID` = :CustomerID
-											";
-
-											$PAGINATION_TABLE =
-											"
-												SELECT
-													COUNT(*)
-												FROM
-													Orders
-												WHERE
-													`CustomerID` = :CustomerID
-											";
-
-											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
-
-												$LISTING_TABLE .=
-												"   
-													AND
-													(
-														`Address`	LIKE :SearchTerm
-														OR
-														`OrderID`	LIKE :SearchTerm
-														OR
-														`Date`		LIKE :SearchTerm
-													)
-												";
-
-												$PAGINATION_TABLE .=
-												"   
-													AND
-													(
-														`Address`	LIKE :SearchTerm
-														OR
-														`OrderID`   LIKE :SearchTerm
-														OR
-														`Date`		LIKE :SearchTerm
-													)
-												";
+											if($User_Basics){
+												
+												echo "$" . $User_Basics["TotalBalance"];
 											}
+										?>
 
-											{// Limiting Recs on page
-												$LISTING_TABLE .=
-												'
-													LIMIT
-													:START_POS, :MAX_RECS_PERPAGE
-												';
-											}
-
-											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":CustomerID", $_SESSION["UserID"]);
-
-											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":CustomerID", $_SESSION["UserID"]);
-
-											if(!empty($bSearchHolder))
-											{
-												$SQL_STATMENT-> bindParam(":SearchTerm", $bSearchHolder);
-												$SQL_PAGINATION_STATMENT -> bindParam(":SearchTerm", $bSearchHolder);
-											}
-										}else{
-
-											$LISTING_TABLE = 
-											"
-												SELECT
-													*
-												FROM 
-													Orders
-												WHERE
-													`CustomerID` = :CustomerID
-												LIMIT
-													:START_POS, :MAX_RECS_PERPAGE
-											";
-
-											$PAGINATION_TABLE =
-											"
-												SELECT
-													COUNT(*)
-												FROM
-													`Orders`
-												WHERE
-													`CustomerID` = :CustomerID
-											";
-
-											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":CustomerID", $_SESSION["UserID"]);
-
-											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":CustomerID", $_SESSION["UserID"]);
-										}
 
 										
-									?>
-							    </div><!--//col-->
-						    </div><!--//row-->
-					    </div><!--//table-utilities-->
-				    </div><!--//col-auto-->
-			    </div><!--//row-->
-			   
-<!-- =========================================================================================================================================================================================================================================== -->
-				
-				<div class="tab-content" id="orders-table-tab-content">
-			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-					    <div class="app-card app-card-orders-table shadow-sm mb-5">
-						    <div class="app-card-body px-4 pt-4">
-							    <div class="table-responsive">
-									
-									<table class="table app-table-hover mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order ID</th>
-												<th class="cell">Date</th>
-												<th class="cell">Total Price</th>
-												<th class="cell">Address</th>									
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
+									</h3>
+								</div>
+							    
+								<hr class="my-4">
+							    
+								<form class="settings-form" action="UserAccountSettings.php" method="post">
 
-												if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"])){
-
-													$CurrentPage = (((int)$_GET["CurrentPageIndex"] - 1) > 0) ? (int)$_GET["CurrentPageIndex"] - 1: 0;
-
-													$PAGINATION_ARGS["START_POS"] = $CurrentPage * $PAGINATION_ARGS["MAX_RECS_PERPAGE"];
-												}
-
-												$SQL_STATMENT -> bindParam(':START_POS', $PAGINATION_ARGS["START_POS"], PDO::PARAM_INT);
-												$SQL_STATMENT -> bindParam(':MAX_RECS_PERPAGE', $PAGINATION_ARGS["MAX_RECS_PERPAGE"], PDO::PARAM_INT);
-
-												if($SQL_STATMENT -> execute()){
-													$SQL_PAGINATION_STATMENT -> execute();
-
-													if(!($SQL_STATMENT -> rowCount())){
-
-														echo 
-														"
-															<tr>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\">
-																	<h6> Nothing but Chickens here :) </h6>
-																</td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-															</tr>
-														";
-													}else{
-														
-														while($_RECS_ = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC)){
-
-															echo 
-															"
-																<tr>
-																	<td class=\"cell\">#    {$_RECS_["OrderID"]}       	</td>
-																	<td class=\"cell\">     {$_RECS_["Date"]}    		</td>
-																	<td class=\"cell\">\$   {$_RECS_["TotalPayment"]}	</td>
-																	<td class=\"cell\">   	{$_RECS_["Address"]}        </td>
-																	<td class=\"cell text-end\">
-																	
-																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserOrderInDetails.php\" method=\"get\">
-																			<input name=\"fFetchTargetOrder\" value=\"{$_RECS_["OrderID"]}\" type=\"hidden\">
-																			<button name=\"fRequestViewOrder\" value=\"true\" class=\"btn app-btn-primary\">View</button>
-																		</form>
-																	</td>
-																</tr>
-															";
-														}
-													}
-												}
-											?>
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-
-<!-- =========================================================================================================================================================================================================================================== -->
-
-						<nav class="app-pagination">
-							<ul class="pagination justify-content-center">
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Add Balance:</label>
+									    <input type="number" name="fTranscation" class="form-control" id="setting-input-2" placeholder="$" required>
+									</div>
+									<button type="submit" name="fUpdateUserBalance" value="true" class="btn app-btn-primary">Save Changes</button>
 								
+								</form>
+							
 								<?php
 
-									// This prevent CurrentPageIndex duplicate
-									$LISTING_PRESERVED = $_GET;
-									unset($LISTING_PRESERVED['CurrentPageIndex']);
-									$LISTING_PRESERVED = http_build_query($LISTING_PRESERVED);
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdateBalance.php");
+								
+								?>
 
-									$PAGINATION_ARGS["TOTAL_RECS"]  = $SQL_PAGINATION_STATMENT -> fetchColumn();
-									$PAGINATION_ARGS["TOTAL_PAGES"] = ceil($PAGINATION_ARGS["TOTAL_RECS"] / $PAGINATION_ARGS["MAX_RECS_PERPAGE"]);
+						    </div><!--//app-card-body-->
+						    
+						</div><!--//app-card-->
+	                </div>
 
-									// =====================================================================
-									// =========================== First Page =========================== 
-									// =====================================================================
-									echo 
-									"
-										<li class=\"page-item\"> <!-- First Page -->
-											<a class=\"page-link\" href=\"?CurrentPageIndex=1&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">First</a>
-										</li>
-									";
+				<!-- ==================================================================================================================== -->
 
-									// =====================================================================
-									// =========================== Previous Page =========================== 
-									// =====================================================================
-									if(isset($_GET["CurrentPageIndex"]) && ($_GET["CurrentPageIndex"] > 1)){
+					<div class="col-12 col-md-4">
+		                <h2 class="section-title">Balance</h2>
+		                <div class="section-intro">In this section, you can change your amount freely.</div>
+	                </div>
 
-										$tmp = (int)$_GET["CurrentPageIndex"] - 1;
+                </div><!--//row-->
 
-										echo 
-										"
-											<li class=\"page-item\"> <!-- Previous Page -->
-												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">Previous</a>
-											</li>
-										";
-									}else{
+<!-- =========================================================================================================================================================================================================================================== -->
 
-										echo 
-										"
-											<li class=\"page-item disable\"> <!-- Previous Page -->
-												<a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Previous</a>
-											</li>
-										";
-									}
+                <hr class="my-4">
+                
+				<div class="row py-4 g-4 settings-section">
 
-									// =============================================================
-									// =========================== Pages =========================== 
-									// =============================================================
-									for($i = 1; $i <= $PAGINATION_ARGS["TOTAL_PAGES"]; $i++){
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    <form name="fChangeGeneralForm" class="settings-form" action="UserAccountSettings.php" method="post">
 
-										if(isset($_GET["CurrentPageIndex"]) && ($i == (int)$_GET["CurrentPageIndex"])){
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Real Name:</label>
+									    <input type="text" name="fUpdateName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Phone Number:</label>
+									    <input type="text" name="fUpdatePhoneNumber" class="form-control" id="setting-input-2" placeholder="Example: 0912345678" required>
+									</div>
+								    <div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Email:</label>
+									    <input type="email" name="fUpdateEmail" class="form-control" id="setting-input-3" placeholder="Example: abc@axy.com">
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Address:</label>
+									    <input type="text" name="fUpdateAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
+									</div>
+								
+									<button type="submit" name="fUpdateUserGeneral" value="true" class="btn app-btn-primary">Save Changes</button>
+							    
+								</form>
 
-											echo "<li class=\"page-item active\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">{$i}</a></li>";
-										}else{
+								<?php
 
-											echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?CurrentPageIndex={$i}&{$LISTING_PRESERVED}\">{$i}</a></li>";
-										}
-									}
-
-
-									// =================================================================
-									// =========================== Next Page =========================== 
-									// =================================================================
-									if(isset($_GET["CurrentPageIndex"]) && ((int)$_GET["CurrentPageIndex"] < $PAGINATION_ARGS["TOTAL_PAGES"])){
-
-										$tmp = (int)$_GET["CurrentPageIndex"] + 1;
-
-										echo 
-										"
-											<li class=\"page-item\"> <!-- Previous Page -->
-												<a class=\"page-link\" href=\"?CurrentPageIndex={$tmp}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"false\">Next</a>
-											</li>
-										";
-									}else{
-
-										echo 
-										"
-											<li class=\"page-item disable\"> <!-- Previous Page -->
-												<a class=\"page-link\" tabindex=\"-1\" aria-disabled=\"true\">Next</a>
-											</li>
-										";
-									}
-
-
-									// =================================================================
-									// =========================== Last Page =========================== 
-									// =================================================================
-									echo
-									"
-										<li class=\"page-item\"> <!-- End Page -->
-											<a class=\"page-link\" href=\"?CurrentPageIndex={$PAGINATION_ARGS["TOTAL_PAGES"]}&{$LISTING_PRESERVED}\" tabindex=\"-1\" aria-disabled=\"true\">Last</a>
-										</li>
-									";
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdateGeneral.php");
 
 								?>
-							</ul>
-						</nav><!--//app-pagination-->
-						
-			        </div><!--//tab-pane-->
+								
+						    </div><!--//app-card-body-->
+						</div><!--//app-card-->
+	                </div>
+
+					<div class="col-12 col-md-4">
+		                <h2 class="section-title">General</h2>
+		                <div class="section-intro">This section allows you to change your name, address, phone number, and email.</div>
+	               
+				   		<hr class="my-4">
+				    </div>
+
+					<!-- ==================================================================================================================== -->
+
+					<div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+
+						    <div class="app-card-body">
+							    <form class="settings-form" action="UserAccountSettings.php" method="post">
+									
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Old Password</label>
+									    <input type="password" name="fOldPasswordVerify" class="form-control" id="setting-input-2" required>
+									</div>
+
+									<hr class="my-4">
+
+								    <div class="mb-3">
+									    <label for="setting-input-3" class="form-label">New Password</label>
+									    <input type="password" name="fUpdatePassword" class="form-control" id="setting-input-3">
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Repeat New Password</label>
+									    <input type="password" name="fUpdatePassword_Again" class="form-control" id="setting-input-3">
+									</div>
+									
+									<button name="fUpdateUserPassword" value="true" type="submit" class="btn app-btn-primary">Save Changes</button>
+							    
+								</form>
+
+								<?php
+
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdatePassword.php");
+
+								?>
+
+						    </div><!--//app-card-body-->
+						</div><!--//app-card-->
+	                </div>
+
+					<!-- ==================================================================================================================== -->
+
+					<div class="col-12 col-md-4">
+
+		                <h2 class="section-title">Security</h2>
+		                <div class="section-intro">This section allows you to change your password.</div>
+	                
+						<hr class="my-4">
+					</div>
+
+                </div><!--//row-->
+<!-- =========================================================================================================================================================================================================================================== -->
+
+		<!-- Main Page - Portal Template Author Signature -->
+	    <footer class="app-footer">
+		    <div class="container text-center py-3">
+		         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		       
+		    </div>
+	    </footer><!--//app-footer-->
+	    
+    </div><!--//app-wrapper-->    					
 
 
 
-					
 <!-- =========================================================================================================================================================================================================================================== -->
 <!-- =========================================================================================================================================================================================================================================== -->
 

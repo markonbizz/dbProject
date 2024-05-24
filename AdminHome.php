@@ -85,7 +85,7 @@
 	        <div class="sidepanel-inner d-flex flex-column">
 
 		        <div class="app-branding">
-		            <a class="app-logo" href="AdminHome.php"><img class="logo-icon me-2" src="assets/main/images/logo.svg" alt="logo"><span class="logo-text">DENNIS' ARMORY</span></a>
+		            <a class="app-logo" href="UserHome.php"><img class="logo-icon me-2" src="assets/main/images/logo.svg" alt="logo"><span class="logo-text">DENNIS' ARMORY</span></a>
 	
 		        </div><!--//app-branding-->  
 		        
@@ -99,7 +99,7 @@
 					    <li class="nav-item">
 
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link active" href="UserHome.php">
+					        <a class="nav-link active" href="AdminHome.php">
 						        <span class="nav-icon">
 						        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  								<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
@@ -112,12 +112,31 @@
 					    </li><!--//nav-item-->
 					    
 <!-- =========================================================================================================================================================================================================================================== -->
+
+						<!-- Side Panel - Uploaded Products -->
+
+						<li class="nav-item">
+						
+					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+					        <a class="nav-link" href="AdminUserList.php?CurrentPageIndex=1">
+						        <span class="nav-icon">
+									<svg class="bi bi-journals" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
+										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
+										<path d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0"/>
+									</svg>
+								</span>
+								<span class="nav-link-text">Manage Users</span>
+					        </a><!--//nav-link-->
+
+					    </li><!--//nav-item-->
+
+<!-- =========================================================================================================================================================================================================================================== -->
 						
 						<!-- Side Panel - Transactions History -->
 
 						<li class="nav-item">
 					        
-					        <a class="nav-link" href="UserPurchaseHistory.php">
+					        <a class="nav-link" href="AdminCategotyList.php?CurrentPageIndex=1">
 						    
 							    <span class="nav-icon">
 									<svg class="bi bi-receipt" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
@@ -125,7 +144,7 @@
 										<path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
 									</svg>
 						        </span>
-								<span class="nav-link-text">Purchase History</span>
+								<span class="nav-link-text">Uploaded Categories</span>
 					        
 							</a><!--//nav-link-->
 					    </li><!--//nav-item-->
@@ -137,7 +156,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="UserAccountSettings.php">
+					        <a class="nav-link" href="AdminAccountSettings .php">
 						        <span class="nav-icon">
 									<svg class="bi bi-sliders2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -149,7 +168,7 @@
 					    </li><!--//nav-item-->
 						
 					</ul>
-
+				</nav>
 <!-- =========================================================================================================================================================================================================================================== -->
 
 				<!-- Side Panel Bottom Utilities -->
@@ -176,7 +195,7 @@
 
 						    <li class="nav-item">
 						        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-						        <a class="nav-link" href="assets/main/php/Session_Logout.php">
+						        <a class="nav-link" id="RequestUserLogout">
 							        <span class="nav-icon">
 							            <svg class="bi bi-box-arrow-left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
 											<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
@@ -185,10 +204,69 @@
 							        </span>
 			                        <span class="nav-link-text">Log out</span>
 						        </a><!--//nav-link-->
+
+								<!-- SweetAlert2 Logout Prompts -->
+								<?php
+
+									echo "
+										<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+										<script>
+
+											document.addEventListener('DOMContentLoaded', function() {
+
+												const RequestUserLogout = document.getElementById('RequestUserLogout');
+
+												RequestUserLogout.addEventListener('click', function() {
+
+													Swal.fire({
+
+														title: 'Logout Confirmation',
+														text: 'Are you sure you want to logout?',
+														icon: 'warning',
+														showCancelButton: true,
+														confirmButtonText: 'Yes, logout',
+														cancelButtonText: 'Cancel'
+
+													}).then((result) => {
+
+														if (result.isConfirmed){
+
+															fetch('assets/main/php/Session_Logout.php', {
+																method: 'POST',
+															}).then(respond => {
+
+																if(respond.ok){
+
+																	Swal.fire({
+						
+																		title:  'Logouts Successfully',
+																		icon:   'success',
+																		confirmButtonText:  'Okay'
+																	
+																	}).then((result) => {
+																		
+																		if(result.isConfirmed){
+
+																			window.location.href = 'Login.php';
+																		}
+																	});
+																}
+															}).catch(error => {
+																
+																console.error('Error:', error);
+															});
+														}
+													});
+												});
+											});
+										</script>
+									";
+								?>
+
+
+								
 						    </li><!--//nav-item-->
-					    
-						
-						
+
 						</ul><!--//footer-menu-->
 				    </nav>
 			    </div><!--//app-sidepanel-footer-->
@@ -219,17 +297,35 @@
 						    <div class="row gx-5 gy-4">
 								
 						        <div class="col mt-5">
-									<?php
-
-										include_once(_UTILITIES_PATH_ . "Render_User_Home_WelcomeTitle.php");
-
-									?>
+									<h4>
+										<?php 
+											echo
+												"
+													<h2>Welcome, <strong>{$_SESSION["Account"]}</strong>!</h2>
+												";
+										?>
+									</h4>
 								</div>
 
 								<div class="col-md-auto m-auto mt-5">
 									<h6> Total Balance </h6>
 									<div class="col-md-auto">
-										<h4> $40000000000 </h4>
+
+										<?php 
+											include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+											$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalBalance FROM User_Basics WHERE UserID = :UserID");
+											$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> execute();
+
+											$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
+
+											if($User_Basics){
+												
+												echo "<h3>$" . $User_Basics["TotalBalance"] . "</h3>";
+											}
+										?>
+									
 									</div>
 								</div>
 
@@ -240,7 +336,24 @@
 								<div class="col-0 col-lg-2 m-auto mt-5">
 									<h6> Total Spent </h6>
 									<div class="col col-lg-2">
-										<h4> $41500000 </h4>
+										<div class="col-md-auto">
+										
+											<?php 
+												include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+												$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalSpent FROM User_Basics WHERE UserID = :UserID");
+												$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+												$SQL_STATMENT-> execute();
+
+												$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
+
+												if($User_Basics){
+													
+													echo "<h3>$" . $User_Basics["TotalSpent"] . "</h3>";
+												}
+											?>
+									
+										</div>
 									</div>
 								</div>
 						    
@@ -253,87 +366,6 @@
 <!-- =========================================================================================================================================================================================================================================== -->
 
 				<!-- Main Page - Trans History Brief -->
-
-			    <div class="row">
-
-			        <div class="col">
-				        <div class="app-card app-card-stats-table h-100 shadow-sm">
-					        <div class="app-card-header p-3">
-						        <div class="row justify-content-between align-items-center">
-							        <div class="col-auto">
-						                <h4 class="app-card-title">Recent Purchase</h4>
-							        </div><!--//col-->
-						        </div><!--//row-->
-					        </div><!--//app-card-header-->
-
-
-					        <div class="app-card-body p-4">
-						        <div class="table-responsive">
-							        <table class="table table-borderless mb-0">
-										<thead>
-											<tr>
-												<th class="meta">Item ID</th>
-												<th class="meta">Name</th>
-												<th class="meta stat-cell">Price</th>
-												<th class="meta stat-cell">Date</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td><a href="#">#0011</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1245</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2765</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1276 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2333 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-					        </div><!--//app-card-body-->
-
-
-							
-				        </div><!--//app-card-->
-			        </div><!--//col-->
-			    </div><!--//row-->
-
-<!-- =========================================================================================================================================================================================================================================== -->
-
-		<!-- Main Page - Portal Template Author Signature -->
-	    <footer class="app-footer">
-		    <div class="container text-center py-3">
-		         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
-		       
-		    </div>
-	    </footer><!--//app-footer-->
-	    
-    </div><!--//app-wrapper-->    					
-
-
 
 <!-- =========================================================================================================================================================================================================================================== -->
 <!-- =========================================================================================================================================================================================================================================== -->
