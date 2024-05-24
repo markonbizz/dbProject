@@ -441,7 +441,43 @@
                     }
                 ?>
 
+                <?php
 
+                    include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+                    if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fRequestPlaceOrder"]) && ($_POST["fRequestPlaceOrder"])){
+
+                        $FETCH_TOTAL_BALANCE = "
+                            SELECT `TotalBalance`, `TotalSpent` FROM `User_Basics` WHERE UserID = :UserID
+                        ";
+
+                        $FETCH_USER_INFO_STMT = $dbHandler -> prepare($FETCH_TOTAL_BALANCE);
+                        $FETCH_USER_INFO_STMT-> bindParam(":UserID", $_SESSION["UserID"], PDO::PARAM_STR);
+
+                        if($FETCH_USER_INFO_STMT -> execute()){
+
+                            $bUserWallet = $FETCH_USER_INFO_STMT -> fetch(PDO::FETCH_ASSOC);
+
+                            $UPDATE_USER_PAYMENT_INFO = "
+                                UPDATE
+                                    `User_Basics` 
+                                SET
+                                    `TotalBalance`  = :TotalBalance,
+                                    `TotalSpent`    = :TotalSpent
+                                WHERE
+                                    UserID = :UserID
+                            ";
+
+                            $bUserWallet["TotalBalance"] -= $bCartTotalPayment;
+                            $bUserWallet["TotalSpent"]   += $bCartTotalPayment;
+                            
+                            $UPDATE_STMT = $dbHandler -> prepare($UPDATE_USER_PAYMENT_INFO);
+                            $UPDATE_STMT-> bindParam(":TotalBalance",   $bUserWallet["TotalBalance"],   PDO::PARAM_INT);
+                            $UPDATE_STMT-> bindParam(":TotalSpent",     $bUserWallet["TotalSpent"],     PDO::PARAM_INT);
+                            $UPDATE_STMT-> bindParam(":UserID",         $_SESSION["UserID"],            PDO::PARAM_STR);
+                        }
+                    }
+                ?>
                 
             </div>
         </div>

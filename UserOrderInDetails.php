@@ -8,6 +8,8 @@
 	}
 
 	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+
+	Session_CheckAuthLevel("USER");
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +36,36 @@
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 	<link rel="stylesheet" href="assets/user-portal/css/portal-orderDetail.css">
 
+
+
 	<?php
+		include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
-		Session_CheckAuthLevel("USER");
+		if(($_SERVER["REQUEST_METHOD"] === "GET") && !(empty($_GET["fFetchTargetOrder"])) && ($_GET["fFetchTargetOrder"]) && !(empty($_GET["fRequestViewOrder"])) && ($_GET["fRequestViewOrder"])){
 
+			$LISTING_ORDER_PRODUCTS = "
+
+				SELECT 
+					* 
+				FROM 
+					`Orders` 
+				WHERE 
+					(`CustomerID` = :CustomerID AND `OrderID` = :OrderID)
+			";
+
+			$LISTING_PRODUCTS_STMT = $dbHandler -> prepare($LISTING_ORDER_PRODUCTS);
+			$LISTING_PRODUCTS_STMT-> bindParam(":CustomerID", 	$_SESSION["UserID"], 			PDO::PARAM_STR);
+			$LISTING_PRODUCTS_STMT-> bindParam(":OrderID", 		$_GET["fFetchTargetOrder"], 	PDO::PARAM_STR);
+
+			if($LISTING_PRODUCTS_STMT -> execute()){
+
+				$fetchData = $LISTING_PRODUCTS_STMT -> fetch(PDO::FETCH_ASSOC);
+
+				$bProductIDs = explode(',', $fetchData["ProductIDs"]);
+				$bQuantities = explode(',', $fetchData["Quantities"]);
+			}
+		}
 	?>
-	
 </head> 
 
 <body class="app">   	
@@ -88,7 +114,7 @@
 								
 						        <div class="col pt-lg-4 pb-lg-0 pr-lg-2">
 									<h2>
-										Recipe: &nbsp;&nbsp;#12345
+										Recipe: &nbsp;&nbsp;#<?php echo $fetchData["OrderID"];?>
 									</h2>
 								</div>
 
@@ -96,7 +122,7 @@
 									<h6> Total Payment </h6>
 									<div class="col-md-auto">
 
-										<h2>$4575</h2>
+										<h2>$<?php echo $fetchData["TotalPayment"];?></h2>
 									
 									</div>
 								</div>
@@ -129,43 +155,57 @@
 							        <table class="table table-borderless mb-0">
 										<thead>
 											<tr>
-												<th class="meta">Item ID</th>
-												<th class="meta">Name</th>
+												<th class="meta">Product ID</th>
+												<th class="meta ">Name</th>
 												<th class="meta stat-cell">Price</th>
-												<th class="meta stat-cell">Date</th>
+												<th class="meta stat-cell">Quantites</th>
+												<th class="meta stat-cell">Total Price</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td><a href="#">#0011</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1245</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2765</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1276 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2333 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
+
+											<?php
+
+												include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+												if(($_SERVER["REQUEST_METHOD"] === "GET") && !(empty($_GET["fFetchTargetOrder"])) && ($_GET["fFetchTargetOrder"]) && !(empty($_GET["fRequestViewOrder"])) && ($_GET["fRequestViewOrder"])){
+
+													$FETCH_PRODUCT_INFO = "
+
+														SELECT 
+															* 
+														FROM 
+															`Products` 
+														WHERE 
+															ProductID = :ProductID
+													";
+
+													for($i = 0; ($i < count($bProductIDs)) && ($i < count($bProductIDs)); $i++){
+														
+														$FETCH_STMT = $dbHandler -> prepare($FETCH_PRODUCT_INFO);
+														$FETCH_STMT-> bindParam(":ProductID", $bProductIDs[$i], PDO::PARAM_INT);
+														
+														if($FETCH_STMT -> execute()){
+
+															$bProductInfo = $FETCH_STMT -> fetch(PDO::FETCH_ASSOC);
+
+															$bIndividualTotalPrice = $bQuantities[$i] * $bProductInfo["Price"];
+
+															echo "
+
+																<tr>
+																	<td>						 #{$bProductInfo["ProductID"]}	</td>
+																	<td>						  {$bProductInfo["Name"]}		</td>
+																	<td class=\"stat-cell\">	\${$bProductInfo["Price"]}		</td>
+																	<td class=\"stat-cell\">	  {$bQuantities[$i]}			</td>
+																	<td class=\"stat-cell\">	\${$bIndividualTotalPrice}		</td>
+																</tr>
+															";
+														}
+													}
+												}
+
+											?>
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
@@ -181,16 +221,6 @@
 						<button type="submit" class="shadow-sm btn app-btn-primary">Go Back</button>	
 					</form>
 				</div>
-<!-- =========================================================================================================================================================================================================================================== -->
-
-			<!-- Main Page - Portal Template Author Signature -->
-			<footer class="app-footer">
-				<div class="container text-center py-3">
-					<!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-				<small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
-				
-				</div>
-			</footer><!--//app-footer-->
 	    </div>
     </div><!--//app-wrapper-->    					
 

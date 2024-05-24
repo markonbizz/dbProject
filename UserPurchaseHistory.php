@@ -118,7 +118,7 @@
 						<li class="nav-item">
 						
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link active" href="UserProductList.php?CurrentPageIndex=1">
+					        <a class="nav-link" href="UserProductList.php?CurrentPageIndex=1">
 						        <span class="nav-icon">
 									<svg class="bi bi-journals" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journals" viewBox="0 0 16 16">
 										<path d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2"/>
@@ -136,7 +136,7 @@
 
 						<li class="nav-item">
 					        
-					        <a class="nav-link" href="UserPurchaseHistory.php">
+					        <a class="nav-link active" href="UserPurchaseHistory.php">
 						    
 							    <span class="nav-icon">
 									<svg class="bi bi-receipt" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
@@ -296,12 +296,13 @@
 						    <div class="row px-3 py-3 g-2 justify-content-start justify-content-md-end align-items-center">
 
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center" action="UserProductList.php" method="get">
+								    <form class="table-search-form row gx-1 align-items-center" action="UserPurchaseHistory.php" method="get">
+										<input type="hidden" id="search-orders" name="CurrentPageIndex" value="1" class="form-control search-orders" placeholder="Search">
 					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="fProductListSearchHolder" class="form-control search-orders" placeholder="Search">
+					                        <input type="text" id="search-orders" name="fPurchaseHistorySearchHolder" class="form-control search-orders" placeholder="Search">
 					                    </div>
 					                    <div class="col-auto">
-					                        <button name="fRequestSearchOnProductList" value="true" type="submit" class="btn app-btn-secondary">Search</button>
+					                        <button name="fRequestSearchOnPurchaseHistory" value="true" type="submit" class="btn app-btn-secondary">Search</button>
 					                    </div>
 					                </form>
 
@@ -320,23 +321,18 @@
 											"TOTAL_PAGES"       => 0
 										];
 
-										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList']) && isset($_GET["fProductListSearchHolder"])){
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fPurchaseHistorySearchHolder']) && ($_GET['fRequestSearchOnPurchaseHistory']) && isset($_GET["fPurchaseHistorySearchHolder"])){
 
-											$bSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
+											$bSearchHolder = "%" . ($_GET["fPurchaseHistorySearchHolder"] ?? "") . "%";
 
 											$LISTING_TABLE =
 											"
 												SELECT
-													C.Name AS CategoryName,
-													P.*
+													*
 												FROM
-													`Products` P
-												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
+													Orders 
 												WHERE
-													`UploaderID` = :UploaderID
+													`CustomerID` = :CustomerID
 											";
 
 											$PAGINATION_TABLE =
@@ -344,13 +340,9 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Products` P
-												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
+													Orders
 												WHERE
-													`UploaderID` = :UploaderID
+													`CustomerID` = :CustomerID
 											";
 
 											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
@@ -359,9 +351,11 @@
 												"   
 													AND
 													(
-														C.Name            LIKE :SearchTerm
+														`Address`	LIKE :SearchTerm
 														OR
-														P.Name            LIKE :SearchTerm
+														`OrderID`	LIKE :SearchTerm
+														OR
+														`Date`		LIKE :SearchTerm
 													)
 												";
 
@@ -369,9 +363,11 @@
 												"   
 													AND
 													(
-														C.Name            LIKE :SearchTerm
+														`Address`	LIKE :SearchTerm
 														OR
-														P.Name            LIKE :SearchTerm
+														`OrderID`   LIKE :SearchTerm
+														OR
+														`Date`		LIKE :SearchTerm
 													)
 												";
 											}
@@ -385,10 +381,10 @@
 											}
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> bindParam(":CustomerID", $_SESSION["UserID"]);
 
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_PAGINATION_STATMENT -> bindParam(":CustomerID", $_SESSION["UserID"]);
 
 											if(!empty($bSearchHolder))
 											{
@@ -400,16 +396,11 @@
 											$LISTING_TABLE = 
 											"
 												SELECT
-													C.Name AS CategoryName,
-													P.*
+													*
 												FROM 
-													Products P
-												JOIN
-													Categories C
-												ON
-													C.CategoryID = P.CategoryID
+													Orders
 												WHERE
-													P.UploaderID = :UploaderID
+													`CustomerID` = :CustomerID
 												LIMIT
 													:START_POS, :MAX_RECS_PERPAGE
 											";
@@ -419,21 +410,16 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Products` P
-												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
+													`Orders`
 												WHERE
-													`UploaderID` = :UploaderID
+													`CustomerID` = :CustomerID
 											";
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> bindParam(":CustomerID", $_SESSION["UserID"]);
 
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
-											
+											$SQL_PAGINATION_STATMENT -> bindParam(":CustomerID", $_SESSION["UserID"]);
 										}
 
 										
@@ -455,12 +441,10 @@
 									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">Product ID</th>
-												<th class="cell">Category</th>
-												<th class="cell">Name</th>
-												<th class="cell">Price</th>
+												<th class="cell">Order ID</th>
 												<th class="cell">Date</th>
-												<th class="cell">Description</th>
+												<th class="cell">Total Price</th>
+												<th class="cell">Address</th>									
 												<th class="cell"></th>
 											</tr>
 										</thead>
@@ -492,8 +476,6 @@
 																</td>
 																<td class=\"cell\"></td>
 																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
 															</tr>
 														";
 													}else{
@@ -503,16 +485,14 @@
 															echo 
 															"
 																<tr>
-																	<td class=\"cell\">#    {$_RECS_["ProductID"]}       </td>
-																	<td class=\"cell\">     {$_RECS_["CategoryName"]}    </td>
-																	<td class=\"cell\">     {$_RECS_["Name"]}            </td>
-																	<td class=\"cell\">\$   {$_RECS_["Price"]}           </td>
-																	<td class=\"cell\">     {$_RECS_["UploadDate"]}      </td>
-																	<td class=\"cell\">     {$_RECS_["Description"]}     </td>
+																	<td class=\"cell\">#    {$_RECS_["OrderID"]}       	</td>
+																	<td class=\"cell\">     {$_RECS_["Date"]}    		</td>
+																	<td class=\"cell\">\$   {$_RECS_["TotalPayment"]}	</td>
+																	<td class=\"cell\">   	{$_RECS_["Address"]}        </td>
 																	<td class=\"cell text-end\">
 																	
-																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-																			<input name=\"fEditTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
+																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserOrderInDetails.php\" method=\"get\">
+																			<input name=\"fFetchTargetOrder\" value=\"{$_RECS_["OrderID"]}\" type=\"hidden\">
 																			<button name=\"fRequestViewOrder\" value=\"true\" class=\"btn app-btn-primary\">View</button>
 																		</form>
 																	</td>
