@@ -475,6 +475,7 @@
                             $UPDATE_STMT-> bindParam(":TotalBalance",   $bUserWallet["TotalBalance"],   PDO::PARAM_INT);
                             $UPDATE_STMT-> bindParam(":TotalSpent",     $bUserWallet["TotalSpent"],     PDO::PARAM_INT);
                             $UPDATE_STMT-> bindParam(":UserID",         $_SESSION["UserID"],            PDO::PARAM_STR);
+                            $UPDATE_STMT-> execute();
                         }
                     }
                 ?>
