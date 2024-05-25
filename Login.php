@@ -57,12 +57,6 @@
 								
 								<div class="extra mt-3 row justify-content-between"> <!-- OTHER UTILITIES SECTION -->
 									<div class="col-6">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="fRememberPassword">
-											<label class="form-check-label" for="fRememberPassword">
-											Remember me
-											</label>
-										</div>
 									</div><!--//col-6-->
 									<div class="col-6">
 										<div class="forgot-password text-end">

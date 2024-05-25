@@ -64,7 +64,6 @@ if($_SERVER['REQUEST_METHOD'] === "POST")
             echo "
                 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
                 <script>
-                    window.location.href = 'index.php';
                     Swal.fire({
                     
                         title:  'Login Successfully',
