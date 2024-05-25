@@ -8,6 +8,8 @@
 	}
 
 	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+
+	Session_CheckAuthLevel("USER");
 ?>
 
 <!DOCTYPE html>
@@ -34,9 +36,23 @@
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 
 	<?php
+		
+		include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
 
-		Session_CheckAuthLevel("USER");
+		$FETCH_NEWEST_RECORDS = "
+			SELECT 
+				* 
+			FROM 
+				`Orders`
+			WHERE 
+				CustomerID = :CustomerID
+			ORDER BY 
+				`Date` DESC
+			LIMIT 8
+		";
 
+		$FETCH_RECORDS_STMT = $dbHandler -> prepare($FETCH_NEWEST_RECORDS);
+		$FETCH_RECORDS_STMT-> bindParam(":CustomerID", $_SESSION["UserID"], PDO::PARAM_STR);
 	?>
 	
 </head> 
@@ -385,43 +401,48 @@
 							        <table class="table table-borderless mb-0">
 										<thead>
 											<tr>
-												<th class="meta">Item ID</th>
-												<th class="meta">Name</th>
-												<th class="meta stat-cell">Price</th>
-												<th class="meta stat-cell">Date</th>
+												<th class="cell">Order ID</th>
+												<th class="cell">Date</th>
+												<th class="cell">Total Price</th>
+												<th class="cell">Address</th>									
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td><a href="#">#0011</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1245</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2765</a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#1276 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
-											<tr>
-												<td><a href="#">#2333 </a></td>
-												<td>Item One</td>
-												<td class="stat-cell">$236</td>
-												<td class="stat-cell">2004-01-01</td>
-											</tr>
+
+
+
+											<?php
+												if($FETCH_RECORDS_STMT -> execute()){
+
+													if(!($FETCH_RECORDS_STMT -> rowCount())){
+
+														echo "
+
+															<tr>
+																<td colspan=\"4\" class=\"cell\" style=\"text-align: center;\">
+																	<h5 class=\"pt-3\"> Nothing but Chickens here :) </h5>
+																</td>
+															</tr>
+														";
+													}else{
+
+														while($record = $FETCH_RECORDS_STMT -> fetch(PDO::FETCH_ASSOC)){
+														
+															echo "
+																<tr>
+																	<td class=\"cell\">			 #{$record["OrderID"]}		</td>				
+																	<td class=\"cell\">			  {$record["Date"]}			</td>
+																	<td class=\"stat-cell\">	\${$record["TotalPayment"]}	</td>
+																	<td class=\"stat-cell\">	  {$record["Address"]}		</td>
+																</tr>
+															";
+														}
+													}								
+												}
+											?>
+
+
+
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
