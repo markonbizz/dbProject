@@ -105,16 +105,8 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
                 ';
 
                 $SQL_STATMENT = $dbHandler->prepare($UPDATE_PRODUCT);
-                
-                if($_POST['fProductCategory'] == '0'){
 
-                    InsertNewCategory($bUpdateProductCategory);
-                    $TGT_CategoryID = GetCategoryID($bUpdateProductCategory);
-                    $SQL_STATMENT-> bindParam(":CategoryID", $TGT_CategoryID);
-                }else{
-
-                    $SQL_STATMENT-> bindParam(":CategoryID", $bUpdateProductCategory);
-                }
+                $SQL_STATMENT-> bindParam(":CategoryID", $bUpdateProductCategory);
 
                 $SQL_STATMENT-> bindParam(':ProductID',     $_SESSION["ProductID"]);
                 $SQL_STATMENT-> bindParam(':UploaderID',    $_SESSION['UserID']);
