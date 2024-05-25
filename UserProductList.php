@@ -501,15 +501,13 @@
 														echo 
 														"
 															<tr>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\">
-																	<h6> Nothing but Chickens here :) </h6>
-																</td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
+																<tr>
+																	<td colspan=\"7\" class=\"cell\" style=\"text-align: center;\">
+
+																		<h6 class=\"pt-3 pb-2\"> Nothing but Chickens here :) </h6>
+																	
+																	</td>
+																</tr>
 															</tr>
 														";
 													}else{

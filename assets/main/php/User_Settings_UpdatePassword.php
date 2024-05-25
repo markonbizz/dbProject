@@ -69,7 +69,7 @@ if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUpdateUserPassword"
 
                             alert(\" Change Password Failed: New password is not matched \");
                             window.location.href = \" UserAccountSettings.php \";
-                        </>
+                        </script>
                     ";
                 }
             }else{
@@ -80,7 +80,7 @@ if(($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUpdateUserPassword"
 
                         alert(\" Verification Failed: Old password is not matched \");
                         window.location.href = \" UserAccountSettings.php \";
-                    </script>
+                    </>
                 ";
             }
         }catch(PDOException $ERR_){

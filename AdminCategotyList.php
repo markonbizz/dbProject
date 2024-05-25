@@ -8,6 +8,8 @@
 	}
 
 	include_once(_UTILITIES_PATH_ . "Session_CheckAuth.php");
+
+	Session_CheckAuthLevel("ADMIN");
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +35,6 @@
 	<!-- Override CSS -->  
     <link rel="stylesheet" href="assets/user-portal/css/portal-override.css">
 
-	<?php
-		
-		Session_CheckAuthLevel("ADMIN");
-		
-		include_once(_UTILITIES_PATH_ . "User_ProductList_ProductOperation.php");
-	?>
 </head> 
 
 <body class="app">   	
@@ -326,16 +322,9 @@
 											$LISTING_TABLE =
 											"
 												SELECT
-													C.Name AS CategoryName,
-													P.*
+													*
 												FROM
-													`Products` P
-												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
-												WHERE
-													`UploaderID` = :UploaderID
+													`Categories`
 											";
 
 											$PAGINATION_TABLE =
@@ -343,35 +332,21 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Products` P
-												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
-												WHERE
-													`UploaderID` = :UploaderID
+													`Categories`
 											";
 
 											if (!empty($bSearchHolder)){ // if search holder is not empty, append the search target.
 
 												$LISTING_TABLE .=
 												"   
-													AND
-													(
-														C.Name            LIKE :SearchTerm
-														OR
-														P.Name            LIKE :SearchTerm
-													)
+													WHERE
+														Name	LIKE :SearchTerm
 												";
 
 												$PAGINATION_TABLE .=
 												"   
-													AND
-													(
-														C.Name            LIKE :SearchTerm
-														OR
-														P.Name            LIKE :SearchTerm
-													)
+													WHERE
+														Name	LIKE :SearchTerm
 												";
 											}
 
@@ -384,10 +359,7 @@
 											}
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-
 											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
 
 											if(!empty($bSearchHolder))
 											{
@@ -399,16 +371,9 @@
 											$LISTING_TABLE = 
 											"
 												SELECT
-													C.Name AS CategoryName,
-													P.*
-												FROM 
-													Products P
-												JOIN
-													Categories C
-												ON
-													C.CategoryID = P.CategoryID
-												WHERE
-													P.UploaderID = :UploaderID
+													*
+												FROM
+													`Categories`
 												LIMIT
 													:START_POS, :MAX_RECS_PERPAGE
 											";
@@ -418,21 +383,11 @@
 												SELECT
 													COUNT(*)
 												FROM
-													`Products` P
-												JOIN
-													`Categories` C
-												ON
-													C.CategoryID = P.CategoryID 
-												WHERE
-													`UploaderID` = :UploaderID
+													`Categories`
 											";
 
 											$SQL_STATMENT = $dbHandler -> prepare($LISTING_TABLE);
-											$SQL_STATMENT-> bindParam(":UploaderID", $_SESSION["UserID"]);
-
-											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);
-											$SQL_PAGINATION_STATMENT -> bindParam(":UploaderID", $_SESSION["UserID"]);
-											
+											$SQL_PAGINATION_STATMENT = $dbHandler -> prepare($PAGINATION_TABLE);			
 										}
 
 										
@@ -440,19 +395,19 @@
 							    </div><!--//col-->
 								
 								<div class="col-auto">
-									
-									<form class="settings-form" action="UserUploadProduct.php" method="get">
-										<button type="submit" name="fUploadProduct" value="true" class="btn app-btn-primary" style="width: 15rem;">
-											<div class="icon icon-badge app-utility-item">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
-													<path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z"/>
-													<path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
-												</svg>
-											</div>
-											Add A Category
-										</button>
-									</form>
 							    
+									<button id="fAddACategoryBtn" type="submit" name="fAddACategory" value="true" class="btn app-btn-primary" style="width: 15rem;">
+											
+										<div class="icon icon-badge app-utility-item">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z"/>
+											<path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+										</svg>
+										</div>
+
+										Add A Category
+									</button>
+
 								</div>
 						    </div><!--//row-->
 					    </div><!--//table-utilities-->
@@ -470,12 +425,8 @@
 									<table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">Product ID</th>
-												<th class="cell">Category</th>
+												<th class="cell">Category ID</th>
 												<th class="cell">Name</th>
-												<th class="cell">Price</th>
-												<th class="cell">Date</th>
-												<th class="cell">Description</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>
@@ -500,15 +451,13 @@
 														echo 
 														"
 															<tr>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\">
-																	<h6> Nothing but Chickens here :) </h6>
-																</td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
-																<td class=\"cell\"></td>
+																<tr>
+																	<td colspan=\"3\" class=\"cell\" style=\"text-align: center;\">
+
+																		<h6 class=\"pt-3 pb-2\"> Nothing but Chickens here :) </h6>
+																	
+																	</td>
+																</tr>
 															</tr>
 														";
 													}else{
@@ -518,26 +467,11 @@
 															echo 
 															"
 																<tr>
-																	<td class=\"cell\">#    {$_RECS_["ProductID"]}       </td>
-																	<td class=\"cell\">     {$_RECS_["CategoryName"]}    </td>
-																	<td class=\"cell\">     {$_RECS_["Name"]}            </td>
-																	<td class=\"cell\">\$   {$_RECS_["Price"]}           </td>
-																	<td class=\"cell\">     {$_RECS_["UploadDate"]}      </td>
-																	<td class=\"cell\">     {$_RECS_["Description"]}     </td>
+																	<td class=\"cell\">#    {$_RECS_["CategoryID"]}		</td>
+																	<td class=\"cell\">     {$_RECS_["Name"]}    		</td>
 																	<td class=\"cell text-end\">
-																	
-																		<form class=\"fEditForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-																			<input name=\"fEditTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
-																			<button name=\"fRequestEditProduct\" value=\"true\" class=\"btn app-btn-primary\">Edit</button>
-																		</form>
 
-																		&nbsp;
-
-																		<form class=\"fRemoveForm\" style=\"display: inline-block;\" action=\"UserProductList.php\" method=\"post\">
-																			<input name=\"fRemoveTargetProduct\" value=\"{$_RECS_["ProductID"]}\" type=\"hidden\">
-																			<button name=\"fRequestRemoveProduct\" value=\"true\" class=\"btn app-btn-danger\">Remove</button>
-																		</form>
-
+																	<button data-categoryid=\"{$_RECS_["CategoryID"]}\" class=\"btn app-btn-danger fRemoveCategoryBtn\">Remove</button>
 																	</td>
 																</tr>
 															";
@@ -674,6 +608,120 @@
     <!-- Page Specific JS -->
     <script src="assets/user-portal/js/app.js"></script> 
 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>
+		$(document).ready(function () {
+
+			// Add click event listener to all buttons with class 'remove-btn'
+
+			$('.fRemoveCategoryBtn').click(function () {
+
+				// Show confirmation dialog
+				Swal.fire({
+
+					title: 'Are you sure?',
+					text: 'This category will be removed!',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Remove',
+					cancelButtonText: 'Cancel',
+					reverseButtons: true
+
+				}).then((result) => {
+
+					if (result.isConfirmed) {
+						// If user confirms, send AJAX request to remove item
+						$.ajax({
+
+							url: 'assets/main/php/Admin_CategoryList_Remove.php',
+							type: 'POST',
+							data: {
+								categoryID: $(this).attr('data-categoryid')
+							},
+							
+							success: function (response) {
+								// Update UI based on response
+								Swal.fire(
+
+									'Success', 
+									'Category Successfully Removed', 
+									'success'
+								
+								).then(() => {
+
+									location.reload();
+								});
+							}
+						});
+					}
+				});
+			});
+		});
+	</script>
+	
+	<script>
+		document.getElementById('fAddACategoryBtn').addEventListener('click', function() {
+
+            Swal.fire({
+                
+				title: 'Add New Category',
+                input: 'text',
+                inputPlaceholder: 'Enter a Category Name',
+                showCancelButton: true,
+                confirmButtonText: 'Add',
+
+                preConfirm: (categoryName) => {
+                    
+					if (!categoryName) {
+                        Swal.showValidationMessage('Please enter a category name');
+                    }
+                    
+					return categoryName;
+                }
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    const name = result.value;
+
+                    $.ajax({
+                        
+						url: 'assets/main/php/Admin_CategoryList_Add.php',
+                        method: 'POST',
+                        data: { categoryName: name },
+                        
+						success: function(response) {
+                            
+							Swal.fire(
+
+                                'Success!',
+                                'Category added successfully!',
+                                'success'
+                            ).then(() => {
+							
+								location.reload();
+							});
+                        },
+                        
+						error: function() {
+                            
+							Swal.fire(
+
+                                'Error!',
+                                'There was a problem adding the category.',
+                                'error'
+                            ).then(() => {
+							
+								location.reload();
+							});;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html> 
 

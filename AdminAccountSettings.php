@@ -286,75 +286,6 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 
-				<div class="row pt-4 pb-4 g-4 settings-section">
-
-				<!-- ==================================================================================================================== -->
-
-	                <div class="col-12 col-md-8">
-		                <div class="app-card app-card-settings shadow-sm p-4">
-						    
-						    <div class="app-card-body">
-							    
-								<div class="mb-2">
-									<h3>
-										Total:
-										
-										&nbsp;&nbsp;
-
-
-
-										<?php
-											include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
-
-											$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalBalance FROM User_Basics WHERE UserID = :UserID");
-											$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
-											$SQL_STATMENT-> execute();
-
-											$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
-
-											if($User_Basics){
-												
-												echo "$" . $User_Basics["TotalBalance"];
-											}
-										?>
-
-
-										
-									</h3>
-								</div>
-							    
-								<hr class="my-4">
-							    
-								<form class="settings-form" action="UserAccountSettings.php" method="post">
-
-									<div class="mb-3">
-									    <label for="setting-input-2" class="form-label">Add Balance:</label>
-									    <input type="number" name="fTranscation" class="form-control" id="setting-input-2" placeholder="$" required>
-									</div>
-									<button type="submit" name="fUpdateUserBalance" value="true" class="btn app-btn-primary">Save Changes</button>
-								
-								</form>
-							
-								<?php
-
-									include_once(_UTILITIES_PATH_ . "User_Settings_UpdateBalance.php");
-								
-								?>
-
-						    </div><!--//app-card-body-->
-						    
-						</div><!--//app-card-->
-	                </div>
-
-				<!-- ==================================================================================================================== -->
-
-					<div class="col-12 col-md-4">
-		                <h2 class="section-title">Balance</h2>
-		                <div class="section-intro">In this section, you can change your amount freely.</div>
-	                </div>
-
-                </div><!--//row-->
-
 <!-- =========================================================================================================================================================================================================================================== -->
 
                 <hr class="my-4">
@@ -365,7 +296,7 @@
 		                <div class="app-card app-card-settings shadow-sm p-4">
 						    
 						    <div class="app-card-body">
-							    <form name="fChangeGeneralForm" class="settings-form" action="UserAccountSettings.php" method="post">
+							    <form name="fChangeGeneralForm" class="settings-form" action="AdminAccountSettings.php" method="post">
 
 									<div class="mb-3">
 									    <label for="setting-input-2" class="form-label">Real Name:</label>
