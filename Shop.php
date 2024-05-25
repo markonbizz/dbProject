@@ -511,7 +511,7 @@
 
                                                 <div class=\"product__item__pic\">
                                                     
-                                                    <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
+                                                    <img class=\"setbg\" src='" . "images/" . $_RECS_['Image'] . "' alt='Product Image'>
                                                     
                                                     <form action=\"assets/main/php/Store_AddToCart.php\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>
@@ -546,7 +546,7 @@
                                             <div class=\"product__item\">
 
                                                 <div class=\"product__item__pic\">
-                                                    <img class=\"setbg\" src='data:image/jpeg;base64,".base64_encode($_RECS_['Image'])."' alt='Product Image'>
+                                                    <img class=\"setbg\" src='" . "images/" . $_RECS_['Image'] . "' alt='Product Image'>
                                                     
                                                     <form action=\"Shop.php\" method=\"post\" class=\"product__item__pic__hover\">
                                                         <input name='fAddProductID' type='hidden' value='{$_RECS_["ProductID"]}'>

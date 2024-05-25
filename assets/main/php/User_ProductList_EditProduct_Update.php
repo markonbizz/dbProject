@@ -60,20 +60,9 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
 
     $bUpdateProductImage          = $_FILES['fProductImage'];
     $bUpdateProductName           = $_POST['fProductName'];
-
-/* ========================================================================================================= */
-
-    if($_POST['fProductCategory'] == '0'){
     
-        $bUpdateProductCategory   = $_POST["fProductCustomCategory"];
-        
-    }else{
-
-        $bUpdateProductCategory   = $_POST['fProductCategory'];
-    }
-
-/* ========================================================================================================= */
-
+    $bUpdateProductCategory       = $_POST['fProductCategory'];
+    
     $bUpdateProductPrice          = $_POST['fProductPrice'];
     $bUpdateProductDescription    = $_POST['fProductDescription'];
     $bUpdateProductUploadDate     = date('Y-m-d H:i:s');
@@ -91,9 +80,10 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
         
         if ($check !== false) {
 
-            $imageContent = file_get_contents($bUpdateProductImage["tmp_name"]); 
+            $uploadStatus = (file_exists("images/" . $bUpdateProductImage["name"])) ? true: 
+                            move_uploaded_file($bUpdateProductImage["tmp_name"], ("images/" . $bUpdateProductImage["name"]));
 
-            if ($imageContent !== false){
+            if ($uploadStatus !== false){
 
                 $UPDATE_PRODUCT =
                 '
@@ -129,7 +119,7 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && ($_POST["fUpdateProduct"])) {
                 $SQL_STATMENT-> bindParam(':ProductID',     $_SESSION["ProductID"]);
                 $SQL_STATMENT-> bindParam(':UploaderID',    $_SESSION['UserID']);
                 
-                $SQL_STATMENT-> bindParam(':Image',         $imageContent, PDO::PARAM_LOB);
+                $SQL_STATMENT-> bindParam(':Image',         $bUpdateProductImage["name"], PDO::PARAM_STR);
                 $SQL_STATMENT-> bindParam(':Name',          $bUpdateProductName);
                 $SQL_STATMENT-> bindParam(':Price',         $bUpdateProductPrice);
                 $SQL_STATMENT-> bindParam(':Description',   $bUpdateProductDescription);

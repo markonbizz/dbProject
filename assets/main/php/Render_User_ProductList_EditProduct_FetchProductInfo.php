@@ -41,7 +41,7 @@ if($_SESSION["ProductID"]){
             "
                 <h6 style='display: inline-block;'>Image:</h6>
                     
-                    <img src='data:image/jpeg;base64,".base64_encode($targetProduct['Image'])."' alt='Product Image' style='max-width: 45%; max-height: 45%;'>
+                <img src='images/" . $targetProduct["Image"] ."' alt='Product Image' style='max-width: 50%; max-height: 50%;'>
                     
                 <hr class='my-4'>
                 <h6>Product:&nbsp;        {$targetProduct["Name"]}</h6>

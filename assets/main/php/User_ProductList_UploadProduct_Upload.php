@@ -64,14 +64,7 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUploadProduct"]) &
 
 /* ========================================================================================================= */
 
-    if($_POST['fProductCategory'] == '0'){
-    
-        $bProductCategory   = $_POST["fProductCustomCategory"];
-        
-    }else{
-
-        $bProductCategory   = $_POST['fProductCategory'];
-    }
+    $bProductCategory       = $_POST['fProductCategory'];
 
 /* ========================================================================================================= */
 
@@ -85,16 +78,17 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUploadProduct"]) &
 
     if (empty($bProductName) || empty($bProductPrice) || $bProductImage['error'] !== UPLOAD_ERR_OK){
 
-        echo "<script>alert('All the credentials have to be formated, include the picture');</script>";
+        echo "<script>alert('All the credentials have to be formated, include product picture');</script>";
     } else {
 
-        $check = getimagesize($bProductImage["tmp_name"]);
+        $FILE_CHECKER = getimagesize($bProductImage["tmp_name"]);
         
-        if ($check !== false) {
+        if ($FILE_CHECKER !== false) {
 
-            $imageContent = file_get_contents($bProductImage["tmp_name"]); 
+            $uploadStatus = (file_exists("images/" . $bUpdateProductImage["name"])) ? true: 
+                            move_uploaded_file($bUpdateProductImage["tmp_name"], ("images/" . $bUpdateProductImage["name"]));
 
-            if ($imageContent !== false){
+            if ($uploadStatus !== false){
 
                 $UPLOAD_PRODUCT =
                 "
@@ -105,11 +99,10 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUploadProduct"]) &
                 ";
 
                 $SQL_STATMENT = $dbHandler->prepare($UPLOAD_PRODUCT);
-                
             
                 $SQL_STATMENT-> bindParam(1, $bProductCategory);
                 $SQL_STATMENT-> bindParam(2, $_SESSION['UserID']);
-                $SQL_STATMENT-> bindParam(3, $imageContent, PDO::PARAM_LOB);
+                $SQL_STATMENT-> bindParam(3, $bProductImage["name"], PDO::PARAM_STR);
                 $SQL_STATMENT-> bindParam(4, $bProductName);
                 $SQL_STATMENT-> bindParam(5, $bProductPrice);
                 $SQL_STATMENT-> bindParam(6, $bProductDescription);

@@ -399,7 +399,7 @@ function calculatePayAmount($productId, $quantity, $dbHandler) {
                                             echo "
                                                 <tr>
                                                     <td class=\"shoping__cart__item\">
-                                                        <img src='data:image/jpeg;base64,".base64_encode($_RECS_['ProductImage'])."' alt='Product Image' style='max-width: 20%; max-height: 20%;'>
+                                                        <img class=\"setbg\" src='" . "images/" . $_RECS_['ProductImage'] . "' alt='Product Image' style='max-width: 20%; max-height: 20%;'>
                                                         <h5>{$_RECS_["ProductName"]}</h5>
                                                     </td>
                                                     <td class=\"shoping__cart__price\">
