@@ -315,9 +315,9 @@
 											"TOTAL_PAGES"       => 0
 										];
 
-										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnProductList']) && ($_GET['fRequestSearchOnProductList']) && isset($_GET["fProductListSearchHolder"])){
+										if(($_SERVER["REQUEST_METHOD"] === "GET") && isset($_GET['fRequestSearchOnCategoryList']) && ($_GET['fRequestSearchOnCategoryList']) && isset($_GET["fCategoryListSearchHolder"])){
 
-											$bSearchHolder = "%" . ($_GET["fProductListSearchHolder"] ?? "") . "%";
+											$bSearchHolder = "%" . ($_GET["fCategoryListSearchHolder"] ?? "") . "%";
 
 											$LISTING_TABLE =
 											"

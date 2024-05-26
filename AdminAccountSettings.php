@@ -286,6 +286,81 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 
+				<div class="app-card shadow-sm mb-4 border-left-decoration">
+				    <div class="inner">
+					    <div class="app-card-body p-3 p-lg-4">
+						    
+
+						    <div class="row gx-5 gy-4">
+								
+						        <div class="col mt-5">
+									<h4>
+										<?php 
+											echo
+												"
+													<h2>Welcome, <strong>{$_SESSION["Account"]}</strong>!</h2>
+												";
+										?>
+									</h4>
+								</div>
+
+								<div class="col-md-auto m-auto mt-5">
+									<h6> Total Balance </h6>
+									<div class="col-md-auto">
+
+										<?php 
+											include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+											$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalBalance FROM User_Basics WHERE UserID = :UserID");
+											$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+											$SQL_STATMENT-> execute();
+
+											$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
+
+											if($User_Basics){
+												
+												echo "<h3>$" . $User_Basics["TotalBalance"] . "</h3>";
+											}
+										?>
+									
+									</div>
+								</div>
+
+								<div class="col-sm-1 mx-0 px-5 d-flex">
+									<div class="vr"></div>
+								</div>
+								
+								<div class="col-0 col-lg-2 m-auto mt-5">
+									<h6> Total Spent </h6>
+									<div class="col col-lg-2">
+										<div class="col-md-auto">
+										
+											<?php 
+												include_once(_UTILITIES_PATH_ . "Database_EstConnection.php");
+
+												$SQL_STATMENT = $dbHandler -> prepare("SELECT TotalSpent FROM User_Basics WHERE UserID = :UserID");
+												$SQL_STATMENT-> bindParam(":UserID", $_SESSION["UserID"]);
+												$SQL_STATMENT-> execute();
+
+												$User_Basics = $SQL_STATMENT -> fetch(PDO::FETCH_ASSOC);
+
+												if($User_Basics){
+													
+													echo "<h3>$" . $User_Basics["TotalSpent"] . "</h3>";
+												}
+											?>
+									
+										</div>
+									</div>
+								</div>
+						    
+							</div><!--//row-->
+					    </div><!--//app-card-body-->
+					    
+				    </div><!--//inner-->
+			    </div><!--//app-card-->
+
+				<hr class="mt-5">
 <!-- =========================================================================================================================================================================================================================================== -->
                 
 				<div class="row py-4 g-4 settings-section">
