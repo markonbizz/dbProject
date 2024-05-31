@@ -1,6 +1,6 @@
 <?php
 
-$SQL_URL        = "localhost:3306";
+$SQL_URL        = "localhost";
 $DB_TARGET      = "ciai_dbst";
 $PMA_USER       = "cbb111237";
 $PMA_PASSWORD   = "000000";
