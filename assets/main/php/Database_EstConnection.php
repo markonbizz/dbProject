@@ -1,9 +1,9 @@
 <?php
 
 $SQL_URL        = "localhost:3306";
-$DB_TARGET      = "DEArmory";
-$PMA_USER       = "root";
-$PMA_PASSWORD   = "#u2324";
+$DB_TARGET      = "ciai_dbst";
+$PMA_USER       = "cbb111237";
+$PMA_PASSWORD   = "000000";
 
 try{
         
