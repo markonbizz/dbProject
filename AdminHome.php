@@ -64,7 +64,7 @@
 							</a>
 						</div>					
 
-						<h1 class="app-page-title col">Home</h1>
+						<h1 class="app-page-title col">Settings</h1>
 
 					</div><!--//row-->
 	            </div><!--//app-header-content-->
@@ -85,7 +85,7 @@
 	        <div class="sidepanel-inner d-flex flex-column">
 
 		        <div class="app-branding">
-		            <a class="app-logo" href="AdminHome.php"><img class="logo-icon me-2" src="assets/main/images/logo.svg" alt="logo"><span class="logo-text">DENNIS' ARMORY</span></a>
+		            <a class="app-logo" href="UserHome.php"><img class="logo-icon me-2" src="assets/main/images/logo.svg" alt="logo"><span class="logo-text">DENNIS' ARMORY</span></a>
 	
 		        </div><!--//app-branding-->  
 		        
@@ -99,7 +99,7 @@
 					    <li class="nav-item">
 
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link active" href="AdminHome.php">
+					        <a class="nav-link" href="AdminHome.php">
 						        <span class="nav-icon">
 						        	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 		  								<path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
@@ -153,19 +153,19 @@
 
 						<!-- Side Panel - External Pages -->
 						
-						<li class="nav-item">
+						<!-- <li class="nav-item">
 						
-					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link" href="AdminAccountSettings.php">
+					        
+					        <a class="nav-link active" href="AdminAccountSettings.php">
 						        <span class="nav-icon">
 									<svg class="bi bi-sliders2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
 										<path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
 									</svg>
 								</span>
 								<span class="nav-link-text">Settings</span>
-					        </a><!--//nav-link-->
+					        </a>
 
-					    </li><!--//nav-item-->
+					    </li>//nav-item -->
 						
 					</ul>
 				</nav>
@@ -247,7 +247,7 @@
 																		
 																		if(result.isConfirmed){
 
-																			window.location.href = 'Login.php';
+																			window.location.href = 'index.php';
 																		}
 																	});
 																}
@@ -263,10 +263,7 @@
 									";
 								?>
 
-
-								
 						    </li><!--//nav-item-->
-
 						</ul><!--//footer-menu-->
 				    </nav>
 			    </div><!--//app-sidepanel-footer-->
@@ -282,14 +279,14 @@
 
 
 
-	<!-- Main Page Brief Section -->
+	<!-- Main Page Content -->
 
     <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
-			    
-			    <div class="app-card shadow-sm mb-4 border-left-decoration">
+
+				<div class="app-card shadow-sm mb-4 border-left-decoration">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
 						    
@@ -363,9 +360,118 @@
 				    </div><!--//inner-->
 			    </div><!--//app-card-->
 
+				<hr class="mt-5">
+<!-- =========================================================================================================================================================================================================================================== -->
+                
+				<div class="row py-4 g-4 settings-section">
+
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    <form name="fChangeGeneralForm" class="settings-form" action="AdminAccountSettings.php" method="post">
+
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Real Name:</label>
+									    <input type="text" name="fUpdateName" class="form-control" id="setting-input-2" placeholder="Example: Matt Jack/王曉明" required>
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Phone Number:</label>
+									    <input type="text" name="fUpdatePhoneNumber" class="form-control" id="setting-input-2" placeholder="Example: 0912345678" required>
+									</div>
+								    <div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Email:</label>
+									    <input type="email" name="fUpdateEmail" class="form-control" id="setting-input-3" placeholder="Example: abc@axy.com">
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Address:</label>
+									    <input type="text" name="fUpdateAddress" class="form-control" id="setting-input-3" placeholder="Example: 屏東市民生東路51號">
+									</div>
+								
+									<button type="submit" name="fUpdateUserGeneral" value="true" class="btn app-btn-primary">Save Changes</button>
+							    
+								</form>
+
+								<?php
+
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdateGeneral.php");
+
+								?>
+								
+						    </div><!--//app-card-body-->
+						</div><!--//app-card-->
+	                </div>
+
+					<div class="col-12 col-md-4">
+		                <h2 class="section-title">General</h2>
+		                <div class="section-intro">This section allows you to change your name, address, phone number, and email.</div>
+	               
+				   		<hr class="my-4">
+				    </div>
+
+					<!-- ==================================================================================================================== -->
+
+					<div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+
+						    <div class="app-card-body">
+							    <form class="settings-form" action="UserAccountSettings.php" method="post">
+									
+									<div class="mb-3">
+									    <label for="setting-input-2" class="form-label">Old Password</label>
+									    <input type="password" name="fOldPasswordVerify" class="form-control" id="setting-input-2" required>
+									</div>
+
+									<hr class="my-4">
+
+								    <div class="mb-3">
+									    <label for="setting-input-3" class="form-label">New Password</label>
+									    <input type="password" name="fUpdatePassword" class="form-control" id="setting-input-3">
+									</div>
+									<div class="mb-3">
+									    <label for="setting-input-3" class="form-label">Repeat New Password</label>
+									    <input type="password" name="fUpdatePassword_Again" class="form-control" id="setting-input-3">
+									</div>
+									
+									<button name="fUpdateUserPassword" value="true" type="submit" class="btn app-btn-primary">Save Changes</button>
+							    
+								</form>
+
+								<?php
+
+									include_once(_UTILITIES_PATH_ . "User_Settings_UpdatePassword.php");
+
+								?>
+
+						    </div><!--//app-card-body-->
+						</div><!--//app-card-->
+	                </div>
+
+					<!-- ==================================================================================================================== -->
+
+					<div class="col-12 col-md-4">
+
+		                <h2 class="section-title">Security</h2>
+		                <div class="section-intro">This section allows you to change your password.</div>
+	                
+						<hr class="my-4">
+					</div>
+
+                </div><!--//row-->
 <!-- =========================================================================================================================================================================================================================================== -->
 
-				<!-- Main Page - Trans History Brief -->
+		<!-- Main Page - Portal Template Author Signature -->
+	    <footer class="app-footer">
+		    <div class="container text-center py-3">
+		         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+		       
+		    </div>
+	    </footer><!--//app-footer-->
+	    
+    </div><!--//app-wrapper-->    					
+
+
 
 <!-- =========================================================================================================================================================================================================================================== -->
 <!-- =========================================================================================================================================================================================================================================== -->

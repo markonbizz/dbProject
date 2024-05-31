@@ -80,54 +80,44 @@ if (($_SERVER["REQUEST_METHOD"] === "POST") && isset($_POST["fUploadProduct"]) &
 
         echo "<script>alert('All the credentials have to be formated, include product picture');</script>";
     } else {
-
-        $FILE_CHECKER = getimagesize($bProductImage["tmp_name"]);
         
-        if ($FILE_CHECKER !== false) {
+        if (move_uploaded_file($bProductImage["tmp_name"], ("images/" . $bProductImage["name"]))){
 
-            $uploadStatus = (file_exists("images/" . $bUpdateProductImage["name"])) ? true: 
-                            move_uploaded_file($bUpdateProductImage["tmp_name"], ("images/" . $bUpdateProductImage["name"]));
+            $UPLOAD_PRODUCT =
+            "
+                INSERT INTO Products
+                (`CategoryID`, `UploaderID`, `Image`, `Name`, `Price`, `Description`, `UploadDate`)
+                VALUES
+                (?, ?, ?, ?, ?, ?, ?)
+            ";
 
-            if ($uploadStatus !== false){
+            $SQL_STATMENT = $dbHandler->prepare($UPLOAD_PRODUCT);
+        
+            $SQL_STATMENT-> bindParam(1, $bProductCategory);
+            $SQL_STATMENT-> bindParam(2, $_SESSION['UserID']);
+            $SQL_STATMENT-> bindParam(3, $bProductImage["name"], PDO::PARAM_STR);
+            $SQL_STATMENT-> bindParam(4, $bProductName);
+            $SQL_STATMENT-> bindParam(5, $bProductPrice);
+            $SQL_STATMENT-> bindParam(6, $bProductDescription);
+            $SQL_STATMENT-> bindParam(7, $bProductUploadDate);
 
-                $UPLOAD_PRODUCT =
+            if ($SQL_STATMENT->execute()){
+
+                echo 
                 "
-                    INSERT INTO Products
-                    (`CategoryID`, `UploaderID`, `Image`, `Name`, `Price`, `Description`, `UploadDate`)
-                    VALUES
-                    (?, ?, ?, ?, ?, ?, ?)
+                    <script>
+                        alert('Product uploaded successfully');
+                        window.location.href = \"UserUploadProduct.php\";
+                    </script>
                 ";
-
-                $SQL_STATMENT = $dbHandler->prepare($UPLOAD_PRODUCT);
-            
-                $SQL_STATMENT-> bindParam(1, $bProductCategory);
-                $SQL_STATMENT-> bindParam(2, $_SESSION['UserID']);
-                $SQL_STATMENT-> bindParam(3, $bProductImage["name"], PDO::PARAM_STR);
-                $SQL_STATMENT-> bindParam(4, $bProductName);
-                $SQL_STATMENT-> bindParam(5, $bProductPrice);
-                $SQL_STATMENT-> bindParam(6, $bProductDescription);
-                $SQL_STATMENT-> bindParam(7, $bProductUploadDate);
-
-                if ($SQL_STATMENT->execute()){
-
-                    echo 
-                    "
-                        <script>
-                            alert('Product uploaded successfully');
-                            window.location.href = \"UserUploadProduct.php\";
-                        </script>
-                    ";
-                } else {
-
-                    echo "<script>alert('Failed to upload product: " . $SQL_STATMENT->errorInfo()[2] . "');</script>";
-                }
             } else {
 
-                echo "<script>alert('Failed to load the picture');</script>";
+                echo "<script>alert('Failed to upload product: " . $SQL_STATMENT->errorInfo()[2] . "');</script>";
             }
+            
         } else {
 
-            echo "<script>alert('Invaild image format');</script>";
+            echo "<script>alert('Failed to load the picture');</script>";
         }
     }
 }

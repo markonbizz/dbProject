@@ -430,10 +430,10 @@
 														
 															echo "
 																<tr>
-																	<td class=\"cell\">			 #{$record["OrderID"]}		</td>				
-																	<td class=\"cell\">			  {$record["Date"]}			</td>
-																	<td class=\"stat-cell\">	\${$record["TotalPayment"]}	</td>
-																	<td class=\"stat-cell\">	  {$record["Address"]}		</td>
+																	<td class=\"cell\">		#{$record["OrderID"]}		</td>				
+																	<td class=\"cell\">		 {$record["Date"]}			</td>
+																	<td class=\"cell\">	   \${$record["TotalPayment"]}	</td>
+																	<td class=\"cell\">	     {$record["Address"]}		</td>
 																</tr>
 															";
 														}

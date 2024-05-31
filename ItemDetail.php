@@ -395,7 +395,7 @@
 
                             echo"
                                 <div class=\"product__details__pic__item\">
-                                    <img class=\"product__details__pic__item--large\" src='data:image/jpeg;base64,".base64_encode($bProduct["Image"])."' alt='Product Image'>
+                                    <img class=\"product__details__pic__item--large\" src='images/". $bProduct["Image"] ."' alt='Product Image'>
                                 </div>
                             ";
 
